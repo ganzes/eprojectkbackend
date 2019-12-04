@@ -1,22 +1,22 @@
 package com.kodilla.eprojectkbackend.mappers;
 
 import com.kodilla.eprojectkbackend.domains.Motive;
-import com.kodilla.eprojectkbackend.domains.MotvieDto;
+import com.kodilla.eprojectkbackend.domains.MotiveDto;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MotiveMapper {
 
-    public Motive mapToMotive(final MotvieDto motvieDto){
+    public Motive mapToMotive(final MotiveDto motiveDto){
         return new Motive(
-                motvieDto.getMotiveText(),
-                motvieDto.getMotiveAuthor(),
-                motvieDto.getMotiveRating()
+                motiveDto.getMotiveText(),
+                motiveDto.getMotiveAuthor(),
+                motiveDto.getMotiveRating()
         );
     }
 
-    public MotvieDto mapToMotiveDto (final Motive motive){
-        return new MotvieDto(
+    public MotiveDto mapToMotiveDto (final Motive motive){
+        return new MotiveDto(
                 motive.getMotiveID(),
                 motive.getMotiveText(),
                 motive.getMotiveAuthor(),

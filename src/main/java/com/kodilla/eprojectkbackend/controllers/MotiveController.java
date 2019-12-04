@@ -1,6 +1,8 @@
 package com.kodilla.eprojectkbackend.controllers;
 
-import com.kodilla.eprojectkbackend.domains.MotvieDto;
+import com.kodilla.eprojectkbackend.domains.Motive;
+import com.kodilla.eprojectkbackend.domains.MotiveDto;
+import com.kodilla.eprojectkbackend.exceptions.MotiveNotFoundException;
 import com.kodilla.eprojectkbackend.mappers.MotiveMapper;
 import com.kodilla.eprojectkbackend.services.MotiveService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +20,25 @@ public class MotiveController {
     @Autowired
     private MotiveMapper motiveMapper;
 
-
     @PostMapping(value = "/createMotive", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createMotive(@RequestBody MotvieDto motvieDto){
-        motiveService.createMotive(motiveMapper.mapToMotive(motvieDto));
+    public void createMotive(@RequestBody MotiveDto motiveDto){
+        motiveService.createMotive(motiveMapper.mapToMotive(motiveDto));
+    }
 
+    @GetMapping(value = "/getMotive")
+    public MotiveDto getMotive(@RequestParam Long motiveID) throws MotiveNotFoundException{
+        return motiveMapper.mapToMotiveDto(motiveService.findMotiveByID(motiveID));
+    }
+
+    @PutMapping(value = "/updateMotive")
+    public MotiveDto updateMotive(@RequestBody MotiveDto motiveDto) throws MotiveNotFoundException{
+        Motive updateMotive = motiveService.updateMotive(motiveMapper.mapToMotive(motiveDto));
+        return motiveMapper.mapToMotiveDto(updateMotive);
+    }
+
+    @DeleteMapping(value = "/deleteMotive")
+    public void deleteMotive(@RequestParam Long motiveID) throws MotiveNotFoundException {
+        motiveService.deleteMotiveByID(motiveID);
     }
 
 

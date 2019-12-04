@@ -29,4 +29,12 @@ public class UserService {
         User deleteUser = userRepository.findById(userID).orElseThrow(UserNotFoundException::new);
         userRepository.save(deleteUser);
     }
+
+    public User updateUser(final User user) throws UserNotFoundException{
+        User updateUser = userRepository.findById(user.getUserID()).orElseThrow(UserNotFoundException::new);
+        updateUser.setUserName(user.getUserName());
+        updateUser.setUserLastname(user.getUserName());
+
+        return userRepository.save(updateUser);
+    }
 }

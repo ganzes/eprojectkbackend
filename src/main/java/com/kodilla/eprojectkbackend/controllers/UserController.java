@@ -1,6 +1,8 @@
 package com.kodilla.eprojectkbackend.controllers;
 
+import com.kodilla.eprojectkbackend.domains.User;
 import com.kodilla.eprojectkbackend.domains.UserDto;
+import com.kodilla.eprojectkbackend.exceptions.UserNotFoundException;
 import com.kodilla.eprojectkbackend.mappers.UserMapper;
 import com.kodilla.eprojectkbackend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +25,19 @@ public class UserController {
         userService.createUser(userMapper.mapToUser(userDto));
     }
 
+    @GetMapping(value = "/getUser")
+    public UserDto getUser(@RequestParam Long userID) throws UserNotFoundException{
+        return userMapper.mapToUserDto(userService.getUserByID(userID));
+    }
 
+    @PutMapping(value = "/updateUser")
+    public UserDto updateUser(@RequestBody UserDto userDto) throws UserNotFoundException{
+        User userUpdate = userService.updateUser(userMapper.mapToUser(userDto));
+        return userMapper.mapToUserDto(userUpdate);
+    }
+
+    @DeleteMapping(value = "/deleteUser")
+    public void deleteUser(@RequestParam Long userID) throws UserNotFoundException {
+        userService.deleteUser(userID);
+    }
 }

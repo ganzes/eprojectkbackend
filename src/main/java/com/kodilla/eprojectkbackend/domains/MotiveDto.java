@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MotvieDto {
+public class MotiveDto {
     private Long motiveID;
     private String motiveText;
     private String motiveAuthor;

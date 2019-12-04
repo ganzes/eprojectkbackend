@@ -27,10 +27,6 @@ public class MotiveService {
         return motiveRepository.save(motive);
     }
 
-    public void saveMotive(Motive motive){
-        motiveRepository.save(motive);
-    }
-
     public Motive updateMotive(Motive motive) throws MotiveNotFoundException{
         Motive updateMotive = motiveRepository.findById(motive.getMotiveID()).orElseThrow(MotiveNotFoundException::new);
         updateMotive.setMotiveText(motive.getMotiveText());
