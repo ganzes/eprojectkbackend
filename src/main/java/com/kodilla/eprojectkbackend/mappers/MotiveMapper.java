@@ -4,6 +4,9 @@ import com.kodilla.eprojectkbackend.domains.Motive;
 import com.kodilla.eprojectkbackend.domains.MotiveDto;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class MotiveMapper {
 
@@ -22,5 +25,17 @@ public class MotiveMapper {
                 motive.getMotiveAuthor(),
                 motive.getMotiveRating()
         );
+    }
+
+    public List<MotiveDto> mapToMotiveDtoList(final List<Motive> motiveList){
+        return motiveList.stream()
+                .map(this::mapToMotiveDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<Motive> mapToMotiveList(final List<MotiveDto> motiveDtoList){
+        return motiveDtoList.stream()
+                .map(this::mapToMotive)
+                .collect(Collectors.toList());
     }
 }

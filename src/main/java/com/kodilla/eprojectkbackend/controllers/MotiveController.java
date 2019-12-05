@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("eprojectk/motive")
@@ -28,6 +30,11 @@ public class MotiveController {
     @GetMapping(value = "/getMotive")
     public MotiveDto getMotive(@RequestParam Long motiveID) throws MotiveNotFoundException{
         return motiveMapper.mapToMotiveDto(motiveService.findMotiveByID(motiveID));
+    }
+
+    @GetMapping(value = "/getMotives")
+    public List<MotiveDto> getMotives(){
+        return motiveMapper.mapToMotiveDtoList(motiveService.getAllMotive());
     }
 
     @PutMapping(value = "/updateMotive")

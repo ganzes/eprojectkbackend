@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("eprojectk/user")
@@ -28,6 +30,11 @@ public class UserController {
     @GetMapping(value = "/getUser")
     public UserDto getUser(@RequestParam Long userID) throws UserNotFoundException{
         return userMapper.mapToUserDto(userService.getUserByID(userID));
+    }
+
+    @GetMapping(value = "/getUsers")
+    public List<UserDto> getUsers(){
+        return userMapper.mapToUserDtoList(userService.getAllUsers());
     }
 
     @PutMapping(value = "/updateUser")
