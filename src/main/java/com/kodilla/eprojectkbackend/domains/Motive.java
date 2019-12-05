@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Table(name = "MOTIVE")
 public class Motive {
 
-    public Motive(String motiveText, String motiveAuthor, int motiveRating) {
+    public Motive(String motiveText, String motiveAuthor, String motiveRating) {
         this.motiveText = motiveText;
         this.motiveAuthor = motiveAuthor;
         this.motiveRating = motiveRating;
@@ -33,6 +33,6 @@ public class Motive {
 
     @Setter
     @Column(name = "MOTIVE_RATING")
-    private int motiveRating;
+    private String motiveRating;
 
 }

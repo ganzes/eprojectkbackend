@@ -18,7 +18,7 @@ public class MotiveEntityTestSuite {
     @Test
     public void motiveSaveTest() {
         //Given
-        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", 9);
+        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", "9");
 
         //When
         motiveRepository.save(motiveSaveTest);
@@ -34,7 +34,7 @@ public class MotiveEntityTestSuite {
     @Test
     public void motiveReadTest() throws MotiveNotFoundException {
         //Given
-        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", 9);
+        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", "9");
 
         //When
         motiveRepository.save(motiveSaveTest);
@@ -53,7 +53,7 @@ public class MotiveEntityTestSuite {
     @Test
     public void motiveUpdateTest() throws MotiveNotFoundException {
         //Given
-        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", 9);
+        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", "9");
 
         //When
         motiveRepository.save(motiveSaveTest);
@@ -76,7 +76,7 @@ public class MotiveEntityTestSuite {
     @Test
     public void motiveDeleteTest() throws MotiveNotFoundException{
         //Given
-        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", 9);
+        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", "9");
 
         //When
         motiveRepository.save(motiveSaveTest);
