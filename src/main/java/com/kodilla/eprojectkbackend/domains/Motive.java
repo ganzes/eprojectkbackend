@@ -21,7 +21,7 @@ public class Motive {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "MOTIVE_ID", unique = true)
-    private Long motiveID;
+    private long motiveID;
 
     @Setter
     @Column(name = "MOTIVE_TEXT")

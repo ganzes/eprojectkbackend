@@ -26,16 +26,25 @@ public class MotiveService {
         return motiveRepository.save(motive);
     }
 
-    public Motive updateMotive(Motive motive) throws MotiveNotFoundException{
+    /*public Motive updateMotive(Motive motive) throws MotiveNotFoundException{
         Motive updateMotive = motiveRepository.findById(motive.getMotiveID()).orElseThrow(MotiveNotFoundException::new);
         updateMotive.setMotiveText(motive.getMotiveText());
         updateMotive.setMotiveAuthor(motive.getMotiveAuthor());
         updateMotive.setMotiveRating(motive.getMotiveRating());
 
         return motiveRepository.save(updateMotive);
+    }*/
+
+    public Motive updateMotive(Motive motive) throws MotiveNotFoundException{
+        motive.setMotiveText(motive.getMotiveText());
+        motive.setMotiveAuthor(motive.getMotiveAuthor());
+        motive.setMotiveRating(motive.getMotiveRating());
+
+        return motiveRepository.save(motive);
     }
 
-    public void deleteMotiveByID(Long motiveID) throws MotiveNotFoundException{
+
+    public void deleteMotiveByID(long motiveID) throws MotiveNotFoundException{
         Motive deleteMotive = motiveRepository.findById(motiveID).orElseThrow(MotiveNotFoundException::new);
         motiveRepository.delete(deleteMotive);
     }

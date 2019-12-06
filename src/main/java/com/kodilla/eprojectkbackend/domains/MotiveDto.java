@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MotiveDto {
-    private Long motiveID;
+    private long motiveID;
     private String motiveText;
     private String motiveAuthor;
     private String motiveRating;
