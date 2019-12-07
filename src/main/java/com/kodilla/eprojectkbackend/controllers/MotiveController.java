@@ -52,6 +52,9 @@ public class MotiveController {
     @PutMapping(value = "/updateMotive")
     public MotiveDto updateMotive(@RequestBody MotiveDto motiveDto) throws MotiveNotFoundException{
         Motive motive = motiveRepository.findById(motiveDto.getMotiveID()).orElseThrow(MotiveNotFoundException::new);
+        motive.setMotiveText(motiveDto.getMotiveText());
+        motive.setMotiveAuthor(motiveDto.getMotiveAuthor());
+        motive.setMotiveRating(motiveDto.getMotiveRating());
         Motive updateMotive = motiveService.updateMotive(motive);
         return motiveMapper.mapToMotiveDto(updateMotive);
     }
