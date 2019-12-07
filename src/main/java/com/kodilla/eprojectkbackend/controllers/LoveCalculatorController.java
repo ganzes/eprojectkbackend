@@ -1,6 +1,6 @@
 package com.kodilla.eprojectkbackend.controllers;
 
-import com.kodilla.eprojectkbackend.client.LoveCalculatorClient;
+import com.kodilla.eprojectkbackend.clients.LoveCalculatorClient;
 import com.kodilla.eprojectkbackend.domains.LoveCalculatorDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

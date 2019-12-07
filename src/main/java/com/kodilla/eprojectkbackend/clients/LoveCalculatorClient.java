@@ -1,4 +1,4 @@
-package com.kodilla.eprojectkbackend.client;
+package com.kodilla.eprojectkbackend.clients;
 
 import com.kodilla.eprojectkbackend.domains.LoveCalculatorDto;
 import org.springframework.beans.factory.annotation.Autowired;
