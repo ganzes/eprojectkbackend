@@ -27,17 +27,17 @@ public class MotiveController {
     private MotiveRepository motiveRepository;
 
     @PostMapping(value = "/createMotive", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createMotive(@RequestBody MotiveDto motiveDto){
+    public void createMotive(@RequestBody MotiveDto motiveDto) {
         motiveService.createMotive(motiveMapper.mapToMotive(motiveDto));
     }
 
     @GetMapping(value = "/getMotive")
-    public MotiveDto getMotive(@RequestParam Long motiveID) throws MotiveNotFoundException{
+    public MotiveDto getMotive(@RequestParam Long motiveID) throws MotiveNotFoundException {
         return motiveMapper.mapToMotiveDto(motiveService.findMotiveByID(motiveID));
     }
 
     @GetMapping(value = "/getMotives")
-    public List<MotiveDto> getMotives(){
+    public List<MotiveDto> getMotives() {
         return motiveMapper.mapToMotiveDtoList(motiveService.getAllMotive());
     }
 
@@ -49,8 +49,9 @@ public class MotiveController {
 
         return motiveMapper.mapToMotiveDto(updateMotive);
     }*/
+
     @PutMapping(value = "/updateMotive")
-    public MotiveDto updateMotive(@RequestBody MotiveDto motiveDto) throws MotiveNotFoundException{
+    public MotiveDto updateMotive(@RequestBody MotiveDto motiveDto) throws MotiveNotFoundException {
         Motive motive = motiveRepository.findById(motiveDto.getMotiveID()).orElseThrow(MotiveNotFoundException::new);
         motive.setMotiveText(motiveDto.getMotiveText());
         motive.setMotiveAuthor(motiveDto.getMotiveAuthor());
