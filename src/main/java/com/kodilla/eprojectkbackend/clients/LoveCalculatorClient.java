@@ -1,5 +1,6 @@
 package com.kodilla.eprojectkbackend.clients;
 
+import com.kodilla.eprojectkbackend.configuration.LoveCalculatorConfiguration;
 import com.kodilla.eprojectkbackend.domains.LoveCalculatorDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -17,14 +18,17 @@ public class LoveCalculatorClient {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private LoveCalculatorConfiguration loveCalculatorConfiguration;
+
     public LoveCalculatorDto getPercentage(String fname, String sname){
         URI url = UriComponentsBuilder.fromHttpUrl("https://love-calculator.p.rapidapi.com/getPercentage")
                 .queryParam("fname", fname)
                 .queryParam("sname", sname)
                 .build().encode().toUri();
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-        headers.add("X-RapidAPI-Host", "love-calculator.p.rapidapi.com");
-        headers.add("X-RapidAPI-Key", "eed475f455msh189defeb54fd454p10c246jsnfc481d54b8cf");
+        headers.add("X-RapidAPI-Host", loveCalculatorConfiguration.getLoveCalculatorEndpoint());
+        headers.add("X-RapidAPI-Key", loveCalculatorConfiguration.getLoveCalculatorKey());
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
