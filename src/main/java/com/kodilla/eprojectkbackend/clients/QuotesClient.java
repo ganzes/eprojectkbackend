@@ -33,4 +33,20 @@ public class QuotesClient {
         return response.getBody();
 
     }
+
+    public QuotesDto getQuoteByKeywordClient(String keyword){
+        URI uri = UriComponentsBuilder.fromHttpUrl("https://150000-quotes.p.rapidapi.com/keyword/"+keyword)
+                .build().encode().toUri();
+
+        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+        headers.add("x-rapidapi-host", "150000-quotes.p.rapidapi.com");
+        headers.add("x-rapidapi-key", "eed475f455msh189defeb54fd454p10c246jsnfc481d54b8cf");
+
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+
+        HttpEntity<QuotesDto> response = restTemplate.exchange(uri, HttpMethod.GET, entity, QuotesDto.class);
+
+        return response.getBody();
+
+    }
 }
