@@ -29,7 +29,7 @@ public class QuotesControllerTestSuite {
     public void getQuoteByKeywordTest() throws Exception {
         //Given
         QuotesDto quotesDtoTest = new QuotesDto("testMessage", "testAuthor", "testKeywords",
-                "testProfession", "testNationality", "testAuthorBirth", "testAuthorDeath" );
+                "testProfession", "testNationality", "testAuthorBirth", "testAuthorDeath");
 
         //Then
         when(quotesController.getQuoteByKeyword("Test")).thenReturn(quotesDtoTest);
@@ -46,7 +46,27 @@ public class QuotesControllerTestSuite {
                 .andExpect(jsonPath("$.nationality", is("testNationality")))
                 .andExpect(jsonPath("$.authorBirth", is("testAuthorBirth")))
                 .andExpect(jsonPath("$.authorDeath", is("testAuthorDeath")));
+    }
 
+    @Test
+    public void getRandomQuoteTest() throws Exception {
+        //Given
+        QuotesDto quotesDtoTest = new QuotesDto("testMessage", "testAuthor", "testKeywords",
+                "testProfession", "testNationality", "testAuthorBirth", "testAuthorDeath");
 
+        //Then
+        when(quotesController.getRandomQuote()).thenReturn(quotesDtoTest);
+
+        //Then
+        mockMvc.perform(get("/eprojectk/quotes/getRandom")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message", is("testMessage")))
+                .andExpect(jsonPath("$.author", is("testAuthor")))
+                .andExpect(jsonPath("$.keywords", is("testKeywords")))
+                .andExpect(jsonPath("$.profession", is("testProfession")))
+                .andExpect(jsonPath("$.nationality", is("testNationality")))
+                .andExpect(jsonPath("$.authorBirth", is("testAuthorBirth")))
+                .andExpect(jsonPath("$.authorDeath", is("testAuthorDeath")));
     }
 }
