@@ -22,4 +22,9 @@ public class QuotesController {
     public QuotesDto getQuoteByKeyword(@RequestParam ("keyword") String keyword){
         return quotesClient.getQuoteByKeywordClient(keyword);
     }
+
+    @GetMapping(value = "/byAuthor")
+    public QuotesDto getQuoteByAuthor(@RequestParam ("author") String author){
+        return quotesClient.getQuoteByAuthorClient(author);
+    }
 }

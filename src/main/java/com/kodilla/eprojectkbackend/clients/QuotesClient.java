@@ -53,4 +53,20 @@ public class QuotesClient {
         return response.getBody();
 
     }
+
+    public QuotesDto getQuoteByAuthorClient(String author){
+        URI uri = UriComponentsBuilder.fromHttpUrl("https://150000-quotes.p.rapidapi.com/author/"+ author)
+                .build().encode().toUri();
+
+        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+        headers.add("x-rapidapi-host", quotesConfiguration.getQuotesEndpoint());
+        headers.add("x-rapidapi-key", quotesConfiguration.getQuotesKey());
+
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+
+        HttpEntity<QuotesDto> response = restTemplate.exchange(uri, HttpMethod.GET, entity, QuotesDto.class);
+
+        return response.getBody();
+
+    }
 }

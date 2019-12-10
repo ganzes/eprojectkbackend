@@ -69,4 +69,27 @@ public class QuotesControllerTestSuite {
                 .andExpect(jsonPath("$.authorBirth", is("testAuthorBirth")))
                 .andExpect(jsonPath("$.authorDeath", is("testAuthorDeath")));
     }
+
+    @Test
+    public void getQuoteByAythorTest() throws Exception {
+        //Given
+        QuotesDto quotesDtoTest = new QuotesDto("testMessage", "testAuthor", "testKeywords",
+                "testProfession", "testNationality", "testAuthorBirth", "testAuthorDeath");
+
+        //Then
+        when(quotesController.getQuoteByAuthor("Test")).thenReturn(quotesDtoTest);
+
+        //Then
+        mockMvc.perform(get("/eprojectk/quotes/byAuthor")
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("author", "Test"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message", is("testMessage")))
+                .andExpect(jsonPath("$.author", is("testAuthor")))
+                .andExpect(jsonPath("$.keywords", is("testKeywords")))
+                .andExpect(jsonPath("$.profession", is("testProfession")))
+                .andExpect(jsonPath("$.nationality", is("testNationality")))
+                .andExpect(jsonPath("$.authorBirth", is("testAuthorBirth")))
+                .andExpect(jsonPath("$.authorDeath", is("testAuthorDeath")));
+    }
 }
