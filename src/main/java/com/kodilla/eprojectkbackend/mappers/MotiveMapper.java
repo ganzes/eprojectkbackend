@@ -14,7 +14,8 @@ public class MotiveMapper {
         return new Motive(
                 motiveDto.getMotiveText(),
                 motiveDto.getMotiveAuthor(),
-                motiveDto.getMotiveRating()
+                motiveDto.getMotiveRating(),
+                motiveDto.getMotiveCreated()
         );
     }
 
@@ -23,7 +24,8 @@ public class MotiveMapper {
                 motive.getMotiveID(),
                 motive.getMotiveText(),
                 motive.getMotiveAuthor(),
-                motive.getMotiveRating()
+                motive.getMotiveRating(),
+                motive.getMotiveCreated()
         );
     }
 

@@ -1,5 +1,7 @@
 package com.kodilla.eprojectkbackend.configuration;
 
+import com.kodilla.eprojectkbackend.repositories.MotiveRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -15,8 +17,12 @@ public class CoreConfiguration {
         return new RestTemplate();
     }
 
-    @Scheduled(fixedRate = 5000)
+    @Autowired
+    private MotiveRepository motiveRepository;
+
+/*    @Scheduled(fixedRate = 5000)
     public void check(){
-        System.out.println("TTTTTEEEEEESSSSSTTTTTT");
-    }
+        long howManyItemsAreInDatabase = motiveRepository.count();
+        System.out.println("TTTTTEEEEEESSSSSTTTTTT " + howManyItemsAreInDatabase);
+    }*/
 }

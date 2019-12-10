@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +28,7 @@ public class MotiveServiceTestSuite {
     @Test
     public void createMotiveTest(){
         //Given
-        Motive motiveTest = new Motive("testMotiveText","testMotiveAuthor", "testMotiveRating");
+        Motive motiveTest = new Motive("testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now());
 
         //When
         when(motiveRepository.save(motiveTest)).thenReturn((motiveTest));
@@ -41,8 +42,8 @@ public class MotiveServiceTestSuite {
     public void getAllMotiveTest(){
         //Given
         List<Motive> motiveListTest = new ArrayList<>();
-        motiveListTest.add(new Motive("testMotiveText","testMotiveAuthor", "testMotiveRating"));
-        motiveListTest.add(new Motive("testMotiveText2","testMotiveAuthor2", "testMotiveRating2"));
+        motiveListTest.add(new Motive("testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now()));
+        motiveListTest.add(new Motive("testMotiveText2","testMotiveAuthor2", "testMotiveRating2", LocalDate.now()));
 
         //When
         when(motiveService.getAllMotive()).thenReturn(motiveListTest);
@@ -54,7 +55,7 @@ public class MotiveServiceTestSuite {
     @Test
     public void findMotiveByIDTest(){
         //Given
-        Motive motiveTest = new Motive("testMotiveText","testMotiveAuthor", "testMotiveRating");
+        Motive motiveTest = new Motive("testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now());
         Long motiveTestID = motiveTest.getMotiveID();
         Optional<Motive> optionalMotiveTest = Optional.of(motiveTest);
         String motiveTestText = motiveTest.getMotiveText();

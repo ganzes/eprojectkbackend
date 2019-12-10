@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
@@ -12,10 +13,11 @@ import javax.persistence.*;
 @Table(name = "MOTIVE")
 public class Motive {
 
-    public Motive(String motiveText, String motiveAuthor, String motiveRating) {
+    public Motive(String motiveText, String motiveAuthor, String motiveRating, LocalDate motiveCreated) {
         this.motiveText = motiveText;
         this.motiveAuthor = motiveAuthor;
         this.motiveRating = motiveRating;
+        this.motiveCreated = LocalDate.now();
     }
 
     @Id
@@ -34,5 +36,8 @@ public class Motive {
     @Setter
     @Column(name = "MOTIVE_RATING")
     private String motiveRating;
+
+    @Column(name = "MOTIVE_CREATED")
+    private LocalDate motiveCreated;
 
 }

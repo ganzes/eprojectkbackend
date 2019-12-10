@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDate;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MotiveEntityTestSuite {
@@ -18,7 +20,7 @@ public class MotiveEntityTestSuite {
     @Test
     public void motiveSaveTest() {
         //Given
-        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", "9");
+        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
         //When
         motiveRepository.save(motiveSaveTest);
@@ -34,7 +36,7 @@ public class MotiveEntityTestSuite {
     @Test
     public void motiveReadTest() throws MotiveNotFoundException {
         //Given
-        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", "9");
+        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
         //When
         motiveRepository.save(motiveSaveTest);
@@ -53,7 +55,7 @@ public class MotiveEntityTestSuite {
     @Test
     public void motiveUpdateTest() throws MotiveNotFoundException {
         //Given
-        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", "9");
+        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
         //When
         motiveRepository.save(motiveSaveTest);
@@ -76,7 +78,7 @@ public class MotiveEntityTestSuite {
     @Test
     public void motiveDeleteTest() throws MotiveNotFoundException{
         //Given
-        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", "9");
+        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
         //When
         motiveRepository.save(motiveSaveTest);
