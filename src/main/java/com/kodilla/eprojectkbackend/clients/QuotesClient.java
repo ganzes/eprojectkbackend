@@ -50,6 +50,10 @@ public class QuotesClient {
         LOGGER.info("Starting method getQuoteByKeywordClient in QuotesClient");
         LOGGER.info("Keyword " + keyword);
 
+        if (keyword == null){
+            LOGGER.error("Keyword is null! " + keyword);
+        }
+
         URI uri = UriComponentsBuilder.fromHttpUrl("https://150000-quotes.p.rapidapi.com/keyword/" + keyword)
                 .build().encode().toUri();
 
@@ -69,6 +73,10 @@ public class QuotesClient {
     public QuotesDto getQuoteByAuthorClient(String author) {
         LOGGER.info("Starting method getQuoteByAuthorClient in QuotesClient");
         LOGGER.info("Keyword " + author);
+
+        if (author == null){
+            LOGGER.error("Author was null! " + author);
+        }
 
         URI uri = UriComponentsBuilder.fromHttpUrl("https://150000-quotes.p.rapidapi.com/author/" + author)
                 .build().encode().toUri();

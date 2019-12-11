@@ -30,6 +30,15 @@ public class LoveCalculatorClient {
         LOGGER.info("Starting method getPercentage in LoveCalculatorClient");
         LOGGER.info("Getting matching results for names "  + fname + " and " + sname);
 
+        if (fname == null || sname == null){
+            if (fname == null){
+                LOGGER.error("fname name is null! " + fname);
+            }
+            if (sname == null){
+                LOGGER.error("sname is null!" + sname);
+            }
+        }
+
         URI url = UriComponentsBuilder.fromHttpUrl("https://love-calculator.p.rapidapi.com/getPercentage")
                 .queryParam("fname", fname)
                 .queryParam("sname", sname)
