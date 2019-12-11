@@ -76,7 +76,7 @@ public class MotiveEntityTestSuite {
     }
 
     @Test
-    public void motiveDeleteTest() {
+    public void motiveDeleteTest() throws MotiveNotFoundException{
         //Given
         Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
