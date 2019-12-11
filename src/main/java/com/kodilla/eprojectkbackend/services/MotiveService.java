@@ -43,4 +43,8 @@ public class MotiveService {
     public void deleteAllMotives(){
         motiveRepository.deleteAll();
     }
+
+    public List<Motive> findMotiveByAuthor(String motiveAuthor) {
+        return motiveRepository.findByMotiveAuthor(motiveAuthor);
+    }
 }

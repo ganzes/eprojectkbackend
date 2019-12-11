@@ -95,4 +95,10 @@ public class MotiveController {
         LOGGER.info("Ended method deleteAllMotives in MotiveController.");
     }
 
+    @GetMapping(value = "/getMotiveByAuthor")
+    public List<MotiveDto>  getMotiveByAuthor(@RequestParam String motiveAuthor) {
+        LOGGER.info("Started method getMotiveByAuthor in MotiveController.");
+
+        return motiveMapper.mapToMotiveDtoList(motiveService.findMotiveByAuthor(motiveAuthor));
+    }
 }

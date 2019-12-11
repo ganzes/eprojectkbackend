@@ -13,4 +13,6 @@ public interface MotiveRepository extends CrudRepository<Motive, Long> {
 
     @Override
     List<Motive> findAll();
+
+    List<Motive> findByMotiveAuthor (String motiveAuthor);
 }

@@ -66,4 +66,24 @@ public class MotiveServiceTestSuite {
         assertEquals("testMotiveText", motiveTestText);
 
     }
+
+    @Test
+    public void findMotiveByAuthorTest(){
+        //Given
+        List<Motive> motiveListTest = new ArrayList<>();
+        Motive motiveTest = new Motive("testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now());
+        motiveListTest.add(motiveTest);
+
+        String motiveTestAuthor = motiveTest.getMotiveAuthor();
+        String motiveTestText = motiveTest.getMotiveText();
+
+        //When
+        when(motiveRepository.findByMotiveAuthor(motiveTestAuthor)).thenReturn(motiveListTest);
+
+        //Then
+        assertEquals("testMotiveText", motiveTestText);
+        assertEquals("testMotiveAuthor", motiveTestAuthor);
+
+
+    }
 }
