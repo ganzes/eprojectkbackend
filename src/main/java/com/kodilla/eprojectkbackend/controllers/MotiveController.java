@@ -32,7 +32,7 @@ public class MotiveController {
 
     @PostMapping(value = "/createMotive", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createMotive(@RequestBody MotiveDto motiveDto) {
-        LOGGER.info("Started method createMotive in MotiveController");
+        LOGGER.info("Started method createMotive in MotiveController.");
 
         motiveService.createMotive(motiveMapper.mapToMotive(motiveDto));
 
@@ -42,7 +42,6 @@ public class MotiveController {
     @GetMapping(value = "/getMotive")
     public MotiveDto getMotive(@RequestParam Long motiveID) throws MotiveNotFoundException {
         LOGGER.info("Started method getMotive in MotiveController.");
-        LOGGER.info("Ended method getMotive in MotiveController.");
         return motiveMapper.mapToMotiveDto(motiveService.findMotiveByID(motiveID));
     }
 

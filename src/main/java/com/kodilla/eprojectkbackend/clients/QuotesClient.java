@@ -65,7 +65,7 @@ public class QuotesClient {
 
         HttpEntity<QuotesDto> response = restTemplate.exchange(uri, HttpMethod.GET, entity, QuotesDto.class);
 
-        LOGGER.info("Ended method getRandomQuoteClient in QuotesClient, result: " + Objects.requireNonNull(response.getBody()).toString());
+        LOGGER.info("Ended method getRandomQuoteClient in QuotesClient.");
 
         return response.getBody();
     }
@@ -89,7 +89,7 @@ public class QuotesClient {
 
         HttpEntity<QuotesDto> response = restTemplate.exchange(uri, HttpMethod.GET, entity, QuotesDto.class);
 
-        LOGGER.info("Ended method getQuoteByAuthorClient in QuotesClient, result: " + Objects.requireNonNull(response.getBody()).toString());
+        LOGGER.info("Ended method getQuoteByAuthorClient in QuotesClient.");
 
         return response.getBody();
     }

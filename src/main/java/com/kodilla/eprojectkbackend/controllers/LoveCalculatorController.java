@@ -19,9 +19,9 @@ public class LoveCalculatorController {
 
     @GetMapping
     public LoveCalculatorDto getPercentage(@RequestParam("fname") String fname, @RequestParam("sname") String sname){
-        LOGGER.info("Started method getPercentage in LoveCalculatorController");
-        LOGGER.info("Getting matching results for names "  + fname + " and " + sname);
-        LOGGER.info("Ended method getPercentage in LoveCalculatorController");
+        LOGGER.info("Started method getPercentage in LoveCalculatorController.");
+        LOGGER.info("Getting matching results for names "  + fname + " and " + sname +".");
+        LOGGER.info("Ended method getPercentage in LoveCalculatorController.");
 
         return loveCalculatorClient.getPercentage(fname,sname);
     }

@@ -51,7 +51,7 @@ public class LoveCalculatorClient {
 
         HttpEntity<LoveCalculatorDto> response = restTemplate.exchange(url, HttpMethod.GET, entity, LoveCalculatorDto.class);
 
-        LOGGER.info("Ended getPercentage in LoveCalculatorClient, result: " + response.getBody());
+        LOGGER.info("Ended getPercentage in LoveCalculatorClient.");
 
         return response.getBody();
     }
