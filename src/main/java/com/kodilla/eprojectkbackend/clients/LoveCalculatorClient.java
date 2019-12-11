@@ -2,6 +2,8 @@ package com.kodilla.eprojectkbackend.clients;
 
 import com.kodilla.eprojectkbackend.configuration.LoveCalculatorConfiguration;
 import com.kodilla.eprojectkbackend.domains.LoveCalculatorDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -21,7 +23,12 @@ public class LoveCalculatorClient {
     @Autowired
     private LoveCalculatorConfiguration loveCalculatorConfiguration;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoveCalculatorClient.class);
+
     public LoveCalculatorDto getPercentage(String fname, String sname){
+        LOGGER.info("Starting method getPercentage");
+        LOGGER.info("Getting matching results for names "  + fname + " and " + sname);
+
         URI url = UriComponentsBuilder.fromHttpUrl("https://love-calculator.p.rapidapi.com/getPercentage")
                 .queryParam("fname", fname)
                 .queryParam("sname", sname)
@@ -33,7 +40,9 @@ public class LoveCalculatorClient {
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
         HttpEntity<LoveCalculatorDto> response = restTemplate.exchange(url, HttpMethod.GET, entity, LoveCalculatorDto.class);
-        return response.getBody();
 
+        LOGGER.info("Result: " + response.getBody());
+
+        return response.getBody();
     }
 }

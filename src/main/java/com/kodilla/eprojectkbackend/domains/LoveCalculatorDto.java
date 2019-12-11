@@ -21,4 +21,14 @@ public class LoveCalculatorDto {
     private String percentage;
     @JsonProperty("result")
     private String result;
+
+    @Override
+    public String toString() {
+        return "LoveCalculatorDto{" +
+                "fname='" + fname + '\'' +
+                ", sname='" + sname + '\'' +
+                ", percentage='" + percentage + '\'' +
+                ", result='" + result + '\'' +
+                '}';
+    }
 }

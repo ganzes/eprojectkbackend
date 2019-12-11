@@ -2,6 +2,8 @@ package com.kodilla.eprojectkbackend.clients;
 
 import com.kodilla.eprojectkbackend.configuration.QuotesConfiguration;
 import com.kodilla.eprojectkbackend.domains.QuotesDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -22,7 +24,12 @@ public class QuotesClient {
     @Autowired
     private QuotesConfiguration quotesConfiguration;
 
-    public QuotesDto getRandomQuoteClient(){
+    private static final Logger LOGGER = LoggerFactory.getLogger(QuotesClient.class);
+
+    public QuotesDto getRandomQuoteClient() {
+
+        LOGGER.info("Starting method getRandomQuoteClient");
+
         URI uri = UriComponentsBuilder.fromHttpUrl("https://150000-quotes.p.rapidapi.com/random")
                 .build().encode().toUri();
 
@@ -34,11 +41,16 @@ public class QuotesClient {
 
         HttpEntity<QuotesDto> response = restTemplate.exchange(uri, HttpMethod.GET, entity, QuotesDto.class);
 
+        LOGGER.info("Result: " + response.getBody());
+
         return response.getBody();
     }
 
-    public QuotesDto getQuoteByKeywordClient(String keyword){
-        URI uri = UriComponentsBuilder.fromHttpUrl("https://150000-quotes.p.rapidapi.com/keyword/"+keyword)
+    public QuotesDto getQuoteByKeywordClient(String keyword) {
+        LOGGER.info("Starting method getQuoteByKeywordClient");
+        LOGGER.info("Keyword " + keyword);
+
+        URI uri = UriComponentsBuilder.fromHttpUrl("https://150000-quotes.p.rapidapi.com/keyword/" + keyword)
                 .build().encode().toUri();
 
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
@@ -49,11 +61,15 @@ public class QuotesClient {
 
         HttpEntity<QuotesDto> response = restTemplate.exchange(uri, HttpMethod.GET, entity, QuotesDto.class);
 
+        LOGGER.info("Result: " + response.getBody());
+
         return response.getBody();
     }
 
-    public QuotesDto getQuoteByAuthorClient(String author){
-        URI uri = UriComponentsBuilder.fromHttpUrl("https://150000-quotes.p.rapidapi.com/author/"+author)
+    public QuotesDto getQuoteByAuthorClient(String author) {
+        LOGGER.info("Starting method getQuoteByAuthorClient");
+        LOGGER.info("Keyword " + author);
+        URI uri = UriComponentsBuilder.fromHttpUrl("https://150000-quotes.p.rapidapi.com/author/" + author)
                 .build().encode().toUri();
 
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
@@ -63,6 +79,8 @@ public class QuotesClient {
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
         HttpEntity<QuotesDto> response = restTemplate.exchange(uri, HttpMethod.GET, entity, QuotesDto.class);
+
+        LOGGER.info("Result: " + response.getBody());
 
         return response.getBody();
     }
