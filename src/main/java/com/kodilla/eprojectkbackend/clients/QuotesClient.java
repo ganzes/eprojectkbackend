@@ -35,7 +35,6 @@ public class QuotesClient {
         HttpEntity<QuotesDto> response = restTemplate.exchange(uri, HttpMethod.GET, entity, QuotesDto.class);
 
         return response.getBody();
-
     }
 
     public QuotesDto getQuoteByKeywordClient(String keyword){
@@ -51,11 +50,10 @@ public class QuotesClient {
         HttpEntity<QuotesDto> response = restTemplate.exchange(uri, HttpMethod.GET, entity, QuotesDto.class);
 
         return response.getBody();
-
     }
 
     public QuotesDto getQuoteByAuthorClient(String author){
-        URI uri = UriComponentsBuilder.fromHttpUrl("https://150000-quotes.p.rapidapi.com/author/"+ author)
+        URI uri = UriComponentsBuilder.fromHttpUrl("https://150000-quotes.p.rapidapi.com/author/"+author)
                 .build().encode().toUri();
 
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
@@ -67,6 +65,5 @@ public class QuotesClient {
         HttpEntity<QuotesDto> response = restTemplate.exchange(uri, HttpMethod.GET, entity, QuotesDto.class);
 
         return response.getBody();
-
     }
 }
