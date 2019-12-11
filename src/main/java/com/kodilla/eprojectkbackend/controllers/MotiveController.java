@@ -87,5 +87,13 @@ public class MotiveController {
         LOGGER.info("Ended method deleteMotive in MotiveController");
     }
 
+    @DeleteMapping(value = "/deleteAllMotives")
+    public void deleteAllMotives() {
+        LOGGER.info("Started method deleteAllMotives in MotiveController");
+
+        motiveService.deleteAllMotives();
+
+        LOGGER.info("Ended method deleteAllMotives in MotiveController");
+    }
 
 }

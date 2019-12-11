@@ -76,7 +76,7 @@ public class MotiveEntityTestSuite {
     }
 
     @Test
-    public void motiveDeleteTest() throws MotiveNotFoundException{
+    public void motiveDeleteTest() {
         //Given
         Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
@@ -90,5 +90,25 @@ public class MotiveEntityTestSuite {
         long countAfterDelete = motiveRepository.count();
 
         Assert.assertEquals(countBeforeDelete - 1, countAfterDelete);
+    }
+
+    @Test
+    public void deleteAllMotives() {
+        //Given
+        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+        Motive motiveSaveTest2 = new Motive("testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+
+        //When
+        motiveRepository.save(motiveSaveTest);
+        motiveRepository.save(motiveSaveTest2);
+        long motiveTestID = motiveSaveTest.getMotiveID();
+        long motiveTestID2 = motiveSaveTest2.getMotiveID();
+        long countBeforeDelete = motiveRepository.count();
+
+        //Then
+        motiveRepository.deleteAll();
+        long countAfterDelete = motiveRepository.count();
+
+        Assert.assertEquals(countBeforeDelete - 2, countAfterDelete);
     }
 }

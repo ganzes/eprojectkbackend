@@ -39,4 +39,8 @@ public class MotiveService {
         Motive deleteMotive = motiveRepository.findById(motiveID).orElseThrow(MotiveNotFoundException::new);
         motiveRepository.delete(deleteMotive);
     }
+
+    public void deleteAllMotives(){
+        motiveRepository.deleteAll();
+    }
 }
