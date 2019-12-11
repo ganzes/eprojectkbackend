@@ -6,6 +6,8 @@ import com.kodilla.eprojectkbackend.exceptions.MotiveNotFoundException;
 import com.kodilla.eprojectkbackend.mappers.MotiveMapper;
 import com.kodilla.eprojectkbackend.repositories.MotiveRepository;
 import com.kodilla.eprojectkbackend.services.MotiveService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -26,18 +28,29 @@ public class MotiveController {
     @Autowired
     private MotiveRepository motiveRepository;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MotiveController.class);
+
     @PostMapping(value = "/createMotive", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createMotive(@RequestBody MotiveDto motiveDto) {
+        LOGGER.info("Started method createMotive in MotiveController");
+
         motiveService.createMotive(motiveMapper.mapToMotive(motiveDto));
+
+        LOGGER.info("Ended method createMotive in MotiveController, result:" + motiveService.createMotive(motiveMapper.mapToMotive(motiveDto)).toString());
     }
 
     @GetMapping(value = "/getMotive")
     public MotiveDto getMotive(@RequestParam Long motiveID) throws MotiveNotFoundException {
+        LOGGER.info("Started method getMotive in MotiveController");
+        LOGGER.info("Ended method getMotive in MotiveController");
         return motiveMapper.mapToMotiveDto(motiveService.findMotiveByID(motiveID));
     }
 
     @GetMapping(value = "/getMotives")
     public List<MotiveDto> getMotives() {
+        LOGGER.info("Started method getMotives in MotiveController");
+        LOGGER.info("Ended method getMotive in MotiveController");
+
         return motiveMapper.mapToMotiveDtoList(motiveService.getAllMotive());
     }
 
@@ -52,17 +65,26 @@ public class MotiveController {
 
     @PutMapping(value = "/updateMotive")
     public MotiveDto updateMotive(@RequestBody MotiveDto motiveDto) throws MotiveNotFoundException {
+        LOGGER.info("Started method updateMotive in MotiveController");
+
         Motive motive = motiveRepository.findById(motiveDto.getMotiveID()).orElseThrow(MotiveNotFoundException::new);
         motive.setMotiveText(motiveDto.getMotiveText());
         motive.setMotiveAuthor(motiveDto.getMotiveAuthor());
         motive.setMotiveRating(motiveDto.getMotiveRating());
         Motive updateMotive = motiveService.updateMotive(motive);
+
+        LOGGER.info("Ended method deleteMotive in MotiveController");
+
         return motiveMapper.mapToMotiveDto(updateMotive);
     }
 
     @DeleteMapping(value = "/deleteMotive")
     public void deleteMotive(@RequestParam Long motiveID) throws MotiveNotFoundException {
+        LOGGER.info("Started method deleteMotive in MotiveController");
+
         motiveService.deleteMotiveByID(motiveID);
+
+        LOGGER.info("Ended method deleteMotive in MotiveController");
     }
 
 

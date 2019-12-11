@@ -14,9 +14,12 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Objects;
 
 @Component
 public class QuotesClient {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(QuotesClient.class);
 
     @Autowired
     private RestTemplate restTemplate;
@@ -24,11 +27,8 @@ public class QuotesClient {
     @Autowired
     private QuotesConfiguration quotesConfiguration;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(QuotesClient.class);
-
     public QuotesDto getRandomQuoteClient() {
-
-        LOGGER.info("Starting method getRandomQuoteClient");
+        LOGGER.info("Starting method getRandomQuoteClient in QuotesClient");
 
         URI uri = UriComponentsBuilder.fromHttpUrl("https://150000-quotes.p.rapidapi.com/random")
                 .build().encode().toUri();
@@ -41,13 +41,13 @@ public class QuotesClient {
 
         HttpEntity<QuotesDto> response = restTemplate.exchange(uri, HttpMethod.GET, entity, QuotesDto.class);
 
-        LOGGER.info("Result: " + response.getBody());
+        LOGGER.info("Ended method getRandomQuoteClient in QuotesClient, result: " + Objects.requireNonNull(response.getBody()).toString());
 
         return response.getBody();
     }
 
     public QuotesDto getQuoteByKeywordClient(String keyword) {
-        LOGGER.info("Starting method getQuoteByKeywordClient");
+        LOGGER.info("Starting method getQuoteByKeywordClient in QuotesClient");
         LOGGER.info("Keyword " + keyword);
 
         URI uri = UriComponentsBuilder.fromHttpUrl("https://150000-quotes.p.rapidapi.com/keyword/" + keyword)
@@ -61,14 +61,15 @@ public class QuotesClient {
 
         HttpEntity<QuotesDto> response = restTemplate.exchange(uri, HttpMethod.GET, entity, QuotesDto.class);
 
-        LOGGER.info("Result: " + response.getBody());
+        LOGGER.info("Ended method getRandomQuoteClient in QuotesClient, result: " + Objects.requireNonNull(response.getBody()).toString());
 
         return response.getBody();
     }
 
     public QuotesDto getQuoteByAuthorClient(String author) {
-        LOGGER.info("Starting method getQuoteByAuthorClient");
+        LOGGER.info("Starting method getQuoteByAuthorClient in QuotesClient");
         LOGGER.info("Keyword " + author);
+
         URI uri = UriComponentsBuilder.fromHttpUrl("https://150000-quotes.p.rapidapi.com/author/" + author)
                 .build().encode().toUri();
 
@@ -80,7 +81,7 @@ public class QuotesClient {
 
         HttpEntity<QuotesDto> response = restTemplate.exchange(uri, HttpMethod.GET, entity, QuotesDto.class);
 
-        LOGGER.info("Result: " + response.getBody());
+        LOGGER.info("Ended method getQuoteByAuthorClient in QuotesClient, result: " + Objects.requireNonNull(response.getBody()).toString());
 
         return response.getBody();
     }

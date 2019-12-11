@@ -17,4 +17,15 @@ public class MotiveDto {
     private String motiveAuthor;
     private String motiveRating;
     private LocalDate motiveCreated;
+
+    @Override
+    public String toString() {
+        return "MotiveDto{" +
+                "motiveID=" + motiveID +
+                ", motiveText='" + motiveText + '\'' +
+                ", motiveAuthor='" + motiveAuthor + '\'' +
+                ", motiveRating='" + motiveRating + '\'' +
+                ", motiveCreated=" + motiveCreated +
+                '}';
+    }
 }

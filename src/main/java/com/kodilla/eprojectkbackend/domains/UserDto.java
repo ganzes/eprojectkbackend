@@ -11,5 +11,4 @@ public class UserDto {
     private Long userID;
     private String userName;
     private String userLastname;
-
 }

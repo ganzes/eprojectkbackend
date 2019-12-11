@@ -17,16 +17,17 @@ import java.net.URI;
 
 @Component
 public class LoveCalculatorClient {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoveCalculatorClient.class);
+
     @Autowired
     private RestTemplate restTemplate;
 
     @Autowired
     private LoveCalculatorConfiguration loveCalculatorConfiguration;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoveCalculatorClient.class);
-
     public LoveCalculatorDto getPercentage(String fname, String sname){
-        LOGGER.info("Starting method getPercentage");
+        LOGGER.info("Starting method getPercentage in LoveCalculatorClient");
         LOGGER.info("Getting matching results for names "  + fname + " and " + sname);
 
         URI url = UriComponentsBuilder.fromHttpUrl("https://love-calculator.p.rapidapi.com/getPercentage")
@@ -41,7 +42,7 @@ public class LoveCalculatorClient {
 
         HttpEntity<LoveCalculatorDto> response = restTemplate.exchange(url, HttpMethod.GET, entity, LoveCalculatorDto.class);
 
-        LOGGER.info("Result: " + response.getBody());
+        LOGGER.info("Ended getPercentage in LoveCalculatorClient, result: " + response.getBody());
 
         return response.getBody();
     }

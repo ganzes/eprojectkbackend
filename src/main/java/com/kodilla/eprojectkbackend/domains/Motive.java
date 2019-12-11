@@ -40,4 +40,14 @@ public class Motive {
     @Column(name = "MOTIVE_CREATED")
     private LocalDate motiveCreated;
 
+    @Override
+    public String toString() {
+        return "Motive{" +
+                "motiveID=" + motiveID +
+                ", motiveText='" + motiveText + '\'' +
+                ", motiveAuthor='" + motiveAuthor + '\'' +
+                ", motiveRating='" + motiveRating + '\'' +
+                ", motiveCreated=" + motiveCreated +
+                '}';
+    }
 }
