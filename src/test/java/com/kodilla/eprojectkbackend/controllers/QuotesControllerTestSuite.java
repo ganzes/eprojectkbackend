@@ -71,7 +71,7 @@ public class QuotesControllerTestSuite {
     }
 
     @Test
-    public void getQuoteByAythorTest() throws Exception {
+    public void getQuoteByAuthorTest() throws Exception {
         //Given
         QuotesDto quotesDtoTest = new QuotesDto("testMessage", "testAuthor", "testKeywords",
                 "testProfession", "testNationality", "testAuthorBirth", "testAuthorDeath");

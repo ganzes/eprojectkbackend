@@ -15,4 +15,7 @@ public interface MotiveRepository extends CrudRepository<Motive, Long> {
     List<Motive> findAll();
 
     List<Motive> findByMotiveAuthor (String motiveAuthor);
+
+    List<Motive> findByMotiveRating (String motiveRating);
+
 }

@@ -101,4 +101,11 @@ public class MotiveController {
 
         return motiveMapper.mapToMotiveDtoList(motiveService.findMotiveByAuthor(motiveAuthor));
     }
+
+    @GetMapping(value = "/getMotiveByRating")
+    public List<MotiveDto>  getMotiveByRating(@RequestParam String motiveRating) {
+        LOGGER.info("Started method getMotiveByRating in MotiveController.");
+
+        return motiveMapper.mapToMotiveDtoList(motiveService.findMotiveByRating(motiveRating));
+    }
 }

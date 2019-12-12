@@ -82,4 +82,22 @@ public class MotiveServiceTestSuite {
         //Then
         assertEquals("testMotiveText", motiveTestText);
     }
+
+    @Test
+    public void findMotiveByRating(){
+        //Given
+        List<Motive> motiveListTest = new ArrayList<>();
+        Motive motiveTest = new Motive("testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now());
+        motiveListTest.add(motiveTest);
+
+        String motiveTestRating = motiveTest.getMotiveRating();
+        String motiveTestText = motiveTest.getMotiveText();
+
+        //When
+        when(motiveRepository.findByMotiveAuthor(motiveTestRating)).thenReturn(motiveListTest);
+
+        //Then
+        assertEquals("testMotiveText", motiveTestText);
+        assertEquals("testMotiveRating", motiveTestRating);
+    }
 }

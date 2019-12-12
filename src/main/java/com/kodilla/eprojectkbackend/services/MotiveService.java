@@ -47,4 +47,8 @@ public class MotiveService {
     public List<Motive> findMotiveByAuthor(String motiveAuthor) {
         return motiveRepository.findByMotiveAuthor(motiveAuthor);
     }
+
+    public List<Motive> findMotiveByRating(String motiveRating) {
+        return motiveRepository.findByMotiveRating(motiveRating);
+    }
 }
