@@ -111,4 +111,22 @@ public class MotiveEntityTestSuite {
 
         Assert.assertEquals(countBeforeDelete - 2, countAfterDelete);
     }
+
+    @Test
+    public void countAllMotives() {
+        //Given
+        Motive motiveCountTest = new Motive("testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+        Motive motiveCountTest2 = new Motive("testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+
+        //When
+        motiveRepository.save(motiveCountTest2);
+        long countMotiveCountTest = motiveRepository.count();
+
+        motiveRepository.save(motiveCountTest);
+        long countMotiveCountTest2 = motiveRepository.count();
+        //Then
+
+        Assert.assertEquals(1, countMotiveCountTest);
+        Assert.assertEquals(2, countMotiveCountTest2);
+    }
 }

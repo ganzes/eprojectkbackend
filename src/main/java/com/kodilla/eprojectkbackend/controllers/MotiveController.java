@@ -108,4 +108,13 @@ public class MotiveController {
 
         return motiveMapper.mapToMotiveDtoList(motiveService.findMotiveByRating(motiveRating));
     }
+
+    @GetMapping(value = "/countAllMotives")
+    public Long countAllMotives() {
+        LOGGER.info("Started method countAllMotives in MotiveController.");
+        long allMotives = motiveService.countAllMotives();
+
+        LOGGER.info("Ended method countAllMotives in MotiveController.");
+        return allMotives;
+    }
 }

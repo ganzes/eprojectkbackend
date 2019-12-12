@@ -51,4 +51,8 @@ public class MotiveService {
     public List<Motive> findMotiveByRating(String motiveRating) {
         return motiveRepository.findByMotiveRating(motiveRating);
     }
+
+    public long countAllMotives(){
+        return motiveRepository.count();
+    }
 }
