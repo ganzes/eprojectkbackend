@@ -1,6 +1,7 @@
 package com.kodilla.eprojectkbackend.services;
 
 import com.kodilla.eprojectkbackend.domains.Motive;
+import com.kodilla.eprojectkbackend.exceptions.MotiveNotFoundException;
 import com.kodilla.eprojectkbackend.repositories.MotiveRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -99,5 +100,22 @@ public class MotiveServiceTestSuite {
         //Then
         assertEquals("testMotiveText", motiveTestText);
         assertEquals("testMotiveRating", motiveTestRating);
+    }
+
+    @Test
+    public void deleteMotiveByIDTest() throws MotiveNotFoundException {
+        //Given
+        Motive motiveTest = new Motive(1L,"testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now());
+
+        Long motiveTestID = motiveTest.getMotiveID();
+
+        //When
+        when(motiveRepository.findById(motiveTestID)).thenReturn(Optional.of(motiveTest));
+
+        doNothing().when(motiveRepository).delete(motiveTest);
+        motiveService.deleteMotiveByID(motiveTestID);
+
+        //Then
+        verify(motiveRepository,times(1)).delete(motiveTest);
     }
 }

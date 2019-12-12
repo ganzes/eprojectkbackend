@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional
@@ -17,5 +18,11 @@ public interface MotiveRepository extends CrudRepository<Motive, Long> {
     List<Motive> findByMotiveAuthor (String motiveAuthor);
 
     List<Motive> findByMotiveRating (String motiveRating);
+
+    @Override
+    Optional<Motive> findById (Long id);
+
+    @Override
+    void deleteById (Long id);
 
 }
