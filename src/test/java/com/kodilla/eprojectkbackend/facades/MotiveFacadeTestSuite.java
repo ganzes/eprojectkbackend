@@ -57,18 +57,15 @@ public class MotiveFacadeTestSuite {
         when(motivesValidator.validateGetAllMotives(motiveDtoListMapped)).thenReturn(motiveDtoListMapped);
         when(motiveMapper.mapToMotiveList(motiveDtoList)).thenReturn(motiveList);
 
-
-
-        //when(motiveMapper.mapToMotiveDtoList(motiveList)).thenReturn(motiveDtoListMapped);
-
-        //List<Motive> motiveListMapped = motiveMapper.mapToMotiveList(motiveDtoList);
-
-
         //When
         List<Motive> motiveListFacade = motivesFacade.getAllMotivesFacade();
 
         assertNotNull(motiveListFacade);
         assertEquals(1, motiveListFacade.size());
+
+        motiveListFacade.forEach(motive -> {
+            assertEquals(1L, motiveList.size());
+        });
 
     }
 }

@@ -118,4 +118,15 @@ public class MotiveServiceTestSuite {
         //Then
         verify(motiveRepository,times(1)).delete(motiveTest);
     }
+
+    @Test
+    public void deleteAllMotives() throws MotiveNotFoundException {
+        //When
+        doNothing().when(motiveRepository).deleteAll();
+        motiveService.deleteAllMotives();
+
+        //Then
+        verify(motiveRepository,times(1)).deleteAll();
+
+    }
 }
