@@ -24,7 +24,7 @@ public class MotiveMapperTestSuite {
     @Test
     public void testMapToMotive() {
         //Given
-        MotiveDto motiveDto = new MotiveDto(1, "TestMotiveText", "TestMotiveAuthor", "TestMotiveRating", LocalDate.now());
+        MotiveDto motiveDto = new MotiveDto(1L, "TestMotiveText", "TestMotiveAuthor", "TestMotiveRating", LocalDate.now());
         //When
         Motive motive = motiveMapper.mapToMotive(motiveDto);
         //Then
@@ -34,7 +34,7 @@ public class MotiveMapperTestSuite {
     @Test
     public void testMapToMotiveDto() {
         //Given
-        Motive motive = new Motive("TestMotiveText", "TestMotiveAuthor", "TestMotiveRating", LocalDate.now());
+        Motive motive = new Motive(1L,"TestMotiveText", "TestMotiveAuthor", "TestMotiveRating", LocalDate.now());
         //When
         MotiveDto motiveDto = motiveMapper.mapToMotiveDto(motive);
         //Then
@@ -44,8 +44,8 @@ public class MotiveMapperTestSuite {
     @Test
     public void testMapToMotiveDtoList() {
         //Given
-        Motive motive = new Motive("TestMotiveText", "TestMotiveAuthor", "TestMotiveRating", LocalDate.now());
-        Motive motive2 = new Motive("TestMotiveText2", "TestMotiveAuthor2", "TestMotiveRating2", LocalDate.now());
+        Motive motive = new Motive(1L,"TestMotiveText", "TestMotiveAuthor", "TestMotiveRating", LocalDate.now());
+        Motive motive2 = new Motive(1L,"TestMotiveText2", "TestMotiveAuthor2", "TestMotiveRating2", LocalDate.now());
 
         List<Motive> motiveList = new ArrayList<>();
         motiveList.add(motive);
@@ -59,8 +59,8 @@ public class MotiveMapperTestSuite {
     @Test
     public void testMapToMotiveList() {
         //Given
-        MotiveDto motiveDto = new MotiveDto(1, "TestMotiveText", "TestMotiveAuthor", "TestMotiveRating", LocalDate.now());
-        MotiveDto motiveDto2 = new MotiveDto(2, "TestMotiveText2", "TestMotiveAuthor2", "TestMotiveRating2", LocalDate.now());
+        MotiveDto motiveDto = new MotiveDto(1L, "TestMotiveText", "TestMotiveAuthor", "TestMotiveRating", LocalDate.now());
+        MotiveDto motiveDto2 = new MotiveDto(2L, "TestMotiveText2", "TestMotiveAuthor2", "TestMotiveRating2", LocalDate.now());
 
         List<MotiveDto> motiveDtoList = new ArrayList<>();
         motiveDtoList.add(motiveDto);

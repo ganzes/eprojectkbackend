@@ -20,7 +20,7 @@ public class MotiveEntityTestSuite {
     @Test
     public void motiveSaveTest() {
         //Given
-        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+        Motive motiveSaveTest = new Motive(1L,"testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
         //When
         motiveRepository.save(motiveSaveTest);
@@ -36,7 +36,7 @@ public class MotiveEntityTestSuite {
     @Test
     public void motiveReadTest() throws MotiveNotFoundException {
         //Given
-        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+        Motive motiveSaveTest = new Motive(1L,"testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
         //When
         motiveRepository.save(motiveSaveTest);
@@ -55,7 +55,7 @@ public class MotiveEntityTestSuite {
     @Test
     public void motiveUpdateTest() throws MotiveNotFoundException {
         //Given
-        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+        Motive motiveSaveTest = new Motive(1L,"testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
         //When
         motiveRepository.save(motiveSaveTest);
@@ -78,7 +78,7 @@ public class MotiveEntityTestSuite {
     @Test
     public void motiveDeleteTest() throws MotiveNotFoundException{
         //Given
-        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+        Motive motiveSaveTest = new Motive(1L,"testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
         //When
         motiveRepository.save(motiveSaveTest);
@@ -95,8 +95,8 @@ public class MotiveEntityTestSuite {
     @Test
     public void deleteAllMotives() {
         //Given
-        Motive motiveSaveTest = new Motive("testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
-        Motive motiveSaveTest2 = new Motive("testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+        Motive motiveSaveTest = new Motive(1L,"testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+        Motive motiveSaveTest2 = new Motive(2L,"testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
         //When
         motiveRepository.save(motiveSaveTest);
@@ -115,8 +115,8 @@ public class MotiveEntityTestSuite {
     @Test
     public void countAllMotives() {
         //Given
-        Motive motiveCountTest = new Motive("testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
-        Motive motiveCountTest2 = new Motive("testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+        Motive motiveCountTest = new Motive(1L,"testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+        Motive motiveCountTest2 = new Motive(2L,"testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
         //When
         motiveRepository.save(motiveCountTest2);

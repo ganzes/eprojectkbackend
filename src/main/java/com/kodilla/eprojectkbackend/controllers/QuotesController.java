@@ -31,12 +31,11 @@ public class QuotesController {
 
     @GetMapping
     public QuotesDto getQuoteByKeyword(@RequestParam("keyword") String keyword) {
+        LOGGER.info("Started method getQuoteByKeyword in QuotesController.");
 
         if (keyword.isEmpty()){
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND, keyword + "Keyword is empty!");
         }
-
-        LOGGER.info("Started method getQuoteByKeyword in QuotesController.");
         LOGGER.info("Ended method getQuoteByKeyword in QuotesController, " + keyword + ".");
 
         return quotesClient.getQuoteByKeywordClient(keyword);
@@ -44,12 +43,12 @@ public class QuotesController {
 
     @GetMapping(value = "/byAuthor")
     public QuotesDto getQuoteByAuthor(@RequestParam("author") String author) {
+        LOGGER.info("Started method getQuoteByAuthor in QuotesController.");
 
         if (author.isEmpty()){
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND, author + "Author is empty!");
         }
 
-        LOGGER.info("Started method getQuoteByAuthor in QuotesController.");
         LOGGER.info("Ended method getQuoteByAuthor in QuotesController, " + author + ".");
 
         return quotesClient.getQuoteByAuthorClient(author);

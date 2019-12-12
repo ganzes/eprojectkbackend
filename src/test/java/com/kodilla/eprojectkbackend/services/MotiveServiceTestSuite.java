@@ -27,7 +27,7 @@ public class MotiveServiceTestSuite {
     @Test
     public void createMotiveTest(){
         //Given
-        Motive motiveTest = new Motive("testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now());
+        Motive motiveTest = new Motive(1L,"testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now());
 
         //When
         when(motiveRepository.save(motiveTest)).thenReturn((motiveTest));
@@ -41,8 +41,8 @@ public class MotiveServiceTestSuite {
     public void getAllMotiveTest(){
         //Given
         List<Motive> motiveListTest = new ArrayList<>();
-        motiveListTest.add(new Motive("testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now()));
-        motiveListTest.add(new Motive("testMotiveText2","testMotiveAuthor2", "testMotiveRating2", LocalDate.now()));
+        motiveListTest.add(new Motive(1L,"testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now()));
+        motiveListTest.add(new Motive(2L,"testMotiveText2","testMotiveAuthor2", "testMotiveRating2", LocalDate.now()));
 
         //When
         when(motiveService.getAllMotive()).thenReturn(motiveListTest);
@@ -55,7 +55,7 @@ public class MotiveServiceTestSuite {
     public void findMotiveByAuthorTest(){
         //Given
         List<Motive> motiveListTest = new ArrayList<>();
-        Motive motiveTest = new Motive("testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now());
+        Motive motiveTest = new Motive(1L,"testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now());
         motiveListTest.add(motiveTest);
 
         String motiveTestAuthor = motiveTest.getMotiveAuthor();
@@ -72,7 +72,7 @@ public class MotiveServiceTestSuite {
     @Test
     public void findMotiveByIDTest(){
         //Given
-        Motive motiveTest = new Motive("testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now());
+        Motive motiveTest = new Motive(1L,"testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now());
         Long motiveTestID = motiveTest.getMotiveID();
         Optional<Motive> optionalMotiveTest = Optional.of(motiveTest);
         String motiveTestText = motiveTest.getMotiveText();
@@ -87,7 +87,7 @@ public class MotiveServiceTestSuite {
     public void findMotiveByRating(){
         //Given
         List<Motive> motiveListTest = new ArrayList<>();
-        Motive motiveTest = new Motive("testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now());
+        Motive motiveTest = new Motive(1L,"testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now());
         motiveListTest.add(motiveTest);
 
         String motiveTestRating = motiveTest.getMotiveRating();

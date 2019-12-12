@@ -12,6 +12,7 @@ public class MotiveMapper {
 
     public Motive mapToMotive(final MotiveDto motiveDto){
         return new Motive(
+                motiveDto.getMotiveID(),
                 motiveDto.getMotiveText(),
                 motiveDto.getMotiveAuthor(),
                 motiveDto.getMotiveRating(),

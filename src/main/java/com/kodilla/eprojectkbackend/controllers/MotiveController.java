@@ -3,6 +3,7 @@ package com.kodilla.eprojectkbackend.controllers;
 import com.kodilla.eprojectkbackend.domains.Motive;
 import com.kodilla.eprojectkbackend.domains.MotiveDto;
 import com.kodilla.eprojectkbackend.exceptions.MotiveNotFoundException;
+import com.kodilla.eprojectkbackend.facade.MotivesFacade;
 import com.kodilla.eprojectkbackend.mappers.MotiveMapper;
 import com.kodilla.eprojectkbackend.repositories.MotiveRepository;
 import com.kodilla.eprojectkbackend.services.MotiveService;
@@ -27,6 +28,9 @@ public class MotiveController {
 
     @Autowired
     private MotiveRepository motiveRepository;
+
+    @Autowired
+    private MotivesFacade motivesFacade;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MotiveController.class);
 
@@ -116,5 +120,13 @@ public class MotiveController {
 
         LOGGER.info("Ended method countAllMotives in MotiveController.");
         return allMotives;
+    }
+
+    @GetMapping(value = "/getMotivesFacade")
+    public List<Motive> getMotivesFacade() {
+        LOGGER.info("Started method getMotives in MotiveController.");
+        LOGGER.info("Ended method getMotive in MotiveController.");
+
+        return motivesFacade.getAllMotivesFacade();
     }
 }

@@ -14,7 +14,8 @@ import java.time.LocalDate;
 @Table(name = "MOTIVE")
 public class Motive {
 
-    public Motive(String motiveText, String motiveAuthor, String motiveRating, LocalDate motiveCreated) {
+    public Motive(long motiveID, String motiveText, String motiveAuthor, String motiveRating, LocalDate motiveCreated) {
+        this.motiveID = motiveID;
         this.motiveText = motiveText;
         this.motiveAuthor = motiveAuthor;
         this.motiveRating = motiveRating;
