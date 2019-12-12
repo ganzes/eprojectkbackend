@@ -1,13 +1,13 @@
 package com.kodilla.eprojectkbackend.services;
 
 import com.kodilla.eprojectkbackend.domains.Motive;
+import com.kodilla.eprojectkbackend.exceptions.MotiveNotFoundException;
 import com.kodilla.eprojectkbackend.repositories.MotiveRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,21 +53,6 @@ public class MotiveServiceTestSuite {
     }
 
     @Test
-    public void findMotiveByIDTest(){
-        //Given
-        Motive motiveTest = new Motive("testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now());
-        Long motiveTestID = motiveTest.getMotiveID();
-        Optional<Motive> optionalMotiveTest = Optional.of(motiveTest);
-        String motiveTestText = motiveTest.getMotiveText();
-        //When
-        when(motiveRepository.findById(motiveTestID)).thenReturn(optionalMotiveTest);
-
-        //Then
-        assertEquals("testMotiveText", motiveTestText);
-
-    }
-
-    @Test
     public void findMotiveByAuthorTest(){
         //Given
         List<Motive> motiveListTest = new ArrayList<>();
@@ -83,7 +68,19 @@ public class MotiveServiceTestSuite {
         //Then
         assertEquals("testMotiveText", motiveTestText);
         assertEquals("testMotiveAuthor", motiveTestAuthor);
+    }
 
+    @Test
+    public void findMotiveByIDTest(){
+        //Given
+        Motive motiveTest = new Motive("testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now());
+        Long motiveTestID = motiveTest.getMotiveID();
+        Optional<Motive> optionalMotiveTest = Optional.of(motiveTest);
+        String motiveTestText = motiveTest.getMotiveText();
+        //When
+        when(motiveRepository.findById(motiveTestID)).thenReturn(optionalMotiveTest);
 
+        //Then
+        assertEquals("testMotiveText", motiveTestText);
     }
 }
