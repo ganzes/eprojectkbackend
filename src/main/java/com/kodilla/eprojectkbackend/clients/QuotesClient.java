@@ -15,17 +15,20 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Objects;
 
 @Component
 public class QuotesClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(QuotesClient.class);
-    /*private static final  QuotesDto dummy = new QuotesDto("testMessage", "testAuthor", "testKeywords",
-            "testProfession", "testNationality", "testAuthorBirth", "testAuthorDeath");*/
-    private static final QuotesDto errorMessageGetQuoteByKeywordClient =
-            new QuotesDto("Please try again\n", "", "Example: Wisdom, Life", "", "", "", "");
 
+    private static final QuotesDto errorMessageGetQuoteByKeywordClient =
+            new QuotesDto("Please try again\n", "Check you spelling", "Example: Wisdom, Life", "", "", "", "");
+
+    private static final QuotesDto errorMessageGetRandomQuoteClient =
+            new QuotesDto("Please try again\n", "", "", "", "", "", "");
+
+    private static final QuotesDto errorMessageGetQuoteByAuthorClient =
+            new QuotesDto("Please try again\n", "Example: John, Adam", "", "", "", "", "");
 
     @Autowired
     private RestTemplate restTemplate;
@@ -34,34 +37,11 @@ public class QuotesClient {
     private QuotesConfiguration quotesConfiguration;
 
     public QuotesDto getRandomQuoteClient() {
-        LOGGER.info("Starting method getRandomQuoteClient in QuotesClient");
-
-        URI uri = UriComponentsBuilder.fromHttpUrl("https://150000-quotes.p.rapidapi.com/random")
-                .build().encode().toUri();
-
-        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-        headers.add("x-rapidapi-host", quotesConfiguration.getQuotesEndpoint());
-        headers.add("x-rapidapi-key", quotesConfiguration.getQuotesKey());
-
-        HttpEntity<?> entity = new HttpEntity<>(headers);
-
-        HttpEntity<QuotesDto> response = restTemplate.exchange(uri, HttpMethod.GET, entity, QuotesDto.class);
-
-        LOGGER.info("Ended method getRandomQuoteClient in QuotesClient, result: " + Objects.requireNonNull(response.getBody()).toString());
-
-        return response.getBody();
-    }
-
-    public QuotesDto getQuoteByKeywordClient(String keyword) throws HttpServerErrorException {
 
         try {
-            LOGGER.info("Starting method getQuoteByKeywordClient in QuotesClient");
-            LOGGER.info("Keyword " + keyword);
-            if (keyword == null) {
-                LOGGER.error("Keyword is null! " + keyword);
-            }
+            LOGGER.info("Starting method getRandomQuoteClient in QuotesClient.");
 
-            URI uri = UriComponentsBuilder.fromHttpUrl("https://150000-quotes.p.rapidapi.com/keyword/" + keyword)
+            URI uri = UriComponentsBuilder.fromHttpUrl("https://150000-quotes.p.rapidapi.com/random")
                     .build().encode().toUri();
 
             MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
@@ -72,40 +52,85 @@ public class QuotesClient {
 
             HttpEntity<QuotesDto> response = restTemplate.exchange(uri, HttpMethod.GET, entity, QuotesDto.class);
 
-            LOGGER.info("Ended method getRandomQuoteClient in QuotesClient.");
+            LOGGER.info("Ended method getRandomQuoteClient in QuotesClient = success.");
 
             return response.getBody();
 
         } catch (HttpServerErrorException e) {
-            System.out.println("LOL");
+            LOGGER.error("HttpServerErrorException " + e);
         }
 
-        LOGGER.warn("Ended method getRandomQuoteClient in QuotesClient = failed");
+        LOGGER.warn("Ended method getRandomQuoteClient in QuotesClient = failure.");
+
+        return errorMessageGetRandomQuoteClient;
+    }
+
+    public QuotesDto getQuoteByKeywordClient(String keyword) throws HttpServerErrorException {
+
+        try {
+            LOGGER.info("Starting method getQuoteByKeywordClient in QuotesClient");
+            LOGGER.info("Keyword " + keyword);
+
+            if (keyword != null) {
+                URI uri = UriComponentsBuilder.fromHttpUrl("https://150000-quotes.p.rapidapi.com/keyword/" + keyword)
+                        .build().encode().toUri();
+
+                MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+                headers.add("x-rapidapi-host", quotesConfiguration.getQuotesEndpoint());
+                headers.add("x-rapidapi-key", quotesConfiguration.getQuotesKey());
+
+                HttpEntity<?> entity = new HttpEntity<>(headers);
+
+                HttpEntity<QuotesDto> response = restTemplate.exchange(uri, HttpMethod.GET, entity, QuotesDto.class);
+
+                LOGGER.info("Ended method getQuoteByKeywordClient in QuotesClient = success.");
+
+                return response.getBody();
+
+            } else {
+                LOGGER.error("Keyword is null! " + keyword);
+            }
+
+        } catch (HttpServerErrorException e) {
+            LOGGER.error("HttpServerErrorException " + e);
+        }
+
+        LOGGER.warn("Ended method getQuoteByKeywordClient in QuotesClient = failure.");
 
         return errorMessageGetQuoteByKeywordClient;
     }
 
-    public QuotesDto getQuoteByAuthorClient(String author) {
-        LOGGER.info("Starting method getQuoteByAuthorClient in QuotesClient");
-        LOGGER.info("Keyword " + author);
+    public QuotesDto getQuoteByAuthorClient(String author) throws HttpServerErrorException {
 
-        if (author == null) {
-            LOGGER.error("Author was null! " + author);
+        try {
+            LOGGER.info("Starting method getQuoteByAuthorClient in QuotesClient.");
+            LOGGER.info("Author " + author);
+
+            if (author == null) {
+                LOGGER.error("Author was null! " + author);
+            }
+
+            URI uri = UriComponentsBuilder.fromHttpUrl("https://150000-quotes.p.rapidapi.com/author/" + author)
+                    .build().encode().toUri();
+
+            MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+            headers.add("x-rapidapi-host", quotesConfiguration.getQuotesEndpoint());
+            headers.add("x-rapidapi-key", quotesConfiguration.getQuotesKey());
+
+            HttpEntity<?> entity = new HttpEntity<>(headers);
+
+            HttpEntity<QuotesDto> response = restTemplate.exchange(uri, HttpMethod.GET, entity, QuotesDto.class);
+
+            LOGGER.info("Ended method getQuoteByAuthorClient in QuotesClient = success.");
+
+            return response.getBody();
+
+        } catch (HttpServerErrorException e) {
+            LOGGER.error("HttpServerErrorException " + e);
         }
 
-        URI uri = UriComponentsBuilder.fromHttpUrl("https://150000-quotes.p.rapidapi.com/author/" + author)
-                .build().encode().toUri();
+        LOGGER.warn("Ended method getQuoteByAuthorClient in QuotesClient = failure.");
 
-        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-        headers.add("x-rapidapi-host", quotesConfiguration.getQuotesEndpoint());
-        headers.add("x-rapidapi-key", quotesConfiguration.getQuotesKey());
-
-        HttpEntity<?> entity = new HttpEntity<>(headers);
-
-        HttpEntity<QuotesDto> response = restTemplate.exchange(uri, HttpMethod.GET, entity, QuotesDto.class);
-
-        LOGGER.info("Ended method getQuoteByAuthorClient in QuotesClient.");
-
-        return response.getBody();
+        return errorMessageGetQuoteByAuthorClient;
     }
 }
