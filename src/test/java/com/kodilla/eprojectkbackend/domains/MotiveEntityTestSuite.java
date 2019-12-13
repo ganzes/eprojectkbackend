@@ -101,8 +101,7 @@ public class MotiveEntityTestSuite {
         //When
         motiveRepository.save(motiveSaveTest);
         motiveRepository.save(motiveSaveTest2);
-        long motiveTestID = motiveSaveTest.getMotiveID();
-        long motiveTestID2 = motiveSaveTest2.getMotiveID();
+
         long countBeforeDelete = motiveRepository.count();
 
         //Then
@@ -119,10 +118,10 @@ public class MotiveEntityTestSuite {
         Motive motiveCountTest2 = new Motive(2L,"testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
         //When
-        motiveRepository.save(motiveCountTest2);
+        motiveRepository.save(motiveCountTest);
         long countMotiveCountTest = motiveRepository.count();
 
-        motiveRepository.save(motiveCountTest);
+        motiveRepository.save(motiveCountTest2);
         long countMotiveCountTest2 = motiveRepository.count();
         //Then
 
