@@ -5,7 +5,7 @@ import com.kodilla.eprojectkbackend.domains.MotiveDto;
 import com.kodilla.eprojectkbackend.facade.MotivesFacade;
 import com.kodilla.eprojectkbackend.mappers.MotiveMapper;
 import com.kodilla.eprojectkbackend.services.MotiveService;
-import com.kodilla.eprojectkbackend.validators.MotivesValidator;
+import com.kodilla.eprojectkbackend.validators.MotiveValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -27,13 +27,13 @@ public class MotiveFacadeTestSuite {
     @Mock
     private MotiveService motiveService;
     @Mock
-    private MotivesValidator motivesValidator;
+    private MotiveValidator motiveValidator;
     @Mock
     private MotiveMapper motiveMapper;
 
     public List<Motive> getAllMotivesFacade(){
         List<MotiveDto> motiveDtoList = motiveMapper.mapToMotiveDtoList(motiveService.getAllMotive());// wykona sie w linijce 52 i 54, ewe 56, kolejnosc dziala najpierw service
-        List<MotiveDto> motiveListGet = motivesValidator.validateGetAllMotives(motiveDtoList); //58 lionijcka
+        List<MotiveDto> motiveListGet = motiveValidator.validateGetAllMotives(motiveDtoList); //58 lionijcka
 
         return motiveMapper.mapToMotiveList(motiveListGet);
     }
@@ -54,7 +54,7 @@ public class MotiveFacadeTestSuite {
 
         List<MotiveDto> motiveDtoListMapped = motiveMapper.mapToMotiveDtoList(motiveList);
 
-        when(motivesValidator.validateGetAllMotives(motiveDtoListMapped)).thenReturn(motiveDtoListMapped);
+        when(motiveValidator.validateGetAllMotives(motiveDtoListMapped)).thenReturn(motiveDtoListMapped);
         when(motiveMapper.mapToMotiveList(motiveDtoList)).thenReturn(motiveList);
 
         //When

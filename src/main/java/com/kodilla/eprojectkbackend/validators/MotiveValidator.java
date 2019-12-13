@@ -10,16 +10,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class MotivesValidator {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MotivesValidator.class);
-
-    public void validateMotive(final Motive motive){
-        if (motive.getMotiveAuthor().contains("testAuthor")){
-            LOGGER.info("Testing");
-        } else {
-            LOGGER.info("Motives is used");
-        }
-    }
+public class MotiveValidator {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MotiveValidator.class);
 
     public List<MotiveDto> validateGetAllMotives (final List<MotiveDto> motiveList){
         LOGGER.info("Method started validateGetAllMotives in MotivesValidator");
