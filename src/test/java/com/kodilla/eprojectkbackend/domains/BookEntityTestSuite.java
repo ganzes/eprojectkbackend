@@ -2,6 +2,7 @@ package com.kodilla.eprojectkbackend.domains;
 
 import com.kodilla.eprojectkbackend.exceptions.BookNotFoundException;
 import com.kodilla.eprojectkbackend.repositories.BookRepository;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,10 @@ public class BookEntityTestSuite {
 
     @Autowired
     private BookRepository bookRepository;
+
+    public void cleanUp(){
+        bookRepository.deleteAll();
+    }
 
     @Test
     public void bookSaveTest() {
