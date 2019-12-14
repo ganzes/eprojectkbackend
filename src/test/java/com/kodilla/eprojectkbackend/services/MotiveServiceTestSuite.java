@@ -120,7 +120,7 @@ public class MotiveServiceTestSuite {
     }
 
     @Test
-    public void deleteAllMotives() throws MotiveNotFoundException {
+    public void deleteAllMotives() {
         //When
         doNothing().when(motiveRepository).deleteAll();
         motiveService.deleteAllMotives();
