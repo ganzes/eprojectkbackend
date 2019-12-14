@@ -34,7 +34,6 @@ public class MotiveControllerTestSuite {
     @Autowired
     private MockMvc mockMvc;
 
-
     @MockBean
     private MotiveService motiveService;
 
@@ -51,7 +50,7 @@ public class MotiveControllerTestSuite {
     @Test
     public void getEmptyMotive() throws Exception {
         //Given
-        List<MotiveDto> motiveListDtoTest = new ArrayList<>();
+      //  List<MotiveDto> motiveListDtoTest = new ArrayList<>();
         List<Motive> motiveListTest = new ArrayList<>();
 
         when(motiveService.getAllMotive()).thenReturn(motiveListTest);
