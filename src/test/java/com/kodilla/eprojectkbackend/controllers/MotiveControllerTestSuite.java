@@ -1,26 +1,29 @@
 package com.kodilla.eprojectkbackend.controllers;
 
+import com.google.gson.Gson;
 import com.kodilla.eprojectkbackend.domains.Motive;
 import com.kodilla.eprojectkbackend.domains.MotiveDto;
+import com.kodilla.eprojectkbackend.exceptions.MotiveNotFoundException;
 import com.kodilla.eprojectkbackend.facade.MotivesFacade;
 import com.kodilla.eprojectkbackend.mappers.MotiveMapper;
 import com.kodilla.eprojectkbackend.repositories.MotiveRepository;
 import com.kodilla.eprojectkbackend.services.MotiveService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -50,7 +53,6 @@ public class MotiveControllerTestSuite {
     @Test
     public void getEmptyMotivesTest() throws Exception {
         //Given
-        //  List<MotiveDto> motiveListDtoTest = new ArrayList<>();
         List<Motive> motiveListTest = new ArrayList<>();
 
         when(motiveService.getAllMotive()).thenReturn(motiveListTest);
@@ -69,8 +71,8 @@ public class MotiveControllerTestSuite {
                 "testMotiveAuthor", "testMotiveRating", LocalDate.now()));
 
         List<MotiveDto> motiveDtoListTest = new ArrayList<>();
-        motiveDtoListTest.add(new MotiveDto(1L, "testMotiveText",
-                "testMotiveAuthor", "testMotiveRating", LocalDate.now()));
+        motiveDtoListTest.add(new MotiveDto (1L, "testMotiveTextDto",
+                "testMotiveAuthorDto", "testMotiveRatingDto", LocalDate.now()));
 
         when(motiveService.getAllMotive()).thenReturn(motiveListTest);
         when(motiveMapper.mapToMotiveDtoList(motiveListTest)).thenReturn(motiveDtoListTest);
@@ -80,9 +82,9 @@ public class MotiveControllerTestSuite {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].motiveID", is(1)))
-                .andExpect(jsonPath("$[0].motiveText", is("testMotiveText")))
-                .andExpect(jsonPath("$[0].motiveAuthor", is("testMotiveAuthor")))
-                .andExpect(jsonPath("$[0].motiveRating", is("testMotiveRating")));
+                .andExpect(jsonPath("$[0].motiveText", is("testMotiveTextDto")))
+                .andExpect(jsonPath("$[0].motiveAuthor", is("testMotiveAuthorDto")))
+                .andExpect(jsonPath("$[0].motiveRating", is("testMotiveRatingDto")));
         //.andExpect(jsonPath("$[0].motiveCreated", is("2019-12-14"))); for testing purposes, enter current date
     }
 
@@ -93,7 +95,7 @@ public class MotiveControllerTestSuite {
         Motive motiveTest = new Motive(1L, "testMotiveText", "testMotiveAuthor", "testMotiveRating", LocalDate.now());
         long motiveIDTest = motiveTest.getMotiveID();
 
-        MotiveDto motiveDtoTest = new MotiveDto(1L, "testMotiveText", "testMotiveAuthor", "testMotiveRating", LocalDate.now());
+        MotiveDto motiveDtoTest = new MotiveDto(1L, "testMotiveTextDto", "testMotiveAuthorDto", "testMotiveRatingDto", LocalDate.now());
 
         when(motiveService.findMotiveByID(motiveIDTest)).thenReturn(motiveTest);
         when(motiveMapper.mapToMotiveDto(motiveTest)).thenReturn(motiveDtoTest);
@@ -103,9 +105,9 @@ public class MotiveControllerTestSuite {
                 .param("motiveID", "1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.motiveID", is(1)))
-                .andExpect(jsonPath("$.motiveText", is("testMotiveText")))
-                .andExpect(jsonPath("$.motiveAuthor", is("testMotiveAuthor")))
-                .andExpect(jsonPath("$.motiveRating", is("testMotiveRating")));
+                .andExpect(jsonPath("$.motiveText", is("testMotiveTextDto")))
+                .andExpect(jsonPath("$.motiveAuthor", is("testMotiveAuthorDto")))
+                .andExpect(jsonPath("$.motiveRating", is("testMotiveRatingDto")));
         //.andExpect(jsonPath("$.motiveCreated", is("2019-12-14"))); for testing purposes, enter current date
     }
 
@@ -118,7 +120,7 @@ public class MotiveControllerTestSuite {
         List<Motive> motiveListTest = new ArrayList<>();
         motiveListTest.add(motiveTest);
 
-        MotiveDto motiveDtoTest = new MotiveDto(1L, "testMotiveText", "testMotiveAuthor", "testMotiveRating", LocalDate.now());
+        MotiveDto motiveDtoTest = new MotiveDto(1L, "testMotiveTextDto", "testMotiveAuthorDto", "testMotiveRatingDto", LocalDate.now());
         List<MotiveDto> motiveDtoListTest = new ArrayList<>();
         motiveDtoListTest.add(motiveDtoTest);
 
@@ -131,9 +133,9 @@ public class MotiveControllerTestSuite {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].motiveID", is(1)))
-                .andExpect(jsonPath("$[0].motiveText", is("testMotiveText")))
-                .andExpect(jsonPath("$[0].motiveAuthor", is("testMotiveAuthor")))
-                .andExpect(jsonPath("$[0].motiveRating", is("testMotiveRating")));
+                .andExpect(jsonPath("$[0].motiveText", is("testMotiveTextDto")))
+                .andExpect(jsonPath("$[0].motiveAuthor", is("testMotiveAuthorDto")))
+                .andExpect(jsonPath("$[0].motiveRating", is("testMotiveRatingDto")));
         //.andExpect(jsonPath("$.motiveCreated", is("2019-12-14"))); for testing purposes, enter current date
     }
 
@@ -146,7 +148,7 @@ public class MotiveControllerTestSuite {
         List<Motive> motiveListTest = new ArrayList<>();
         motiveListTest.add(motiveTest);
 
-        MotiveDto motiveDtoTest = new MotiveDto(1L, "testMotiveText", "testMotiveAuthor", "testMotiveRating", LocalDate.now());
+        MotiveDto motiveDtoTest = new MotiveDto(1L, "testMotiveTextDto", "testMotiveAuthorDto", "testMotiveRatingDto", LocalDate.now());
         List<MotiveDto> motiveDtoListTest = new ArrayList<>();
         motiveDtoListTest.add(motiveDtoTest);
 
@@ -159,9 +161,9 @@ public class MotiveControllerTestSuite {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].motiveID", is(1)))
-                .andExpect(jsonPath("$[0].motiveText", is("testMotiveText")))
-                .andExpect(jsonPath("$[0].motiveAuthor", is("testMotiveAuthor")))
-                .andExpect(jsonPath("$[0].motiveRating", is("testMotiveRating")));
+                .andExpect(jsonPath("$[0].motiveText", is("testMotiveTextDto")))
+                .andExpect(jsonPath("$[0].motiveAuthor", is("testMotiveAuthorDto")))
+                .andExpect(jsonPath("$[0].motiveRating", is("testMotiveRatingDto")));
         //.andExpect(jsonPath("$.motiveCreated", is("2019-12-14"))); for testing purposes, enter current date
     }
 
@@ -180,7 +182,7 @@ public class MotiveControllerTestSuite {
     }
 
     @Test
-    public void deleteAllMotives() throws Exception {
+    public void deleteAllMotivesTest() throws Exception {
         //Given
         doNothing().when(motiveService).deleteAllMotives();
 
@@ -189,6 +191,51 @@ public class MotiveControllerTestSuite {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void createMotiveTest() throws Exception {
+        //Given
+        Motive motiveTest = new Motive(1L, "testMotiveText", "testMotiveAuthor", "testMotiveRating", LocalDate.now());
+        MotiveDto motiveDtoTest = new MotiveDto();
 
+        when(motiveMapper.mapToMotive(motiveDtoTest)).thenReturn(motiveTest);
+        when(motiveService.createMotive(motiveTest)).thenReturn(motiveTest);
+
+        Gson gson = new Gson();
+        String jsonContent = gson.toJson(motiveDtoTest);
+
+        //When & Then
+        mockMvc.perform(post("/eprojectk/motive/createMotive")
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(jsonContent))
+                .andExpect(status().isOk());
+    }
+
+/*    @Test
+    public void updateMotiveTest() throws Exception {
+        //Given
+        Motive motiveTest = new Motive(1L, "testMotiveText", "testMotiveAuthor", "testMotiveRating", LocalDate.now());
+        MotiveDto motiveDtoTest = new MotiveDto(1L, "testMotiveTextDto", "testMotiveAuthorDto", "testMotiveRatingDto", LocalDate.now());
+
+        when(motiveMapper.mapToMotive(ArgumentMatchers.any(MotiveDto.class))).thenReturn(motiveTest);
+        when(motiveService.createMotive(motiveTest)).thenReturn(motiveTest);
+        when(motiveMapper.mapToMotiveDto(motiveTest)).thenReturn(motiveDtoTest);
+
+        Gson gson = new Gson();
+        String jsonContent = gson.toJson(motiveDtoTest);
+
+        System.out.println("wartosc jsonContent" + jsonContent);
+
+        //When & Then
+        mockMvc.perform(put("/eprojectk/motive/updateMotive")
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(jsonContent))
+              //  .andExpect(MockMvcResultMatchers.jsonPath("$[0].motiveID", is(1)))
+              //  .andExpect(jsonPath("$.motiveID.motiveID", is(1)))
+                .andExpect(jsonPath("$.motiveText", is("testMotiveText")))
+                .andExpect(jsonPath("$.motiveAuthor", is("testMotiveAuthor")))
+                .andExpect(jsonPath("$.motiveRating", is("testMotiveRating")));
+    }*/
 
 }
