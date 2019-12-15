@@ -1,6 +1,8 @@
 package com.kodilla.eprojectkbackend.controllers;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.kodilla.eprojectkbackend.configuration.LocalDateAdapter;
 import com.kodilla.eprojectkbackend.domains.Motive;
 import com.kodilla.eprojectkbackend.domains.MotiveDto;
 import com.kodilla.eprojectkbackend.exceptions.MotiveNotFoundException;
@@ -21,12 +23,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +75,7 @@ public class MotiveControllerTestSuite {
                 "testMotiveAuthor", "testMotiveRating", LocalDate.now()));
 
         List<MotiveDto> motiveDtoListTest = new ArrayList<>();
-        motiveDtoListTest.add(new MotiveDto (1L, "testMotiveTextDto",
+        motiveDtoListTest.add(new MotiveDto(1L, "testMotiveTextDto",
                 "testMotiveAuthorDto", "testMotiveRatingDto", LocalDate.now()));
 
         when(motiveService.getAllMotive()).thenReturn(motiveListTest);
@@ -192,15 +196,52 @@ public class MotiveControllerTestSuite {
     }
 
     @Test
+    public void countAllMotivesTest() throws Exception {
+        //Given
+        Motive motiveTest = new Motive(1L, "testMotiveText", "testMotiveAuthor",
+                "testMotiveRating", LocalDate.now());
+        Motive motiveTest2 = new Motive(2L, "testMotiveText", "testMotiveAuthor",
+                "testMotiveRating", LocalDate.now());
+        MotiveDto motiveDtoTest = new MotiveDto(1L, "testMotiveTextDto",
+                "testMotiveAuthorDto", "testMotiveRatingDto", LocalDate.now());
+        MotiveDto motiveDtoTest2 = new MotiveDto(2L, "testMotiveTextDto",
+                "testMotiveAuthorDto", "testMotiveRatingDto", LocalDate.now());
+
+        long currentMotivesSize = 2;
+
+        when(motiveService.createMotive(motiveTest)).thenReturn(motiveTest);
+        when(motiveService.createMotive(motiveTest2)).thenReturn(motiveTest2);
+        when(motiveMapper.mapToMotiveDto(motiveTest)).thenReturn(motiveDtoTest);
+        when(motiveMapper.mapToMotiveDto(motiveTest2)).thenReturn(motiveDtoTest2);
+
+        when(motiveService.countAllMotives()).thenReturn(currentMotivesSize);
+
+        //When & Then
+        mockMvc.perform(get("/eprojectk/motive/countAllMotives").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", is(2)));
+    }
+
+
+    @Test
     public void createMotiveTest() throws Exception {
         //Given
-        Motive motiveTest = new Motive(1L, "testMotiveText", "testMotiveAuthor", "testMotiveRating", LocalDate.now());
-        MotiveDto motiveDtoTest = new MotiveDto();
+        Motive motiveTest = new Motive(1L, "testMotiveText", "testMotiveAuthor",
+                "testMotiveRating", LocalDate.now());
 
-        when(motiveMapper.mapToMotive(motiveDtoTest)).thenReturn(motiveTest);
-        when(motiveService.createMotive(motiveTest)).thenReturn(motiveTest);
+        MotiveDto motiveDtoTest = new MotiveDto(1L, "testMotiveTextDto",
+                "testMotiveAuthorDto", "testMotiveRatingDto", LocalDate.now());
 
-        Gson gson = new Gson();
+       // when(motiveService.createMotive(motiveTest)).thenReturn(motiveTest);
+       // when(motiveMapper.mapToMotiveDto(motiveTest)).thenReturn(motiveDtoTest);
+
+        Gson gson = new GsonBuilder()
+              //  .setPrettyPrinting()
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                .create();
+
+        given(this.motiveService.createMotive(motiveTest)).willReturn(motiveTest);
+
         String jsonContent = gson.toJson(motiveDtoTest);
 
         //When & Then
@@ -211,31 +252,59 @@ public class MotiveControllerTestSuite {
                 .andExpect(status().isOk());
     }
 
-/*    @Test
-    public void updateMotiveTest() throws Exception {
-        //Given
-        Motive motiveTest = new Motive(1L, "testMotiveText", "testMotiveAuthor", "testMotiveRating", LocalDate.now());
-        MotiveDto motiveDtoTest = new MotiveDto(1L, "testMotiveTextDto", "testMotiveAuthorDto", "testMotiveRatingDto", LocalDate.now());
+        @Test
+        public void updateMotiveTest() throws Exception {
+            //Given
+            Motive motiveTest = new Motive(1L, "testMotiveText",
+                    "testMotiveAuthor", "testMotiveRating", LocalDate.now());
+            MotiveDto motiveDtoTest = new MotiveDto(1L, "testMotiveTextDto",
+                    "testMotiveAuthorDto", "testMotiveRatingDto", LocalDate.now());
+            long motiveTestID = motiveTest.getMotiveID();
 
-        when(motiveMapper.mapToMotive(ArgumentMatchers.any(MotiveDto.class))).thenReturn(motiveTest);
-        when(motiveService.createMotive(motiveTest)).thenReturn(motiveTest);
-        when(motiveMapper.mapToMotiveDto(motiveTest)).thenReturn(motiveDtoTest);
+            Motive motiveTestUpdate = new Motive(1L, "testMotiveTextUpdate",
+                    "testMotiveAuthorUpdate", "testMotiveRatingUpdate", LocalDate.now());
+            MotiveDto motiveTestUpdateDto = new MotiveDto(1L,
+                    "testMotiveTextUpdateDto", "testMotiveAuthorUpdateDto", "testMotiveRatingUpdateDto", LocalDate.now());
 
-        Gson gson = new Gson();
-        String jsonContent = gson.toJson(motiveDtoTest);
+            when(motiveRepository.findById(motiveTestID)).thenReturn(java.util.Optional.of(motiveTest));
+            when(motiveService.updateMotive(motiveTest)).thenReturn(motiveTestUpdate);
+            when(motiveMapper.mapToMotiveDto(motiveTestUpdate)).thenReturn(motiveTestUpdateDto);
 
-        System.out.println("wartosc jsonContent" + jsonContent);
+            //when(motiveMapper.mapToMotive(ArgumentMatchers.any(MotiveDto.class))).thenReturn(motiveTest);
+ /*           when(motiveMapper.mapToMotiveDto(motiveTest)).thenReturn(motiveDtoTest);
+            when(motiveService.createMotive(motiveTest)).thenReturn(motiveTest);
 
-        //When & Then
-        mockMvc.perform(put("/eprojectk/motive/updateMotive")
-                .contentType(MediaType.APPLICATION_JSON)
-                .characterEncoding("UTF-8")
-                .content(jsonContent))
-              //  .andExpect(MockMvcResultMatchers.jsonPath("$[0].motiveID", is(1)))
-              //  .andExpect(jsonPath("$.motiveID.motiveID", is(1)))
-                .andExpect(jsonPath("$.motiveText", is("testMotiveText")))
-                .andExpect(jsonPath("$.motiveAuthor", is("testMotiveAuthor")))
-                .andExpect(jsonPath("$.motiveRating", is("testMotiveRating")));
-    }*/
+            when(motiveMapper.mapToMotive(ArgumentMatchers.any(MotiveDto.class))).thenReturn(motiveTestUpdate);
+            when(motiveMapper.mapToMotiveDto(motiveTestUpdate)).thenReturn(motiveTestUpdateDto);
+            when(motiveService.updateMotive(motiveTest)).thenReturn(motiveTestUpdate);
+
+            given(this.motiveService.createMotive(motiveTest)).willReturn(motiveTest);
+            given(this.motiveService.updateMotive(motiveTestUpdate)).willReturn(motiveTestUpdate);*/
+
+            //Gson gson = new Gson();
+
+            Gson gson = new GsonBuilder()
+                   // .setPrettyPrinting()
+                    .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                    .create();
+
+            String jsonContent = gson.toJson(motiveTest);
+
+            System.out.println("wartosc jsonContent" + jsonContent);
+
+            //When & Then
+            mockMvc.perform(put("/eprojectk/motive/updateMotive")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .characterEncoding("UTF-8")
+                    .content(jsonContent))
+                  //  .andExpect(MockMvcResultMatchers.jsonPath("$[0].motiveID", is(1)))
+                    .andExpect(jsonPath("$.motiveID", is(1)))
+                    .andExpect(jsonPath("$.motiveText", is("testMotiveTextUpdateDto")))
+                    .andExpect(jsonPath("$.motiveAuthor", is("testMotiveAuthorUpdateDto")))
+                    .andExpect(jsonPath("$.motiveRating", is("testMotiveRatingUpdateDto")));
+        }
+
+
+
 
 }
