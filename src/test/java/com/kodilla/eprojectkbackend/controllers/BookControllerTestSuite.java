@@ -1,7 +1,8 @@
 package com.kodilla.eprojectkbackend.controllers;
 
 import com.google.gson.Gson;
-import com.kodilla.eprojectkbackend.domains.*;
+import com.google.gson.GsonBuilder;
+import com.kodilla.eprojectkbackend.configuration.LocalDateAdapter;
 import com.kodilla.eprojectkbackend.domains.Book;
 import com.kodilla.eprojectkbackend.domains.BookDto;
 import com.kodilla.eprojectkbackend.mappers.BookMapper;
@@ -22,6 +23,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -57,16 +59,16 @@ public class BookControllerTestSuite {
                 .andExpect(jsonPath("$", hasSize(0)))
                 .andExpect(status().isOk());
     }
-    
+
     @Test
     public void getBooksTest() throws Exception {
         //Given
         List<Book> bookListTest = new ArrayList<>();
-        bookListTest.add(new Book(1L,"testBookTitle",
+        bookListTest.add(new Book(1L, "testBookTitle",
                 "testBookAuthor", "testBookRating", LocalDate.now()));
 
         List<BookDto> bookDtoListTest = new ArrayList<>();
-        bookDtoListTest.add(new BookDto(1L,"testBookTitleDto",
+        bookDtoListTest.add(new BookDto(1L, "testBookTitleDto",
                 "testBookAuthorDto", "testBookRatingDto", LocalDate.now()));
 
         when(bookService.getAllBook()).thenReturn(bookListTest);
@@ -82,13 +84,14 @@ public class BookControllerTestSuite {
                 .andExpect(jsonPath("$[0].bookRating", is("testBookRatingDto")));
         //.andExpect(jsonPath("$[0].bookCreated", is("2019-12-14"))); for testing purposes, enter current date
     }
+
     @Test
-    public void getBookTest() throws Exception{
+    public void getBookTest() throws Exception {
         //Given
-        Book bookTest = new Book(1L,"testBookTitle","testBookAuthor", "testBookRating", LocalDate.now());
+        Book bookTest = new Book(1L, "testBookTitle", "testBookAuthor", "testBookRating", LocalDate.now());
         long bookIDTest = bookTest.getBookID();
 
-        BookDto bookDtoTest = new BookDto(1L,"testBookTitleDto","testBookAuthorDto", "testBookRatingDto", LocalDate.now());
+        BookDto bookDtoTest = new BookDto(1L, "testBookTitleDto", "testBookAuthorDto", "testBookRatingDto", LocalDate.now());
 
         when(bookService.findBookByID(bookIDTest)).thenReturn(bookTest);
         when(bookMapper.mapToBookDto(bookTest)).thenReturn(bookDtoTest);
@@ -163,7 +166,7 @@ public class BookControllerTestSuite {
     @Test
     public void deleteBookTest() throws Exception {
         //Given
-        Book bookTest = new Book(1L,"testBookTitle","testBookAuthor", "testBookRating", LocalDate.now());
+        Book bookTest = new Book(1L, "testBookTitle", "testBookAuthor", "testBookRating", LocalDate.now());
         long bookIDTest = bookTest.getBookID();
 
         when(bookService.findBookByID(bookIDTest)).thenReturn(bookTest);
@@ -187,13 +190,19 @@ public class BookControllerTestSuite {
     @Test
     public void createBookTest() throws Exception {
         //Given
-        Book bookTest = new Book(1L,"testBookTitle","testBookAuthor", "testBookRating", LocalDate.now());
-        BookDto bookDtoTest = new BookDto();
+        Book bookTest = new Book(1L, "testBookTitle", "testBookAuthor",
+                "testBookRating", LocalDate.now());
 
-        when(bookMapper.mapToBook(bookDtoTest)).thenReturn(bookTest);
-        when(bookService.createBook(bookTest)).thenReturn(bookTest);
+        BookDto bookDtoTest = new BookDto(1L, "testBookTitleDto",
+                "testBookAuthorDto", "testBookRatingDto", LocalDate.now());
 
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                //  .setPrettyPrinting()
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                .create();
+
+        given(this.bookService.createBook(bookTest)).willReturn(bookTest);
+
         String jsonContent = gson.toJson(bookDtoTest);
 
         //When & Then
@@ -202,5 +211,70 @@ public class BookControllerTestSuite {
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void countAllBooksTest() throws Exception {
+        //Given
+        Book bookTest = new Book(1L, "testBookTitle", "testBookAuthor",
+                "testBookRating", LocalDate.now());
+        Book bookTest2 = new Book(2L, "testBookTitle", "testBookAuthor",
+                "testBookRating", LocalDate.now());
+        BookDto bookDtoTest = new BookDto(1L, "testBookTitleDto",
+                "testBookAuthorDto", "testBookRatingDto", LocalDate.now());
+        BookDto bookDtoTest2 = new BookDto(2L, "testBookTitleDto",
+                "testBookAuthorDto", "testBookRatingDto", LocalDate.now());
+
+        long currentBooksSize = 2;
+
+        when(bookService.createBook(bookTest)).thenReturn(bookTest);
+        when(bookService.createBook(bookTest2)).thenReturn(bookTest2);
+        when(bookMapper.mapToBookDto(bookTest)).thenReturn(bookDtoTest);
+        when(bookMapper.mapToBookDto(bookTest2)).thenReturn(bookDtoTest2);
+
+        when(bookService.countAllBooks()).thenReturn(currentBooksSize);
+
+        //When & Then
+        mockMvc.perform(get("/eprojectk/book/countAllBooks").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", is(2)));
+    }
+
+    @Test
+    public void updateBookTest() throws Exception {
+        //Given
+        Book bookTest = new Book(1L, "testBookTitle",
+                "testBookAuthor", "testBookRating", LocalDate.now());
+        BookDto bookDtoTest = new BookDto(1L, "testBookTitleDto",
+                "testBookAuthorDto", "testBookRatingDto", LocalDate.now());
+        long bookTestID = bookTest.getBookID();
+
+        Book bookTestUpdate = new Book(1L, "testBookTitleUpdate",
+                "testBookAuthorUpdate", "testBookRatingUpdate", LocalDate.now());
+        BookDto bookTestUpdateDto = new BookDto(1L,
+                "testBookTitleUpdateDto", "testBookAuthorUpdateDto", "testBookRatingUpdateDto", LocalDate.now());
+
+        when(bookRepository.findById(bookTestID)).thenReturn(java.util.Optional.of(bookTest));
+        when(bookService.updateBook(bookTest)).thenReturn(bookTestUpdate);
+        when(bookMapper.mapToBookDto(bookTestUpdate)).thenReturn(bookTestUpdateDto);
+
+        Gson gson = new GsonBuilder()
+                // .setPrettyPrinting()
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                .create();
+
+        String jsonContent = gson.toJson(bookTest);
+
+        System.out.println("wartosc jsonContent" + jsonContent);
+
+        //When & Then
+        mockMvc.perform(put("/eprojectk/book/updateBook")
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(jsonContent))
+                .andExpect(jsonPath("$.bookID", is(1)))
+                .andExpect(jsonPath("$.bookTitle", is("testBookTitleUpdateDto")))
+                .andExpect(jsonPath("$.bookAuthor", is("testBookAuthorUpdateDto")))
+                .andExpect(jsonPath("$.bookRating", is("testBookRatingUpdateDto")));
     }
 }
