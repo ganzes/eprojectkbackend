@@ -28,9 +28,9 @@ public class MotiveValidatorTestSuite {
         motiveDtoList.add(new MotiveDto(1L, "testText", "testAuthorValidator", "testRating", LocalDate.now()));
 
         //When
-        List<MotiveDto> x = motiveValidator.validateGetAllMotives(motiveDtoList);
+        List<MotiveDto> validatedMotiveDtoList = motiveValidator.validateGetAllMotives(motiveDtoList);
 
         //Then
-        assertEquals(1, x.size());
+        assertEquals(1, validatedMotiveDtoList.size());
     }
 }

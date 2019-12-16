@@ -22,7 +22,7 @@ public class BookMapperTestSuite {
     private BookMapper bookMapper;
 
     @Test
-    public void testMapToBook() {
+    public void testMapToBookTest() {
         //Given
         BookDto bookDto = new BookDto(1L, "TestBookTitle", "TestBookAuthor", "TestBookRating", LocalDate.now());
         //When
@@ -32,7 +32,7 @@ public class BookMapperTestSuite {
     }
 
     @Test
-    public void testMapToBookDto() {
+    public void testMapToBookDtoTest() {
         //Given
         Book book = new Book(1L,"TestBookTitle", "TestBookAuthor", "TestBookRating", LocalDate.now());
         //When
@@ -42,7 +42,7 @@ public class BookMapperTestSuite {
     }
 
     @Test
-    public void testMapToBookDtoList() {
+    public void testMapToBookDtoListTest() {
         //Given
         Book book = new Book(1L,"TestBookTitle", "TestBookAuthor", "TestBookRating", LocalDate.now());
         Book book2 = new Book(1L,"TestBookTitle2", "TestBookAuthor2", "TestBookRating2", LocalDate.now());
@@ -57,7 +57,7 @@ public class BookMapperTestSuite {
     }
 
     @Test
-    public void testMapToBookList() {
+    public void testMapToBookListTest() {
         //Given
         BookDto bookDto = new BookDto(1L, "TestBookTitle", "TestBookAuthor", "TestBookRating", LocalDate.now());
         BookDto bookDto2 = new BookDto(2L, "TestBookTitle2", "TestBookAuthor2", "TestBookRating2", LocalDate.now());

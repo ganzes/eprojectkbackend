@@ -7,10 +7,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class LoveCalculatorEntityTestSuite {
     @Autowired
     private LoveCalculatorRepository loveCalculatorRepository;
@@ -18,10 +20,10 @@ public class LoveCalculatorEntityTestSuite {
     @Test
     public void LoveCalculatorSaveTest() {
         //Given
-        LoveCalculator loveCalculatorSaveTest = new LoveCalculator("fnameTest", "snameTest", "percentageTest", "resultTest");
+        LoveCalculator loveCalculatorTest = new LoveCalculator("fnameTest", "snameTest", "percentageTest", "resultTest");
 
         //When
-        LoveCalculator savedLoveCalculator = loveCalculatorRepository.save(loveCalculatorSaveTest);
+        LoveCalculator savedLoveCalculator = loveCalculatorRepository.save(loveCalculatorTest);
         long loveCalculatorTestID = savedLoveCalculator.getLoveCalculatorID();
 
         //Then
@@ -36,11 +38,11 @@ public class LoveCalculatorEntityTestSuite {
     @Test
     public void loveCalculatorReadTest() throws LoveCalculatorNotFoundException {
         //Given
-        LoveCalculator loveCalculatorSaveTest = new LoveCalculator("fnameTest", "snameTest", "percentageTest", "resultTest");
+        LoveCalculator loveCalculatorTest = new LoveCalculator("fnameTest", "snameTest", "percentageTest", "resultTest");
 
         //When
-        loveCalculatorRepository.save(loveCalculatorSaveTest);
-        long loveCalculatorTestID = loveCalculatorSaveTest.getLoveCalculatorID();
+        loveCalculatorRepository.save(loveCalculatorTest);
+        long loveCalculatorTestID = loveCalculatorTest.getLoveCalculatorID();
 
         //Then
         LoveCalculator resultReadTest = loveCalculatorRepository.findById(loveCalculatorTestID).orElseThrow(LoveCalculatorNotFoundException::new);
@@ -56,11 +58,11 @@ public class LoveCalculatorEntityTestSuite {
     @Test
     public void loveCalculatorUpdateTest() throws LoveCalculatorNotFoundException {
         //Given
-        LoveCalculator loveCalculatorSaveTest = new LoveCalculator("fnameTest", "snameTest", "percentageTest", "resultTest");
+        LoveCalculator loveCalculatorTest = new LoveCalculator("fnameTest", "snameTest", "percentageTest", "resultTest");
 
         //When
-        loveCalculatorRepository.save(loveCalculatorSaveTest);
-        long loveCalculatorTestID = loveCalculatorSaveTest.getLoveCalculatorID();
+        loveCalculatorRepository.save(loveCalculatorTest);
+        long loveCalculatorTestID = loveCalculatorTest.getLoveCalculatorID();
 
         //Then
         LoveCalculator updateTest = loveCalculatorRepository.findById(loveCalculatorTestID).orElseThrow(LoveCalculatorNotFoundException::new);
@@ -80,11 +82,11 @@ public class LoveCalculatorEntityTestSuite {
     @Test
     public void loveCalculatorDeleteTest() {
         //Given
-        LoveCalculator loveCalculatorSaveTest = new LoveCalculator("fnameTest", "snameTest", "percentageTest", "resultTest");
+        LoveCalculator loveCalculatorTest = new LoveCalculator("fnameTest", "snameTest", "percentageTest", "resultTest");
 
         //When
-        loveCalculatorRepository.save(loveCalculatorSaveTest);
-        long loveCalculatorTestID = loveCalculatorSaveTest.getLoveCalculatorID();
+        loveCalculatorRepository.save(loveCalculatorTest);
+        long loveCalculatorTestID = loveCalculatorTest.getLoveCalculatorID();
         long countBeforeDelete = loveCalculatorRepository.count();
 
         //Then

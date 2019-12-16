@@ -21,7 +21,7 @@ public class LoveCalculatorMapperTestSuite {
     private LoveCalculatorMapper loveCalculatorMapper;
 
     @Test
-    public void testMapToLoveCalculator() {
+    public void testMapToLoveCalculatorTest() {
         //Given
         LoveCalculatorDto loveCalculatorDto = new LoveCalculatorDto("fnameTest", "snameTest", "percentageTest", "resultTest");
         //When
@@ -31,7 +31,7 @@ public class LoveCalculatorMapperTestSuite {
     }
 
     @Test
-    public void testMapToLoveCalculatorDto() {
+    public void testMapToLoveCalculatorDtoTest() {
         //Given
         LoveCalculator loveCalculator = new LoveCalculator("fnameTest", "snameTest", "percentageTest", "resultTest");
         //When
@@ -41,7 +41,7 @@ public class LoveCalculatorMapperTestSuite {
     }
 
     @Test
-    public void testMapToLoveCalculatorDtoList() {
+    public void testMapToLoveCalculatorDtoListTest() {
         //Given
         LoveCalculator loveCalculator = new LoveCalculator("fnameTest", "snameTest", "percentageTest", "resultTest");
         LoveCalculator loveCalculator2 = new LoveCalculator("fnameTest", "snameTest", "percentageTest", "resultTest");
@@ -56,7 +56,7 @@ public class LoveCalculatorMapperTestSuite {
     }
 
     @Test
-    public void testMapToLoveCalculatorList() {
+    public void testMapToLoveCalculatorListTest() {
         //Given
         LoveCalculatorDto loveCalculatorDto = new LoveCalculatorDto("fnameTest", "snameTest", "percentageTest", "resultTest");
         LoveCalculatorDto loveCalculatorDto2 = new LoveCalculatorDto("fnameTest", "snameTest", "percentageTest", "resultTest");

@@ -2,35 +2,32 @@ package com.kodilla.eprojectkbackend.domains;
 
 import com.kodilla.eprojectkbackend.exceptions.BookNotFoundException;
 import com.kodilla.eprojectkbackend.repositories.BookRepository;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class BookEntityTestSuite {
 
     @Autowired
     private BookRepository bookRepository;
 
-/*    public void cleanUp() {
-        bookRepository.deleteAll(); // for @Before and @After
-    }*/
-
     @Test
     public void bookSaveTest() {
         //Given
-        Book bookSaveTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
+        Book bookTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
 
         //When
-        Book savedBook = bookRepository.save(bookSaveTest);
-        long bookTestID = savedBook.getBookID();
+        Book savedbookTest = bookRepository.save(bookTest);
+        long bookTestID = savedbookTest.getBookID();
 
         //Then
         Assert.assertNotEquals(0, bookTestID);
@@ -44,10 +41,10 @@ public class BookEntityTestSuite {
     @Test
     public void bookReadTest() throws BookNotFoundException {
         //Given
-        Book bookSaveTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
+        Book bookTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
 
         //When
-        Book savedBook = bookRepository.save(bookSaveTest);
+        Book savedBook = bookRepository.save(bookTest);
         long bookTestID = savedBook.getBookID();
 
         //Then
@@ -64,16 +61,16 @@ public class BookEntityTestSuite {
     @Test
     public void bookUpdateTest() throws BookNotFoundException {
         //Given
-        Book bookSaveTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
+        Book bookTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
 
         //When
-        bookRepository.save(bookSaveTest);
-        long bookTestID = bookSaveTest.getBookID();
+        bookRepository.save(bookTest);
+        long bookTestID = bookTest.getBookID();
 
         //Then
-        Book updateTest = bookRepository.findById(bookTestID).orElseThrow(BookNotFoundException::new);
-        updateTest.setBookTitle("testBookTitleUpdated");
-        bookRepository.save(updateTest);
+        Book updatedBookTest = bookRepository.findById(bookTestID).orElseThrow(BookNotFoundException::new);
+        updatedBookTest.setBookTitle("testBookTitleUpdated");
+        bookRepository.save(updatedBookTest);
 
         Book resultUpdateTest = bookRepository.findById(bookTestID).orElseThrow(BookNotFoundException::new);
 
@@ -88,10 +85,10 @@ public class BookEntityTestSuite {
     @Test
     public void bookDeleteTest() throws BookNotFoundException {
         //Given
-        Book bookSaveTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
+        Book bookTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
 
         //When
-        Book savedBook = bookRepository.save(bookSaveTest);
+        Book savedBook = bookRepository.save(bookTest);
         long bookTestID = savedBook.getBookID();
         long countBeforeDelete = bookRepository.count();
 
@@ -106,14 +103,14 @@ public class BookEntityTestSuite {
     }
 
     @Test
-    public void deleteAllBooks() {
+    public void deleteAllBooksTest() {
         //Given
-        Book bookSaveTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
-        Book bookSaveTest2 = new Book(2L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
+        Book bookTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
+        Book bookTest2 = new Book(2L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
 
         //When
-        bookRepository.save(bookSaveTest);
-        bookRepository.save(bookSaveTest2);
+        bookRepository.save(bookTest);
+        bookRepository.save(bookTest2);
 
         long countBeforeDelete = bookRepository.count();
 
@@ -128,16 +125,16 @@ public class BookEntityTestSuite {
     }
 
     @Test
-    public void countAllBooks() {
+    public void countAllBooksTest() {
         //Given
-        Book bookCountTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
-        Book bookCountTest2 = new Book(2L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
+        Book bookTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
+        Book bookTest2 = new Book(2L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
 
         //When
-        bookRepository.save(bookCountTest);
+        bookRepository.save(bookTest);
         long countBookCountTest = bookRepository.count();
 
-        bookRepository.save(bookCountTest2);
+        bookRepository.save(bookTest2);
         long countBookCountTest2 = bookRepository.count();
 
         //Then

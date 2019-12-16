@@ -22,7 +22,7 @@ public class MotiveMapperTestSuite {
     private MotiveMapper motiveMapper;
 
     @Test
-    public void testMapToMotive() {
+    public void testMapToMotiveTest() {
         //Given
         MotiveDto motiveDto = new MotiveDto(1L, "TestMotiveText", "TestMotiveAuthor", "TestMotiveRating", LocalDate.now());
         //When
@@ -32,7 +32,7 @@ public class MotiveMapperTestSuite {
     }
 
     @Test
-    public void testMapToMotiveDto() {
+    public void testMapToMotiveDtoTest() {
         //Given
         Motive motive = new Motive(1L,"TestMotiveText", "TestMotiveAuthor", "TestMotiveRating", LocalDate.now());
         //When
@@ -42,7 +42,7 @@ public class MotiveMapperTestSuite {
     }
 
     @Test
-    public void testMapToMotiveDtoList() {
+    public void testMapToMotiveDtoListTest() {
         //Given
         Motive motive = new Motive(1L,"TestMotiveText", "TestMotiveAuthor", "TestMotiveRating", LocalDate.now());
         Motive motive2 = new Motive(1L,"TestMotiveText2", "TestMotiveAuthor2", "TestMotiveRating2", LocalDate.now());
@@ -57,7 +57,7 @@ public class MotiveMapperTestSuite {
     }
 
     @Test
-    public void testMapToMotiveList() {
+    public void testMapToMotiveListTest() {
         //Given
         MotiveDto motiveDto = new MotiveDto(1L, "TestMotiveText", "TestMotiveAuthor", "TestMotiveRating", LocalDate.now());
         MotiveDto motiveDto2 = new MotiveDto(2L, "TestMotiveText2", "TestMotiveAuthor2", "TestMotiveRating2", LocalDate.now());
