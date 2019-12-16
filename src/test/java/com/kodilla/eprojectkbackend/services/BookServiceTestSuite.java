@@ -123,12 +123,28 @@ public class BookServiceTestSuite {
 
     @Test
     public void deleteAllBooks() throws BookNotFoundException {
+        //Given
+        Book bookTest = new Book(1L, "testBookTitle", "testBookAuthor", "testBookRating", LocalDate.now());
+
         //When
         doNothing().when(bookRepository).deleteAll();
         bookService.deleteAllBooks();
 
         //Then
         verify(bookRepository, times(1)).deleteAll();
+    }
 
+    @Test
+    public void countAllBooksTest() {
+        //Given
+        Book bookTest = new Book(1L, "testBookTitle", "testBookAuthor", "testBookRating", LocalDate.now());
+        bookRepository.save(bookTest);
+        long countAllBooks = bookRepository.count();
+
+        //When
+        when(bookService.countAllBooks()).thenReturn(countAllBooks);
+
+        //Then
+        verify(bookRepository, times(1)).count();
     }
 }

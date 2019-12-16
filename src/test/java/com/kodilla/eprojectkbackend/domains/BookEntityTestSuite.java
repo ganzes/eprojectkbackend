@@ -19,14 +19,14 @@ public class BookEntityTestSuite {
     @Autowired
     private BookRepository bookRepository;
 
-    public void cleanUp(){
+    public void cleanUp() {
         bookRepository.deleteAll();
     }
 
     @Test
     public void bookSaveTest() {
         //Given
-        Book bookSaveTest = new Book(1L,"testBookTitle", "testBookAuthor", "9", LocalDate.now());
+        Book bookSaveTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
 
         //When
         bookRepository.save(bookSaveTest);
@@ -37,12 +37,13 @@ public class BookEntityTestSuite {
 
         //CleanUp
         bookRepository.deleteById(bookTestID);
+        bookRepository.deleteAll();
     }
 
     @Test
     public void bookReadTest() throws BookNotFoundException {
         //Given
-        Book bookSaveTest = new Book(1L,"testBookTitle", "testBookAuthor", "9", LocalDate.now());
+        Book bookSaveTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
 
         //When
         bookRepository.save(bookSaveTest);
@@ -56,12 +57,13 @@ public class BookEntityTestSuite {
 
         //CleanUp
         bookRepository.deleteById(bookTestID);
+        bookRepository.deleteAll();
     }
 
     @Test
     public void bookUpdateTest() throws BookNotFoundException {
         //Given
-        Book bookSaveTest = new Book(1L,"testBookTitle", "testBookAuthor", "9", LocalDate.now());
+        Book bookSaveTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
 
         //When
         bookRepository.save(bookSaveTest);
@@ -79,12 +81,13 @@ public class BookEntityTestSuite {
 
         //CleanUp
         bookRepository.deleteById(bookTestID);
+        bookRepository.deleteAll();
     }
 
     @Test
-    public void bookDeleteTest() throws BookNotFoundException{
+    public void bookDeleteTest() throws BookNotFoundException {
         //Given
-        Book bookSaveTest = new Book(1L,"testBookTitle", "testBookAuthor", "9", LocalDate.now());
+        Book bookSaveTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
 
         //When
         bookRepository.save(bookSaveTest);
@@ -96,13 +99,16 @@ public class BookEntityTestSuite {
         long countAfterDelete = bookRepository.count();
 
         Assert.assertEquals(countBeforeDelete - 1, countAfterDelete);
+
+        //Clean up
+        bookRepository.deleteAll();
     }
 
     @Test
     public void deleteAllBooks() {
         //Given
-        Book bookSaveTest = new Book(1L,"testBookTitle", "testBookAuthor", "9", LocalDate.now());
-        Book bookSaveTest2 = new Book(2L,"testBookTitle", "testBookAuthor", "9", LocalDate.now());
+        Book bookSaveTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
+        Book bookSaveTest2 = new Book(2L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
 
         //When
         bookRepository.save(bookSaveTest);
@@ -115,13 +121,16 @@ public class BookEntityTestSuite {
         long countAfterDelete = bookRepository.count();
 
         Assert.assertEquals(countBeforeDelete - 2, countAfterDelete);
+
+        //Clean up
+        bookRepository.deleteAll();
     }
 
     @Test
     public void countAllBooks() {
         //Given
-        Book bookCountTest = new Book(1L,"testBookTitle", "testBookAuthor", "9", LocalDate.now());
-        Book bookCountTest2 = new Book(2L,"testBookTitle", "testBookAuthor", "9", LocalDate.now());
+        Book bookCountTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
+        Book bookCountTest2 = new Book(2L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
 
         //When
         bookRepository.save(bookCountTest);
@@ -129,9 +138,12 @@ public class BookEntityTestSuite {
 
         bookRepository.save(bookCountTest2);
         long countBookCountTest2 = bookRepository.count();
-        //Then
 
+        //Then
         Assert.assertEquals(1, countBookCountTest);
         Assert.assertEquals(2, countBookCountTest2);
+
+        //Clean up
+        bookRepository.deleteAll();
     }
 } 

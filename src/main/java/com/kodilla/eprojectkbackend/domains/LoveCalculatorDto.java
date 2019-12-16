@@ -13,6 +13,8 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LoveCalculatorDto {
+    @JsonProperty("loveCalculatorID")
+    private long loveCalculatorID;
     @JsonProperty("fname")
     private String fname;
     @JsonProperty("sname")

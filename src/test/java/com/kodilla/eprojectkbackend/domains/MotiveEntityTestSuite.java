@@ -20,7 +20,7 @@ public class MotiveEntityTestSuite {
     @Test
     public void motiveSaveTest() {
         //Given
-        Motive motiveSaveTest = new Motive(1L,"testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+        Motive motiveSaveTest = new Motive(1L, "testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
         //When
         motiveRepository.save(motiveSaveTest);
@@ -31,12 +31,13 @@ public class MotiveEntityTestSuite {
 
         //CleanUp
         motiveRepository.deleteById(motiveTestID);
+        motiveRepository.deleteAll();
     }
 
     @Test
     public void motiveReadTest() throws MotiveNotFoundException {
         //Given
-        Motive motiveSaveTest = new Motive(1L,"testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+        Motive motiveSaveTest = new Motive(1L, "testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
         //When
         motiveRepository.save(motiveSaveTest);
@@ -50,12 +51,13 @@ public class MotiveEntityTestSuite {
 
         //CleanUp
         motiveRepository.deleteById(motiveTestID);
+        motiveRepository.deleteAll();
     }
 
     @Test
     public void motiveUpdateTest() throws MotiveNotFoundException {
         //Given
-        Motive motiveSaveTest = new Motive(1L,"testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+        Motive motiveSaveTest = new Motive(1L, "testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
         //When
         motiveRepository.save(motiveSaveTest);
@@ -73,12 +75,13 @@ public class MotiveEntityTestSuite {
 
         //CleanUp
         motiveRepository.deleteById(motiveTestID);
+        motiveRepository.deleteAll();
     }
 
     @Test
-    public void motiveDeleteTest() throws MotiveNotFoundException{
+    public void motiveDeleteTest() throws MotiveNotFoundException {
         //Given
-        Motive motiveSaveTest = new Motive(1L,"testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+        Motive motiveSaveTest = new Motive(1L, "testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
         //When
         motiveRepository.save(motiveSaveTest);
@@ -90,13 +93,16 @@ public class MotiveEntityTestSuite {
         long countAfterDelete = motiveRepository.count();
 
         Assert.assertEquals(countBeforeDelete - 1, countAfterDelete);
+
+        //Clean up
+        motiveRepository.deleteAll();
     }
 
     @Test
     public void deleteAllMotives() {
         //Given
-        Motive motiveSaveTest = new Motive(1L,"testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
-        Motive motiveSaveTest2 = new Motive(2L,"testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+        Motive motiveSaveTest = new Motive(1L, "testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+        Motive motiveSaveTest2 = new Motive(2L, "testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
         //When
         motiveRepository.save(motiveSaveTest);
@@ -109,13 +115,16 @@ public class MotiveEntityTestSuite {
         long countAfterDelete = motiveRepository.count();
 
         Assert.assertEquals(countBeforeDelete - 2, countAfterDelete);
+
+        //Clean up
+        motiveRepository.deleteAll();
     }
 
     @Test
     public void countAllMotives() {
         //Given
-        Motive motiveCountTest = new Motive(1L,"testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
-        Motive motiveCountTest2 = new Motive(2L,"testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+        Motive motiveCountTest = new Motive(1L, "testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+        Motive motiveCountTest2 = new Motive(2L, "testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
         //When
         motiveRepository.save(motiveCountTest);
@@ -127,5 +136,8 @@ public class MotiveEntityTestSuite {
 
         Assert.assertEquals(1, countMotiveCountTest);
         Assert.assertEquals(2, countMotiveCountTest2);
+
+        //Clean up
+        motiveRepository.deleteAll();
     }
 }

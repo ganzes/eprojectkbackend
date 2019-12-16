@@ -1,5 +1,6 @@
 package com.kodilla.eprojectkbackend.services;
 
+import com.kodilla.eprojectkbackend.domains.Book;
 import com.kodilla.eprojectkbackend.domains.Motive;
 import com.kodilla.eprojectkbackend.exceptions.MotiveNotFoundException;
 import com.kodilla.eprojectkbackend.repositories.MotiveRepository;
@@ -56,7 +57,9 @@ public class MotiveServiceTestSuite {
     public void findMotiveByAuthorTest(){
         //Given
         List<Motive> motiveListTest = new ArrayList<>();
+
         Motive motiveTest = new Motive(1L,"testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now());
+
         motiveListTest.add(motiveTest);
 
         String motiveTestAuthor = motiveTest.getMotiveAuthor();
@@ -74,9 +77,13 @@ public class MotiveServiceTestSuite {
     public void findMotiveByIDTest(){
         //Given
         Motive motiveTest = new Motive(1L,"testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now());
+
         Long motiveTestID = motiveTest.getMotiveID();
+
         Optional<Motive> optionalMotiveTest = Optional.of(motiveTest);
+
         String motiveTestText = motiveTest.getMotiveText();
+
         //When
         when(motiveRepository.findById(motiveTestID)).thenReturn(optionalMotiveTest);
 
@@ -128,5 +135,19 @@ public class MotiveServiceTestSuite {
         //Then
         verify(motiveRepository,times(1)).deleteAll();
 
+    }
+
+    @Test
+    public void countAllMotivesTest() {
+        //Given
+        Motive motiveTest = new Motive(1L,"testMotiveText","testMotiveAuthor", "testMotiveRating", LocalDate.now());
+        motiveRepository.save(motiveTest);
+        long countAllMotives = motiveRepository.count();
+
+        //When
+        when(motiveService.countAllMotives()).thenReturn(countAllMotives);
+
+        //Then
+        verify(motiveRepository, times(1)).count();
     }
 }

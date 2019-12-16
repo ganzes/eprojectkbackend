@@ -21,7 +21,7 @@ public class ScheduledInfo {
     private MotiveRepository motiveRepository;
 
     //@Scheduled(fixedRate = 5000)
-    public void check() {
+    public void checkMotiveDBSize() {
         Calendar rightNow = Calendar.getInstance();
         int hour = rightNow.get(Calendar.HOUR_OF_DAY);
         int minutes = rightNow.get(Calendar.MINUTE);
