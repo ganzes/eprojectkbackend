@@ -21,11 +21,12 @@ public class LoveCalculatorEntityTestSuite {
         LoveCalculator loveCalculatorSaveTest = new LoveCalculator("fnameTest", "snameTest", "percentageTest", "resultTest");
 
         //When
-        loveCalculatorRepository.save(loveCalculatorSaveTest);
-        long loveCalculatorTestID = loveCalculatorSaveTest.getLoveCalculatorID();
+        LoveCalculator savedLoveCalculator = loveCalculatorRepository.save(loveCalculatorSaveTest);
+        long loveCalculatorTestID = savedLoveCalculator.getLoveCalculatorID();
 
         //Then
         Assert.assertNotEquals(0, loveCalculatorTestID);
+        Assert.assertEquals(1L, loveCalculatorTestID);
 
         //CleanUp
         loveCalculatorRepository.deleteById(loveCalculatorTestID);

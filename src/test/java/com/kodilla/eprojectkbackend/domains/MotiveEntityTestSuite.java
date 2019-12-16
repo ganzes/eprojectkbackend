@@ -23,11 +23,12 @@ public class MotiveEntityTestSuite {
         Motive motiveSaveTest = new Motive(1L, "testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
         //When
-        motiveRepository.save(motiveSaveTest);
-        long motiveTestID = motiveSaveTest.getMotiveID();
+        Motive savedMotive = motiveRepository.save(motiveSaveTest);
+        long motiveTestID = savedMotive.getMotiveID();
 
         //Then
         Assert.assertNotEquals(0, motiveTestID);
+        Assert.assertEquals(1L, motiveTestID);
 
         //CleanUp
         motiveRepository.deleteById(motiveTestID);
@@ -40,8 +41,8 @@ public class MotiveEntityTestSuite {
         Motive motiveSaveTest = new Motive(1L, "testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
 
         //When
-        motiveRepository.save(motiveSaveTest);
-        long motiveTestID = motiveSaveTest.getMotiveID();
+        Motive savedMotive = motiveRepository.save(motiveSaveTest);
+        long motiveTestID = savedMotive.getMotiveID();
 
         //Then
         Motive resultReadTest = motiveRepository.findById(motiveTestID).orElseThrow(MotiveNotFoundException::new);

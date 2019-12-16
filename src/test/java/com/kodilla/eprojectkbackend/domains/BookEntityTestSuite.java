@@ -29,11 +29,12 @@ public class BookEntityTestSuite {
         Book bookSaveTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
 
         //When
-        bookRepository.save(bookSaveTest);
-        long bookTestID = bookSaveTest.getBookID();
+        Book savedBook = bookRepository.save(bookSaveTest);
+        long bookTestID = savedBook.getBookID();
 
         //Then
         Assert.assertNotEquals(0, bookTestID);
+        Assert.assertEquals(1L, bookTestID);
 
         //CleanUp
         bookRepository.deleteById(bookTestID);
@@ -46,8 +47,8 @@ public class BookEntityTestSuite {
         Book bookSaveTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
 
         //When
-        bookRepository.save(bookSaveTest);
-        long bookTestID = bookSaveTest.getBookID();
+        Book savedBook = bookRepository.save(bookSaveTest);
+        long bookTestID = savedBook.getBookID();
 
         //Then
         Book resultReadTest = bookRepository.findById(bookTestID).orElseThrow(BookNotFoundException::new);
@@ -90,8 +91,8 @@ public class BookEntityTestSuite {
         Book bookSaveTest = new Book(1L, "testBookTitle", "testBookAuthor", "9", LocalDate.now());
 
         //When
-        bookRepository.save(bookSaveTest);
-        long bookTestID = bookSaveTest.getBookID();
+        Book savedBook = bookRepository.save(bookSaveTest);
+        long bookTestID = savedBook.getBookID();
         long countBeforeDelete = bookRepository.count();
 
         //Then
