@@ -1,6 +1,7 @@
 package com.kodilla.eprojectkbackend.scheduleds;
 
 import com.kodilla.eprojectkbackend.clients.LoveCalculatorClient;
+import com.kodilla.eprojectkbackend.repositories.LoveCalculatorRepository;
 import com.kodilla.eprojectkbackend.repositories.MotiveRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,9 @@ public class ScheduledInfo {
     @Autowired
     private MotiveRepository motiveRepository;
 
+    @Autowired
+    private LoveCalculatorRepository loveCalculatorRepository;
+
     //@Scheduled(fixedRate = 5000)
     public void checkMotiveDBSize() {
         Calendar rightNow = Calendar.getInstance();
@@ -36,7 +40,27 @@ public class ScheduledInfo {
                     " Date: " + LocalDate.now()
                     + " | Time: " + hour + ":" + minutes + ":" + seconds);
         } else {
-            LOGGER.info("Motives are empty!");
+            LOGGER.info("MotivesDB is empty!");
+        }
+    }
+
+    //@Scheduled(fixedRate = 5000)
+    public void checkLoveCalculatorDBSize() {
+        Calendar rightNow = Calendar.getInstance();
+        int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+        int minutes = rightNow.get(Calendar.MINUTE);
+        int seconds = rightNow.get(Calendar.SECOND);
+
+        long loveCalculatorCountDB = loveCalculatorRepository.count();
+
+        String entryOrEntries = (loveCalculatorCountDB <= 1) ? " entry" : " entries";
+
+        if (loveCalculatorCountDB != 0) {
+            LOGGER.info("Currently they are " + loveCalculatorCountDB + entryOrEntries + " in LoveCalculatorDB |" +
+                    " Date: " + LocalDate.now()
+                    + " | Time: " + hour + ":" + minutes + ":" + seconds);
+        } else {
+            LOGGER.info("LoveCalculatorDB is empty!");
         }
     }
 }

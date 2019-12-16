@@ -53,7 +53,8 @@ public class LoveCalculatorController {
         return loveCalculatorMapper.mapToLoveCalculatorDtoList(loveCalculatorService.getAllResults());
     }
 
-    //added for further implementation
+
+    //for further implementation
 /*    @GetMapping("/export-LoveCalculatorResults")
     public void exportCSV(HttpServletResponse response) throws Exception {
         //set file name and content type
