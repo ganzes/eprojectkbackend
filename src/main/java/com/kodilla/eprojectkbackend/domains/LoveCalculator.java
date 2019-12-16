@@ -16,7 +16,6 @@ import java.time.LocalDate;
 public class LoveCalculator {
 
     public LoveCalculator(String fname, String sname, String percentage, String result) {
-        this.loveCalculatorID = loveCalculatorID;
         this.fname = fname;
         this.sname = sname;
         this.percentage = percentage;

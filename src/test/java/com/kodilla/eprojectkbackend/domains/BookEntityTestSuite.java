@@ -19,9 +19,9 @@ public class BookEntityTestSuite {
     @Autowired
     private BookRepository bookRepository;
 
-    public void cleanUp() {
-        bookRepository.deleteAll();
-    }
+/*    public void cleanUp() {
+        bookRepository.deleteAll(); // for @Before and @After
+    }*/
 
     @Test
     public void bookSaveTest() {

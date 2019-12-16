@@ -49,6 +49,6 @@ public class LoveCalculatorController {
         LOGGER.info("Started method getMotives in MotiveController.");
         LOGGER.info("Ended method getMotive in MotiveController.");
 
-        return loveCalculatorMapper.mapToMotiveDtoList(loveCalculatorService.getAllResults());
+        return loveCalculatorMapper.mapToLoveCalculatorDtoList(loveCalculatorService.getAllResults());
     }
 }

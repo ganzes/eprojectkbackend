@@ -31,7 +31,7 @@ public class LoveCalculatorMapper {
         );
     }
 
-    public List<LoveCalculatorDto> mapToMotiveDtoList(final List<LoveCalculator> loveCalculatorList){
+    public List<LoveCalculatorDto> mapToLoveCalculatorDtoList(final List<LoveCalculator> loveCalculatorList){
         return loveCalculatorList.stream()
                 .map(this::mapToLoveCalculatorDto)
                 .collect(Collectors.toList());
