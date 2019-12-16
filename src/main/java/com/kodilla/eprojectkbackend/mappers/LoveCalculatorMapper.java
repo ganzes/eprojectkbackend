@@ -2,8 +2,6 @@ package com.kodilla.eprojectkbackend.mappers;
 
 import com.kodilla.eprojectkbackend.domains.LoveCalculator;
 import com.kodilla.eprojectkbackend.domains.LoveCalculatorDto;
-import com.kodilla.eprojectkbackend.domains.Motive;
-import com.kodilla.eprojectkbackend.domains.MotiveDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -23,7 +21,6 @@ public class LoveCalculatorMapper {
 
     public LoveCalculatorDto mapToLoveCalculatorDto(LoveCalculator loveCalculator){
         return new LoveCalculatorDto(
-                loveCalculator.getLoveCalculatorID(),
                 loveCalculator.getFname(),
                 loveCalculator.getSname(),
                 loveCalculator.getPercentage(),

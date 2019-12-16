@@ -1,12 +1,13 @@
 package com.kodilla.eprojectkbackend.domains;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvBindByPosition;
+
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Getter
 @Setter

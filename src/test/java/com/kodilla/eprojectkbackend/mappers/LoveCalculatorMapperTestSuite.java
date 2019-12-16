@@ -23,7 +23,7 @@ public class LoveCalculatorMapperTestSuite {
     @Test
     public void testMapToLoveCalculator() {
         //Given
-        LoveCalculatorDto loveCalculatorDto = new LoveCalculatorDto(1L, "fnameTest", "snameTest", "percentageTest", "resultTest");
+        LoveCalculatorDto loveCalculatorDto = new LoveCalculatorDto("fnameTest", "snameTest", "percentageTest", "resultTest");
         //When
         LoveCalculator loveCalculator = loveCalculatorMapper.mapToLoveCalculator(loveCalculatorDto);
         //Then
@@ -58,8 +58,8 @@ public class LoveCalculatorMapperTestSuite {
     @Test
     public void testMapToLoveCalculatorList() {
         //Given
-        LoveCalculatorDto loveCalculatorDto = new LoveCalculatorDto(1L, "fnameTest", "snameTest", "percentageTest", "resultTest");
-        LoveCalculatorDto loveCalculatorDto2 = new LoveCalculatorDto(2L, "fnameTest", "snameTest", "percentageTest", "resultTest");
+        LoveCalculatorDto loveCalculatorDto = new LoveCalculatorDto("fnameTest", "snameTest", "percentageTest", "resultTest");
+        LoveCalculatorDto loveCalculatorDto2 = new LoveCalculatorDto("fnameTest", "snameTest", "percentageTest", "resultTest");
 
         List<LoveCalculatorDto> loveCalculatorDtoList = new ArrayList<>();
         loveCalculatorDtoList.add(loveCalculatorDto);

@@ -28,7 +28,7 @@ public class LoveCalculatorControllerTestSuite {
     @Test
     public void getPercentageTest() throws Exception{
         //Given
-        LoveCalculatorDto loveCalculatorDto = new LoveCalculatorDto(1l,"Test", "Test", "Test", "Test");
+        LoveCalculatorDto loveCalculatorDto = new LoveCalculatorDto("Test", "Test", "Test", "Test");
 
         //When
         when(loveCalculatorController.getPercentage("Test", "Test")).thenReturn(loveCalculatorDto);

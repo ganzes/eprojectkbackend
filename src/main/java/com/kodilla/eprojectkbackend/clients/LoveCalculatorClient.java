@@ -1,7 +1,6 @@
 package com.kodilla.eprojectkbackend.clients;
 
 import com.kodilla.eprojectkbackend.configuration.LoveCalculatorConfiguration;
-import com.kodilla.eprojectkbackend.domains.LoveCalculator;
 import com.kodilla.eprojectkbackend.domains.LoveCalculatorDto;
 import com.kodilla.eprojectkbackend.mappers.LoveCalculatorMapper;
 import com.kodilla.eprojectkbackend.services.LoveCalculatorService;
@@ -13,9 +12,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import springfox.documentation.annotations.ApiIgnore;
 
 import java.net.URI;
 
@@ -23,6 +22,10 @@ import java.net.URI;
 public class LoveCalculatorClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoveCalculatorClient.class);
+
+    private static final LoveCalculatorDto errorMessageGetPercentageClient =
+            new LoveCalculatorDto("Please try again\n",
+                    "Check you spelling\n", "Example: John, Kate\n", "Or server is busy and try again!");
 
     @Autowired
     private RestTemplate restTemplate;
@@ -37,6 +40,10 @@ public class LoveCalculatorClient {
     private LoveCalculatorMapper loveCalculatorMapper;
 
     public LoveCalculatorDto getPercentage(String fname, String sname){
+
+        try {
+
+
         LOGGER.info("Starting method getPercentage in LoveCalculatorClient");
         LOGGER.info("Getting matching results for names "  + fname + " and " + sname);
 
@@ -67,5 +74,14 @@ public class LoveCalculatorClient {
         loveCalculatorService.createLoveCalculator(loveCalculatorMapper.mapToLoveCalculator(response.getBody()));
 
         return response.getBody();
+
+        } catch (HttpServerErrorException e) {
+            LOGGER.error("HttpServerErrorException " + e);
+        }
+
+        LOGGER.warn("Ended method getRandomQuoteClient in QuotesClient = failure.");
+
+
+        return errorMessageGetPercentageClient;
     }
 }
