@@ -24,8 +24,12 @@ public class LoveCalculatorClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoveCalculatorClient.class);
 
     private static final LoveCalculatorDto errorMessageGetPercentageClient =
-            new LoveCalculatorDto("Please try again\n",
-                    "Check you spelling\n", "Example: John, Kate\n", "Or server is busy and try again!");
+            new LoveCalculatorDto("Please try again | ",
+                    "Check you spelling | ", "Example: John, Kate | ", "Or server is busy, try again!");
+
+    private static final LoveCalculatorDto errorMessageGetPercentageClient2 =
+            new LoveCalculatorDto(" not found ",
+                    " not found ", " 0 ", "Please enter correct format name!");
 
     @Autowired
     private RestTemplate restTemplate;
@@ -39,41 +43,39 @@ public class LoveCalculatorClient {
     @Autowired
     private LoveCalculatorMapper loveCalculatorMapper;
 
-    public LoveCalculatorDto getPercentage(String fname, String sname){
-
+    public LoveCalculatorDto getPercentage(String fname, String sname) {
         try {
+            LOGGER.info("Starting method getPercentage in LoveCalculatorClient");
+            LOGGER.info("Getting matching results for names " + fname + " and " + sname);
 
-
-        LOGGER.info("Starting method getPercentage in LoveCalculatorClient");
-        LOGGER.info("Getting matching results for names "  + fname + " and " + sname);
-
-        if (fname == null || sname == null){
-            if (fname == null){
-                LOGGER.error("fname name is null! " + fname);
+            if (fname == null || sname == null) {
+                if (fname == null) {
+                    LOGGER.error("fname name is null! " + fname);
+                }
+                if (sname == null) {
+                    LOGGER.error("sname is null!" + sname);
+                }
+                return errorMessageGetPercentageClient2;
             }
-            if (sname == null){
-                LOGGER.error("sname is null!" + sname);
-            }
-        }
 
-        URI url = UriComponentsBuilder.fromHttpUrl("https://love-calculator.p.rapidapi.com/getPercentage")
-                .queryParam("fname", fname)
-                .queryParam("sname", sname)
-                .build().encode().toUri();
-        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-        headers.add("X-RapidAPI-Host", loveCalculatorConfiguration.getLoveCalculatorEndpoint());
-        headers.add("X-RapidAPI-Key", loveCalculatorConfiguration.getLoveCalculatorKey());
+            URI url = UriComponentsBuilder.fromHttpUrl("https://love-calculator.p.rapidapi.com/getPercentage")
+                    .queryParam("fname", fname)
+                    .queryParam("sname", sname)
+                    .build().encode().toUri();
+            MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+            headers.add("X-RapidAPI-Host", loveCalculatorConfiguration.getLoveCalculatorEndpoint());
+            headers.add("X-RapidAPI-Key", loveCalculatorConfiguration.getLoveCalculatorKey());
 
-        HttpEntity<?> entity = new HttpEntity<>(headers);
+            HttpEntity<?> entity = new HttpEntity<>(headers);
 
-        HttpEntity<LoveCalculatorDto> response = restTemplate.exchange(url, HttpMethod.GET, entity, LoveCalculatorDto.class);
+            HttpEntity<LoveCalculatorDto> response = restTemplate.exchange(url, HttpMethod.GET, entity, LoveCalculatorDto.class);
 
-        LOGGER.info("Ended getPercentage in LoveCalculatorClient.");
+            LOGGER.info("Ended getPercentage in LoveCalculatorClient.");
 
 
-        loveCalculatorService.createLoveCalculator(loveCalculatorMapper.mapToLoveCalculator(response.getBody()));
+            loveCalculatorService.createLoveCalculator(loveCalculatorMapper.mapToLoveCalculator(response.getBody()));
 
-        return response.getBody();
+            return response.getBody();
 
         } catch (HttpServerErrorException e) {
             LOGGER.error("HttpServerErrorException " + e);

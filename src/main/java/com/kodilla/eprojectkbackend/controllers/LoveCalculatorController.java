@@ -38,10 +38,6 @@ public class LoveCalculatorController {
 
     @GetMapping
     public LoveCalculatorDto getPercentage(@RequestParam("fname") String fname, @RequestParam("sname") String sname){
-        if(fname.isEmpty() || sname.isEmpty()){
-            throw new HttpClientErrorException(HttpStatus.NOT_FOUND, "Keywords are empty!");
-        }
-
         LOGGER.info("Started method getPercentage in LoveCalculatorController.");
         LOGGER.info("Getting matching results for names "  + fname + " and " + sname +".");
         LOGGER.info("Ended method getPercentage in LoveCalculatorController.");
@@ -57,7 +53,8 @@ public class LoveCalculatorController {
         return loveCalculatorMapper.mapToLoveCalculatorDtoList(loveCalculatorService.getAllResults());
     }
 
-    @GetMapping("/export-LoveCalculatorResults")
+    //added for further implementation
+/*    @GetMapping("/export-LoveCalculatorResults")
     public void exportCSV(HttpServletResponse response) throws Exception {
         //set file name and content type
         String filename = "Love Calculator Results.csv";
@@ -75,5 +72,5 @@ public class LoveCalculatorController {
 
         //write all users to csv file
         writer.write(loveCalculatorService.getAllResults());
-    }
+    }*/
 }
