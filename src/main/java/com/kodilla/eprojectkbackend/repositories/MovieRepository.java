@@ -1,6 +1,7 @@
 package com.kodilla.eprojectkbackend.repositories;
 
 import com.kodilla.eprojectkbackend.domains.Book;
+import com.kodilla.eprojectkbackend.domains.Movie;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,17 +11,17 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface BookRepository extends CrudRepository<Book, Long> {
+public interface MovieRepository extends CrudRepository<Movie, Long> {
 
     @Override
-    List<Book> findAll();
+    List<Movie> findAll();
 
-    List<Book> findByBookAuthor(String bookAuthor);
+    List<Movie> findByMovieDirector(String movieAuthor);
 
-    List<Book> findByBookRating(String bookRating);
+    List<Movie> findByMovieRating(String movieRating);
 
     @Override
-    Optional<Book> findById(Long id);
+    Optional<Movie> findById(Long id);
 
     @Override
     void deleteById(Long id);

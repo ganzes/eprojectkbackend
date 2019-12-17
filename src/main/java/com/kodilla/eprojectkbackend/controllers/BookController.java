@@ -94,7 +94,7 @@ public class BookController {
     }
 
     @GetMapping(value = "/getBookByRating")
-    public List<BookDto>  getBookByRating(@RequestParam String bookRating) {
+    public List<BookDto> getBookByRating(@RequestParam String bookRating) {
         LOGGER.info("Started method getBookByRating in BookController.");
 
         return bookMapper.mapToBookDtoList(bookService.findBookByRating(bookRating));
