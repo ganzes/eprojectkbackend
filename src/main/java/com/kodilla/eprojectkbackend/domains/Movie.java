@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "MOVIE")
+@Table(name = "MOVIES")
 public class Movie {
 
     public Movie(long movieID, String movieTitle, String movieDirector, String movieRating, LocalDate movieCreated) {

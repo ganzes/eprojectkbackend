@@ -1,6 +1,5 @@
 package com.kodilla.eprojectkbackend.validators;
 
-import com.kodilla.eprojectkbackend.domains.Motive;
 import com.kodilla.eprojectkbackend.domains.MotiveDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

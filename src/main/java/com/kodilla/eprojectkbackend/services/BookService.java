@@ -48,8 +48,8 @@ public class BookService {
         return bookRepository.findByBookAuthor(bookAuthor);
     }
 
-    public List<Book> findBookByRating(String bookDescription) {
-        return bookRepository.findByBookRating(bookDescription);
+    public List<Book> findBookByRating(String bookRating) {
+        return bookRepository.findByBookRating(bookRating);
     }
 
     public long countAllBooks(){
