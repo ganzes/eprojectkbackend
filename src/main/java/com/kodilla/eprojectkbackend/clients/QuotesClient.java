@@ -54,17 +54,11 @@ public class QuotesClient {
 
             LOGGER.info("Ended method getRandomQuoteClient in QuotesClient = success.");
 
-            System.out.println(">>>>>>>>>>>>>"  + response);
-
             return response.getBody();
-
-
 
         } catch (HttpServerErrorException e) {
             LOGGER.error("HttpServerErrorException " + e);
         }
-
-
 
         LOGGER.warn("Ended method getRandomQuoteClient in QuotesClient = failure.");
 
