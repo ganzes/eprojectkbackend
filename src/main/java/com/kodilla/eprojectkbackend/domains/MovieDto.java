@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MovieDto {
+
     private long movieID;
     private String movieTitle;
     private String movieDirector;

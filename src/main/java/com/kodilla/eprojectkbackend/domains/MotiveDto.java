@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MotiveDto {
+
     private long motiveID;
     private String motiveText;
     private String motiveAuthor;
