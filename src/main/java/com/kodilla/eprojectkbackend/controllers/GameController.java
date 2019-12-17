@@ -108,5 +108,4 @@ public class GameController {
         LOGGER.info("Ended method countAllGames in GameController.");
         return allGames;
     }
-
 }

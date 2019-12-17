@@ -108,5 +108,4 @@ public class MovieController {
         LOGGER.info("Ended method countAllMovies in MovieController.");
         return allMovies;
     }
-
 }

@@ -108,5 +108,4 @@ public class BookController {
         LOGGER.info("Ended method countAllBooks in BookController.");
         return allBooks;
     }
-
 }
