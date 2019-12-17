@@ -1,6 +1,5 @@
 package com.kodilla.eprojectkbackend.repositories;
 
-import com.kodilla.eprojectkbackend.domains.Book;
 import com.kodilla.eprojectkbackend.domains.LoveCalculator;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
