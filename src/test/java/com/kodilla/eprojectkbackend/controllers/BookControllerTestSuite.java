@@ -49,7 +49,6 @@ public class BookControllerTestSuite {
     @Test
     public void getEmptyBooksTest() throws Exception {
         //Given
-        //  List<BookDto> bookListDtoTest = new ArrayList<>();
         List<Book> bookListTest = new ArrayList<>();
 
         when(bookService.getAllBook()).thenReturn(bookListTest);
@@ -82,7 +81,7 @@ public class BookControllerTestSuite {
                 .andExpect(jsonPath("$[0].bookTitle", is("testBookTitleDto")))
                 .andExpect(jsonPath("$[0].bookAuthor", is("testBookAuthorDto")))
                 .andExpect(jsonPath("$[0].bookRating", is("testBookRatingDto")));
-        //.andExpect(jsonPath("$[0].bookCreated", is("2019-12-14"))); for testing purposes, enter current date
+                //.andExpect(jsonPath("$[0].bookCreated", is("2019-12-14"))); for testing purposes, enter current date
     }
 
     @Test
@@ -104,7 +103,7 @@ public class BookControllerTestSuite {
                 .andExpect(jsonPath("$.bookTitle", is("testBookTitleDto")))
                 .andExpect(jsonPath("$.bookAuthor", is("testBookAuthorDto")))
                 .andExpect(jsonPath("$.bookRating", is("testBookRatingDto")));
-        //.andExpect(jsonPath("$.bookCreated", is("2019-12-14"))); for testing purposes, enter current date
+                //.andExpect(jsonPath("$.bookCreated", is("2019-12-14"))); for testing purposes, enter current date
     }
 
     @Test
@@ -132,7 +131,7 @@ public class BookControllerTestSuite {
                 .andExpect(jsonPath("$[0].bookTitle", is("testBookTitleDto")))
                 .andExpect(jsonPath("$[0].bookAuthor", is("testBookAuthorDto")))
                 .andExpect(jsonPath("$[0].bookRating", is("testBookRatingDto")));
-        //.andExpect(jsonPath("$.bookCreated", is("2019-12-14"))); for testing purposes, enter current date
+                //.andExpect(jsonPath("$[0].bookCreated", is("2019-12-14"))); for testing purposes, enter current date
     }
 
     @Test
@@ -160,7 +159,7 @@ public class BookControllerTestSuite {
                 .andExpect(jsonPath("$[0].bookTitle", is("testBookTitleDto")))
                 .andExpect(jsonPath("$[0].bookAuthor", is("testBookAuthorDto")))
                 .andExpect(jsonPath("$[0].bookRating", is("testBookRatingDto")));
-        //.andExpect(jsonPath("$.bookCreated", is("2019-12-14"))); for testing purposes, enter current date
+                //.andExpect(jsonPath("$[0].bookCreated", is("2019-12-14"))); for testing purposes, enter current date
     }
 
     @Test
@@ -197,7 +196,7 @@ public class BookControllerTestSuite {
                 "testBookAuthorDto", "testBookRatingDto", LocalDate.now());
 
         Gson gson = new GsonBuilder()
-                //  .setPrettyPrinting()
+                //.setPrettyPrinting()
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .create();
 

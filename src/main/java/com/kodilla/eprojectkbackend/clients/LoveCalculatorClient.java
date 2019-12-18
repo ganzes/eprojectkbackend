@@ -72,7 +72,6 @@ public class LoveCalculatorClient {
 
             LOGGER.info("Ended getPercentage in LoveCalculatorClient.");
 
-
             loveCalculatorService.createLoveCalculator(loveCalculatorMapper.mapToLoveCalculator(response.getBody()));
 
             return response.getBody();
@@ -82,7 +81,6 @@ public class LoveCalculatorClient {
         }
 
         LOGGER.warn("Ended method getRandomQuoteClient in QuotesClient = failure.");
-
 
         return errorMessageGetPercentageClient;
     }

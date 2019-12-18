@@ -35,6 +35,11 @@ public class BookService {
         return bookRepository.save(updateBook);
     }
 
+    /*public Book updateBook(Book book) throws BookNotFoundException {
+
+        return bookRepository.save(book);
+    }*/
+
     public void deleteBookByID(long bookID) throws BookNotFoundException{
         Book deleteBook = bookRepository.findById(bookID).orElseThrow(BookNotFoundException::new);
         bookRepository.delete(deleteBook);

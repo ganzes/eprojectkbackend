@@ -21,5 +21,4 @@ public class MotivesFacade {
         List<MotiveDto> motiveDtoList = motiveMapper.mapToMotiveDtoList(motiveService.getAllMotive());
         return motiveMapper.mapToMotiveList(motiveDtoList);
     }
-
 }
