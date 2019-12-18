@@ -10,6 +10,7 @@ import com.kodilla.eprojectkbackend.repositories.BookRepository;
 import com.kodilla.eprojectkbackend.services.BookService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -23,7 +24,6 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -200,7 +200,12 @@ public class BookControllerTestSuite {
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .create();
 
-        given(this.bookService.createBook(bookTest)).willReturn(bookTest);
+       // bookService.createBook(bookMapper.mapToBook(bookDto));
+
+        when(bookMapper.mapToBook(bookDtoTest)).thenReturn(bookTest);
+        when(bookService.createBook(bookTest)).thenReturn(bookTest);
+        //
+        // given(this.bookService.createBook(bookTest)).willReturn(bookTest);
 
         String jsonContent = gson.toJson(bookDtoTest);
 
@@ -239,7 +244,7 @@ public class BookControllerTestSuite {
                 .andExpect(jsonPath("$", is(2)));
     }
 
-    @Test
+/*    @Test
     public void updateBookTest() throws Exception {
         //Given
         Book bookTest = new Book(1L, "testBookTitle",
@@ -275,5 +280,41 @@ public class BookControllerTestSuite {
                 .andExpect(jsonPath("$.bookTitle", is("testBookTitleUpdateDto")))
                 .andExpect(jsonPath("$.bookAuthor", is("testBookAuthorUpdateDto")))
                 .andExpect(jsonPath("$.bookRating", is("testBookRatingUpdateDto")));
-    }
+    }*/
+@Test
+public void updateBookTest() throws Exception {
+    //Given
+    Book bookTestUpdate = new Book(1L, "testBookTitleUpdate",
+            "testBookAuthorUpdate", "testBookRatingUpdate", LocalDate.now());
+    BookDto bookTestUpdateDto = new BookDto(1L,
+            "testBookTitleUpdateDto", "testBookAuthorUpdateDto", "testBookRatingUpdateDto", LocalDate.now());
+
+    //bookMapper.mapToBookDto(bookService.updateBook(bookMapper.mapToBook(bookDto)));
+
+    when(bookMapper.mapToBook(ArgumentMatchers.any(BookDto.class))).thenReturn(bookTestUpdate);
+
+    when(bookService.updateBook(bookTestUpdate)).thenReturn(bookTestUpdate);
+
+    when(bookMapper.mapToBookDto(bookTestUpdate)).thenReturn(bookTestUpdateDto);
+
+    Gson gson = new GsonBuilder()
+            // .setPrettyPrinting()
+            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+            .create();
+
+    String jsonContent = gson.toJson(bookTestUpdateDto);
+
+    System.out.println("wartosc jsonContent >> " + jsonContent);
+
+    //When & Then
+    mockMvc.perform(put("/eprojectk/book/updateBook")
+            .contentType(MediaType.APPLICATION_JSON)
+            .characterEncoding("UTF-8")
+            .content(jsonContent))
+            .andExpect(jsonPath("$.bookID", is(1)))
+            .andExpect(jsonPath("$.bookTitle", is("testBookTitleUpdateDto")))
+            .andExpect(jsonPath("$.bookAuthor", is("testBookAuthorUpdateDto")))
+            .andExpect(jsonPath("$.bookRating", is("testBookRatingUpdateDto")));
+}
+
 }

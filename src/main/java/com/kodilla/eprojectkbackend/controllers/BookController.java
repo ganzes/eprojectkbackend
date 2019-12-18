@@ -53,7 +53,7 @@ public class BookController {
         return bookMapper.mapToBookDtoList(bookService.getAllBook());
     }
 
-    @PutMapping(value = "/updateBook")
+/*    @PutMapping(value = "/updateBook")
     public BookDto updateBook(@RequestBody BookDto bookDto) throws BookNotFoundException {
         LOGGER.info("Started method updateBook in BookController.");
 
@@ -66,16 +66,16 @@ public class BookController {
         LOGGER.info("Ended method deleteBook in BookController.");
 
         return bookMapper.mapToBookDto(updateBook);
-    }
+    }*/
 
-    /*@PutMapping(value = "/updateBook")
+    @PutMapping(value = "/updateBook")
     public BookDto updateBook(@RequestBody BookDto bookDto) throws BookNotFoundException {
         LOGGER.info("Started method updateBook in BookController.");
 
         LOGGER.info("Ended method deleteBook in BookController.");
 
         return bookMapper.mapToBookDto(bookService.updateBook(bookMapper.mapToBook(bookDto)));
-    }*/
+    }
 
     @DeleteMapping(value = "/deleteBook")
     public void deleteBook(@RequestParam Long bookID) throws BookNotFoundException {

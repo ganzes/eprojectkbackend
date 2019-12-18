@@ -26,19 +26,19 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public Book updateBook(Book book) throws BookNotFoundException {
+/*    public Book updateBook(Book book) throws BookNotFoundException {
         Book updateBook = bookRepository.findById(book.getBookID()).orElseThrow(BookNotFoundException::new);
         updateBook.setBookTitle(book.getBookTitle());
         updateBook.setBookAuthor(book.getBookAuthor());
         updateBook.setBookRating(book.getBookRating());
 
         return bookRepository.save(updateBook);
-    }
+    }*/
 
-    /*public Book updateBook(Book book) throws BookNotFoundException {
+    public Book updateBook(Book book) throws BookNotFoundException {
 
         return bookRepository.save(book);
-    }*/
+    }
 
     public void deleteBookByID(long bookID) throws BookNotFoundException{
         Book deleteBook = bookRepository.findById(bookID).orElseThrow(BookNotFoundException::new);
