@@ -24,5 +24,4 @@ public interface TvShowRepository extends CrudRepository<TvShow, Long> {
 
     @Override
     void deleteById(Long id);
-
 }

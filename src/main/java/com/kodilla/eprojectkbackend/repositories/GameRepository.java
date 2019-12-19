@@ -24,5 +24,4 @@ public interface GameRepository extends CrudRepository<Game, Long> {
 
     @Override
     void deleteById(Long id);
-
 }

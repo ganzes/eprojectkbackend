@@ -13,5 +13,4 @@ public class LoveCalculatorConfiguration {
 
     @Value("${lovecalculator.api.key}")
     private String loveCalculatorKey;
-
 }

@@ -23,11 +23,11 @@ public class LoveCalculatorServiceTestSuite {
     @Mock
     private LoveCalculatorRepository loveCalculatorRepository;
 
-
     @Test
     public void createLoveCalculator(){
         //Given
         LoveCalculator loveCalculator = new LoveCalculator("fnameTest", "snameTest", "percentageTest", "resultTest");
+
         //When
         when(loveCalculatorRepository.save(loveCalculator)).thenReturn((loveCalculator));
         loveCalculatorService.createLoveCalculator(loveCalculator);
@@ -49,7 +49,4 @@ public class LoveCalculatorServiceTestSuite {
         //Then
         assertEquals(2, loveCalculatorList.size());
     }
-
-
 }
-

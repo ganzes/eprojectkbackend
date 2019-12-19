@@ -144,4 +144,4 @@ public class BookEntityTestSuite {
         //Clean up
         bookRepository.deleteAll();
     }
-} 
+}

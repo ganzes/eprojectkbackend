@@ -24,8 +24,10 @@ public class LoveCalculatorMapperTestSuite {
     public void testMapToLoveCalculatorTest() {
         //Given
         LoveCalculatorDto loveCalculatorDto = new LoveCalculatorDto("fnameTest", "snameTest", "percentageTest", "resultTest");
+
         //When
         LoveCalculator loveCalculator = loveCalculatorMapper.mapToLoveCalculator(loveCalculatorDto);
+
         //Then
         assertEquals("percentageTest", loveCalculator.getPercentage());
     }
@@ -34,8 +36,10 @@ public class LoveCalculatorMapperTestSuite {
     public void testMapToLoveCalculatorDtoTest() {
         //Given
         LoveCalculator loveCalculator = new LoveCalculator("fnameTest", "snameTest", "percentageTest", "resultTest");
+
         //When
         LoveCalculatorDto loveCalculatorDto = loveCalculatorMapper.mapToLoveCalculatorDto(loveCalculator);
+
         //Then
         assertEquals("percentageTest", loveCalculatorDto.getPercentage());
     }
@@ -49,8 +53,10 @@ public class LoveCalculatorMapperTestSuite {
         List<LoveCalculator> loveCalculatorList = new ArrayList<>();
         loveCalculatorList.add(loveCalculator);
         loveCalculatorList.add(loveCalculator2);
+
         //When
         List<LoveCalculatorDto> loveCalculatorDtoList = loveCalculatorMapper.mapToLoveCalculatorDtoList(loveCalculatorList);
+
         //Then
         assertEquals(2, loveCalculatorDtoList.size());
     }
@@ -64,8 +70,10 @@ public class LoveCalculatorMapperTestSuite {
         List<LoveCalculatorDto> loveCalculatorDtoList = new ArrayList<>();
         loveCalculatorDtoList.add(loveCalculatorDto);
         loveCalculatorDtoList.add(loveCalculatorDto2);
+
         //When
         List<LoveCalculator> loveCalculatorList = loveCalculatorMapper.mapToLoveCalculatorList(loveCalculatorDtoList);
+
         //Then
         assertEquals(2, loveCalculatorList.size());
     }

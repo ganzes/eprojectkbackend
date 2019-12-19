@@ -1,6 +1,5 @@
 package com.kodilla.eprojectkbackend.services;
 
-import com.kodilla.eprojectkbackend.domains.Book;
 import com.kodilla.eprojectkbackend.domains.Movie;
 import com.kodilla.eprojectkbackend.exceptions.MovieNotFoundException;
 import com.kodilla.eprojectkbackend.repositories.MovieRepository;

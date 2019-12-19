@@ -78,7 +78,9 @@ public class BookServiceTestSuite {
         Book bookTest = new Book(1L, "testBookTitle", "testBookAuthor", "testBookRating", LocalDate.now());
         Long bookTestID = bookTest.getBookID();
         Optional<Book> optionalBookTest = Optional.of(bookTest);
+
         String bookTestText = bookTest.getBookTitle();
+
         //When
         when(bookRepository.findById(bookTestID)).thenReturn(optionalBookTest);
 

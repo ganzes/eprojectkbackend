@@ -5,7 +5,6 @@ import com.kodilla.eprojectkbackend.domains.MotiveDto;
 import com.kodilla.eprojectkbackend.exceptions.MotiveNotFoundException;
 import com.kodilla.eprojectkbackend.facade.MotivesFacade;
 import com.kodilla.eprojectkbackend.mappers.MotiveMapper;
-import com.kodilla.eprojectkbackend.repositories.MotiveRepository;
 import com.kodilla.eprojectkbackend.services.MotiveService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

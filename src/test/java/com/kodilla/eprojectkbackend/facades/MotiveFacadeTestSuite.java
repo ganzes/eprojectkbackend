@@ -22,12 +22,16 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MotiveFacadeTestSuite {
+
     @InjectMocks
     private MotivesFacade motivesFacade;
+
     @Mock
     private MotiveService motiveService;
+
     @Mock
     private MotiveValidator motiveValidator;
+
     @Mock
     private MotiveMapper motiveMapper;
 
@@ -47,12 +51,12 @@ public class MotiveFacadeTestSuite {
         //When
         List<Motive> motiveListFacade = motivesFacade.getAllMotivesFacade();
 
+        //Then
         assertNotNull(motiveListFacade);
         assertEquals(1, motiveListFacade.size());
 
         motiveListFacade.forEach(motive -> {
             assertEquals(1L, motiveList.size());
         });
-
     }
 }

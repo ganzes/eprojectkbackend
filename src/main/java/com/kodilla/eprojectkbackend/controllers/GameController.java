@@ -1,11 +1,8 @@
 package com.kodilla.eprojectkbackend.controllers;
 
-import com.kodilla.eprojectkbackend.domains.Book;
-import com.kodilla.eprojectkbackend.domains.Game;
 import com.kodilla.eprojectkbackend.domains.GameDto;
 import com.kodilla.eprojectkbackend.exceptions.GameNotFoundException;
 import com.kodilla.eprojectkbackend.mappers.GameMapper;
-import com.kodilla.eprojectkbackend.repositories.GameRepository;
 import com.kodilla.eprojectkbackend.services.GameService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController

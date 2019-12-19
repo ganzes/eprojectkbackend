@@ -24,5 +24,4 @@ public interface MotiveRepository extends CrudRepository<Motive, Long> {
 
     @Override
     void deleteById (Long id);
-
 }

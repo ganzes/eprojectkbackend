@@ -25,8 +25,10 @@ public class MotiveMapperTestSuite {
     public void testMapToMotiveTest() {
         //Given
         MotiveDto motiveDto = new MotiveDto(1L, "TestMotiveText", "TestMotiveAuthor", "TestMotiveRating", LocalDate.now());
+
         //When
         Motive motive = motiveMapper.mapToMotive(motiveDto);
+
         //Then
         assertEquals("TestMotiveText", motive.getMotiveText());
     }
@@ -35,8 +37,10 @@ public class MotiveMapperTestSuite {
     public void testMapToMotiveDtoTest() {
         //Given
         Motive motive = new Motive(1L,"TestMotiveText", "TestMotiveAuthor", "TestMotiveRating", LocalDate.now());
+
         //When
         MotiveDto motiveDto = motiveMapper.mapToMotiveDto(motive);
+
         //Then
         assertEquals("TestMotiveText", motiveDto.getMotiveText());
     }
@@ -50,8 +54,10 @@ public class MotiveMapperTestSuite {
         List<Motive> motiveList = new ArrayList<>();
         motiveList.add(motive);
         motiveList.add(motive2);
+
         //When
         List<MotiveDto> motiveDtoList = motiveMapper.mapToMotiveDtoList(motiveList);
+
         //Then
         assertEquals(2, motiveDtoList.size());
     }
@@ -65,8 +71,10 @@ public class MotiveMapperTestSuite {
         List<MotiveDto> motiveDtoList = new ArrayList<>();
         motiveDtoList.add(motiveDto);
         motiveDtoList.add(motiveDto2);
+
         //When
         List<Motive> motiveList = motiveMapper.mapToMotiveList(motiveDtoList);
+
         //Then
         assertEquals(2, motiveList.size());
     }

@@ -25,8 +25,10 @@ public class BookMapperTestSuite {
     public void testMapToBookTest() {
         //Given
         BookDto bookDto = new BookDto(1L, "TestBookTitle", "TestBookAuthor", "TestBookRating", LocalDate.now());
+
         //When
         Book book = bookMapper.mapToBook(bookDto);
+
         //Then
         assertEquals("TestBookTitle", book.getBookTitle());
     }
@@ -35,8 +37,10 @@ public class BookMapperTestSuite {
     public void testMapToBookDtoTest() {
         //Given
         Book book = new Book(1L,"TestBookTitle", "TestBookAuthor", "TestBookRating", LocalDate.now());
+
         //When
         BookDto bookDto = bookMapper.mapToBookDto(book);
+
         //Then
         assertEquals("TestBookTitle", bookDto.getBookTitle());
     }
@@ -50,8 +54,10 @@ public class BookMapperTestSuite {
         List<Book> bookList = new ArrayList<>();
         bookList.add(book);
         bookList.add(book2);
+
         //When
         List<BookDto> bookDtoList = bookMapper.mapToBookDtoList(bookList);
+
         //Then
         assertEquals(2, bookDtoList.size());
     }
@@ -65,8 +71,10 @@ public class BookMapperTestSuite {
         List<BookDto> bookDtoList = new ArrayList<>();
         bookDtoList.add(bookDto);
         bookDtoList.add(bookDto2);
+
         //When
         List<Book> bookList = bookMapper.mapToBookList(bookDtoList);
+
         //Then
         assertEquals(2, bookList.size());
     }

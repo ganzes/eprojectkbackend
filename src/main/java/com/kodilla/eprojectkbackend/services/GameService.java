@@ -1,6 +1,5 @@
 package com.kodilla.eprojectkbackend.services;
 
-import com.kodilla.eprojectkbackend.domains.Book;
 import com.kodilla.eprojectkbackend.domains.Game;
 import com.kodilla.eprojectkbackend.exceptions.GameNotFoundException;
 import com.kodilla.eprojectkbackend.repositories.GameRepository;

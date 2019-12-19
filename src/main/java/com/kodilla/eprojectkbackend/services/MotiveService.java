@@ -1,6 +1,5 @@
 package com.kodilla.eprojectkbackend.services;
 
-import com.kodilla.eprojectkbackend.domains.Book;
 import com.kodilla.eprojectkbackend.domains.Motive;
 import com.kodilla.eprojectkbackend.exceptions.MotiveNotFoundException;
 import com.kodilla.eprojectkbackend.repositories.MotiveRepository;

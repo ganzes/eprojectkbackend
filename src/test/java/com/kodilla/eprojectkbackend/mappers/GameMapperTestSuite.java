@@ -25,8 +25,10 @@ public class GameMapperTestSuite {
     public void testMapToGameTest() {
         //Given
         GameDto gameDto = new GameDto(1L, "TestGameTitle", "TestGameDeveloper", "TestGameRating", LocalDate.now());
+
         //When
         Game game = gameMapper.mapToGame(gameDto);
+
         //Then
         assertEquals("TestGameTitle", game.getGameTitle());
     }
@@ -35,8 +37,10 @@ public class GameMapperTestSuite {
     public void testMapToGameDtoTest() {
         //Given
         Game game = new Game(1L, "TestGameTitle", "TestGameDeveloper", "TestGameRating", LocalDate.now());
+
         //When
         GameDto gameDto = gameMapper.mapToGameDto(game);
+
         //Then
         assertEquals("TestGameTitle", gameDto.getGameTitle());
     }
@@ -50,8 +54,10 @@ public class GameMapperTestSuite {
         List<Game> gameList = new ArrayList<>();
         gameList.add(game);
         gameList.add(game2);
+
         //When
         List<GameDto> gameDtoList = gameMapper.mapToGameDtoList(gameList);
+
         //Then
         assertEquals(2, gameDtoList.size());
     }
@@ -65,8 +71,10 @@ public class GameMapperTestSuite {
         List<GameDto> gameDtoList = new ArrayList<>();
         gameDtoList.add(gameDto);
         gameDtoList.add(gameDto2);
+
         //When
         List<Game> gameList = gameMapper.mapToGameList(gameDtoList);
+
         //Then
         assertEquals(2, gameList.size());
     }

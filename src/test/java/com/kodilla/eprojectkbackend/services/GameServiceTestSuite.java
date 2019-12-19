@@ -78,6 +78,7 @@ public class GameServiceTestSuite {
         Long gameTestID = gameTest.getGameID();
         Optional<Game> optionalGameTest = Optional.of(gameTest);
         String gameTestText = gameTest.getGameTitle();
+
         //When
         when(gameRepository.findById(gameTestID)).thenReturn(optionalGameTest);
 
@@ -112,7 +113,6 @@ public class GameServiceTestSuite {
 
         //When
         when(gameRepository.findById(gameTestID)).thenReturn(Optional.of(gameTest));
-
         doNothing().when(gameRepository).delete(gameTest);
         gameService.deleteGameByID(gameTestID);
 

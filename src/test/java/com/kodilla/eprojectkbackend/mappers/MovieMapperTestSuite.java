@@ -25,8 +25,10 @@ public class MovieMapperTestSuite {
     public void testMapToMovieTest() {
         //Given
         MovieDto movieDto = new MovieDto(1L, "TestMovieTitle", "TestMovieDirector", "TestMovieRating", LocalDate.now());
+
         //When
         Movie movie = movieMapper.mapToMovie(movieDto);
+
         //Then
         assertEquals("TestMovieTitle", movie.getMovieTitle());
     }
@@ -35,8 +37,10 @@ public class MovieMapperTestSuite {
     public void testMapToMovieDtoTest() {
         //Given
         Movie movie = new Movie(1L,"TestMovieTitle", "TestMovieDirector", "TestMovieRating", LocalDate.now());
+
         //When
         MovieDto movieDto = movieMapper.mapToMovieDto(movie);
+
         //Then
         assertEquals("TestMovieTitle", movieDto.getMovieTitle());
     }
@@ -50,8 +54,10 @@ public class MovieMapperTestSuite {
         List<Movie> movieList = new ArrayList<>();
         movieList.add(movie);
         movieList.add(movie2);
+
         //When
         List<MovieDto> movieDtoList = movieMapper.mapToMovieDtoList(movieList);
+
         //Then
         assertEquals(2, movieDtoList.size());
     }
@@ -65,8 +71,10 @@ public class MovieMapperTestSuite {
         List<MovieDto> movieDtoList = new ArrayList<>();
         movieDtoList.add(movieDto);
         movieDtoList.add(movieDto2);
+
         //When
         List<Movie> movieList = movieMapper.mapToMovieList(movieDtoList);
+
         //Then
         assertEquals(2, movieList.size());
     }
