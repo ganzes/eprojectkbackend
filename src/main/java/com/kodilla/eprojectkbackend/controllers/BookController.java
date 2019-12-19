@@ -3,7 +3,6 @@ package com.kodilla.eprojectkbackend.controllers;
 import com.kodilla.eprojectkbackend.domains.BookDto;
 import com.kodilla.eprojectkbackend.exceptions.BookNotFoundException;
 import com.kodilla.eprojectkbackend.mappers.BookMapper;
-import com.kodilla.eprojectkbackend.repositories.BookRepository;
 import com.kodilla.eprojectkbackend.services.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,9 +22,6 @@ public class BookController {
 
     @Autowired
     private BookMapper bookMapper;
-
-    @Autowired
-    private BookRepository bookRepository;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BookController.class);
 
@@ -52,44 +48,13 @@ public class BookController {
         return bookMapper.mapToBookDtoList(bookService.getAllBook());
     }
 
-/*    @PutMapping(value = "/updateBook")
-    public BookDto updateBook(@RequestBody BookDto bookDto) throws BookNotFoundException {
-        LOGGER.info("Started method updateBook in BookController.");
-
-        Book book = bookRepository.findById(bookDto.getBookID()).orElseThrow(BookNotFoundException::new);
-        book.setBookTitle(bookDto.getBookTitle());
-        book.setBookAuthor(bookDto.getBookAuthor());
-        book.setBookRating(bookDto.getBookRating());
-        Book updateBook = bookService.updateBook(book);
-
-        LOGGER.info("Ended method deleteBook in BookController.");
-
-        return bookMapper.mapToBookDto(updateBook);
-    }*/
-
-/*    @PutMapping(value = "/updateBook")
-    public BookDto updateBook(@RequestBody BookDto bookDto) throws BookNotFoundException {
-        LOGGER.info("Started method updateBook in BookController.");
-
-        Optional<Book> book = bookRepository.findById(bookDto.getBookID());
-        if (book.isPresent()){
-            bookMapper.mapToBookDto(bookService.updateBook(bookMapper.mapToBook(bookDto)));
-        }
-
-        LOGGER.info("Ended method deleteBook in BookController.");
-
-        return bookDto;
-    }*/
-
     @PutMapping(value = "/updateBook")
-    public BookDto updateBook(@RequestBody BookDto bookDto) throws BookNotFoundException {
+    public BookDto updateBook(@RequestBody BookDto bookDto) {
         LOGGER.info("Started method updateBook in BookController.");
         LOGGER.info("Ended method deleteBook in BookController.");
 
         return bookMapper.mapToBookDto(bookService.updateBook(bookMapper.mapToBook(bookDto)));
     }
-
-
 
     @DeleteMapping(value = "/deleteBook")
     public void deleteBook(@RequestParam Long bookID) throws BookNotFoundException {

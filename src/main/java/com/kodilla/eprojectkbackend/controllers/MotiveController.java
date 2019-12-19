@@ -27,9 +27,6 @@ public class MotiveController {
     private MotiveMapper motiveMapper;
 
     @Autowired
-    private MotiveRepository motiveRepository;
-
-    @Autowired
     private MotivesFacade motivesFacade;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MotiveController.class);
@@ -57,28 +54,12 @@ public class MotiveController {
         return motiveMapper.mapToMotiveDtoList(motiveService.getAllMotive());
     }
 
-    /*@PutMapping(value = "/updateMotive")
-    public MotiveDto updateMotive(@RequestBody MotiveDto motiveDto) throws MotiveNotFoundException{
-
-        System.out.println("TTUUUTAJ!!! " + motiveDto.getMotiveID());
-        Motive updateMotive = motiveService.updateMotive(motiveMapper.mapToMotive(motiveDto));
-
-        return motiveMapper.mapToMotiveDto(updateMotive);
-    }*/
-
     @PutMapping(value = "/updateMotive")
     public MotiveDto updateMotive(@RequestBody MotiveDto motiveDto) throws MotiveNotFoundException {
         LOGGER.info("Started method updateMotive in MotiveController.");
-
-        Motive motive = motiveRepository.findById(motiveDto.getMotiveID()).orElseThrow(MotiveNotFoundException::new);
-        motive.setMotiveText(motiveDto.getMotiveText());
-        motive.setMotiveAuthor(motiveDto.getMotiveAuthor());
-        motive.setMotiveRating(motiveDto.getMotiveRating());
-        Motive updateMotive = motiveService.updateMotive(motive);
-
         LOGGER.info("Ended method deleteMotive in MotiveController.");
 
-        return motiveMapper.mapToMotiveDto(updateMotive);
+        return motiveMapper.mapToMotiveDto(motiveService.updateMotive(motiveMapper.mapToMotive(motiveDto)));
     }
 
     @DeleteMapping(value = "/deleteMotive")

@@ -6,10 +6,10 @@ import com.kodilla.eprojectkbackend.configuration.LocalDateAdapter;
 import com.kodilla.eprojectkbackend.domains.TvShow;
 import com.kodilla.eprojectkbackend.domains.TvShowDto;
 import com.kodilla.eprojectkbackend.mappers.TvShowMapper;
-import com.kodilla.eprojectkbackend.repositories.TvShowRepository;
 import com.kodilla.eprojectkbackend.services.TvShowService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -43,13 +43,9 @@ public class TvShowControllerTestSuite {
     @MockBean
     private TvShowMapper tvShowMapper;
 
-    @MockBean
-    private TvShowRepository tvShowRepository;
-
     @Test
     public void getEmptyTvShowsTest() throws Exception {
         //Given
-        //  List<TvShowDto> tvShowListDtoTest = new ArrayList<>();
         List<TvShow> tvShowListTest = new ArrayList<>();
 
         when(tvShowService.getAllTvShow()).thenReturn(tvShowListTest);
@@ -132,7 +128,7 @@ public class TvShowControllerTestSuite {
                 .andExpect(jsonPath("$[0].tvShowTitle", is("testTvShowTitleDto")))
                 .andExpect(jsonPath("$[0].tvShowCategory", is("testTvShowCategoryDto")))
                 .andExpect(jsonPath("$[0].tvShowRating", is("testTvShowRatingDto")));
-        //.andExpect(jsonPath("$.tvShowCreated", is("2019-12-14"))); for testing purposes, enter current date
+        //.andExpect(jsonPath("$[0].tvShowCreated", is("2019-12-14"))); for testing purposes, enter current date
     }
 
     @Test
@@ -160,7 +156,7 @@ public class TvShowControllerTestSuite {
                 .andExpect(jsonPath("$[0].tvShowTitle", is("testTvShowTitleDto")))
                 .andExpect(jsonPath("$[0].tvShowCategory", is("testTvShowCategoryDto")))
                 .andExpect(jsonPath("$[0].tvShowRating", is("testTvShowRatingDto")));
-        //.andExpect(jsonPath("$.tvShowCreated", is("2019-12-14"))); for testing purposes, enter current date
+        //.andExpect(jsonPath("$[0].tvShowCreated", is("2019-12-14"))); for testing purposes, enter current date
     }
 
     @Test
@@ -243,19 +239,13 @@ public class TvShowControllerTestSuite {
     @Test
     public void updateTvShowTest() throws Exception {
         //Given
-        TvShow tvShowTest = new TvShow(1L, "testTvShowTitle",
-                "testTvShowCategory", "testTvShowRating", LocalDate.now());
-        TvShowDto tvShowDtoTest = new TvShowDto(1L, "testTvShowTitleDto",
-                "testTvShowCategoryDto", "testTvShowRatingDto", LocalDate.now());
-        long tvShowTestID = tvShowTest.getTvShowID();
-
         TvShow tvShowTestUpdate = new TvShow(1L, "testTvShowTitleUpdate",
                 "testTvShowCategoryUpdate", "testTvShowRatingUpdate", LocalDate.now());
         TvShowDto tvShowTestUpdateDto = new TvShowDto(1L,
                 "testTvShowTitleUpdateDto", "testTvShowCategoryUpdateDto", "testTvShowRatingUpdateDto", LocalDate.now());
 
-        when(tvShowRepository.findById(tvShowTestID)).thenReturn(java.util.Optional.of(tvShowTest));
-        when(tvShowService.updateTvShow(tvShowTest)).thenReturn(tvShowTestUpdate);
+        when(tvShowMapper.mapToTvShow(ArgumentMatchers.any(TvShowDto.class))).thenReturn(tvShowTestUpdate);
+        when(tvShowService.updateTvShow(tvShowTestUpdate)).thenReturn(tvShowTestUpdate);
         when(tvShowMapper.mapToTvShowDto(tvShowTestUpdate)).thenReturn(tvShowTestUpdateDto);
 
         Gson gson = new GsonBuilder()
@@ -263,7 +253,7 @@ public class TvShowControllerTestSuite {
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .create();
 
-        String jsonContent = gson.toJson(tvShowTest);
+        String jsonContent = gson.toJson(tvShowTestUpdateDto);
 
         System.out.println("wartosc jsonContent" + jsonContent);
 

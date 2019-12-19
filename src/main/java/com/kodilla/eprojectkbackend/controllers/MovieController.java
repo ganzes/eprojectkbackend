@@ -1,10 +1,8 @@
 package com.kodilla.eprojectkbackend.controllers;
 
-import com.kodilla.eprojectkbackend.domains.Movie;
 import com.kodilla.eprojectkbackend.domains.MovieDto;
 import com.kodilla.eprojectkbackend.exceptions.MovieNotFoundException;
 import com.kodilla.eprojectkbackend.mappers.MovieMapper;
-import com.kodilla.eprojectkbackend.repositories.MovieRepository;
 import com.kodilla.eprojectkbackend.services.MovieService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +22,6 @@ public class MovieController {
 
     @Autowired
     private MovieMapper movieMapper;
-
-    @Autowired
-    private MovieRepository movieRepository;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MovieController.class);
 
@@ -56,16 +51,9 @@ public class MovieController {
     @PutMapping(value = "/updateMovie")
     public MovieDto updateMovie(@RequestBody MovieDto movieDto) throws MovieNotFoundException {
         LOGGER.info("Started method updateMovie in MovieController.");
+        LOGGER.info("Ended method updateMovie in MovieController.");
 
-        Movie movie = movieRepository.findById(movieDto.getMovieID()).orElseThrow(MovieNotFoundException::new);
-        movie.setMovieTitle(movieDto.getMovieTitle());
-        movie.setMovieDirector(movieDto.getMovieDirector());
-        movie.setMovieRating(movieDto.getMovieRating());
-        Movie updateMovie = movieService.updateMovie(movie);
-
-        LOGGER.info("Ended method deleteMovie in MovieController.");
-
-        return movieMapper.mapToMovieDto(updateMovie);
+        return movieMapper.mapToMovieDto(movieService.updateMovie(movieMapper.mapToMovie(movieDto)));
     }
 
     @DeleteMapping(value = "/deleteMovie")

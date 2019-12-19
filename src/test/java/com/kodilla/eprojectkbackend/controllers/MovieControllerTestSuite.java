@@ -3,6 +3,7 @@ package com.kodilla.eprojectkbackend.controllers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kodilla.eprojectkbackend.configuration.LocalDateAdapter;
+import com.kodilla.eprojectkbackend.domains.BookDto;
 import com.kodilla.eprojectkbackend.domains.Movie;
 import com.kodilla.eprojectkbackend.domains.MovieDto;
 import com.kodilla.eprojectkbackend.mappers.MovieMapper;
@@ -10,6 +11,7 @@ import com.kodilla.eprojectkbackend.repositories.MovieRepository;
 import com.kodilla.eprojectkbackend.services.MovieService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -42,9 +44,6 @@ public class MovieControllerTestSuite {
 
     @MockBean
     private MovieMapper movieMapper;
-
-    @MockBean
-    private MovieRepository movieRepository;
 
     @Test
     public void getEmptyMoviesTest() throws Exception {
@@ -131,7 +130,7 @@ public class MovieControllerTestSuite {
                 .andExpect(jsonPath("$[0].movieTitle", is("testMovieTitleDto")))
                 .andExpect(jsonPath("$[0].movieDirector", is("testMovieDirectorDto")))
                 .andExpect(jsonPath("$[0].movieRating", is("testMovieRatingDto")));
-        //.andExpect(jsonPath("$.movieCreated", is("2019-12-14"))); for testing purposes, enter current date
+        //.andExpect(jsonPath("$[0].movieCreated", is("2019-12-14"))); for testing purposes, enter current date
     }
 
     @Test
@@ -159,7 +158,7 @@ public class MovieControllerTestSuite {
                 .andExpect(jsonPath("$[0].movieTitle", is("testMovieTitleDto")))
                 .andExpect(jsonPath("$[0].movieDirector", is("testMovieDirectorDto")))
                 .andExpect(jsonPath("$[0].movieRating", is("testMovieRatingDto")));
-        //.andExpect(jsonPath("$.movieCreated", is("2019-12-14"))); for testing purposes, enter current date
+        //.andExpect(jsonPath("$[0].movieCreated", is("2019-12-14"))); for testing purposes, enter current date
     }
 
     @Test
@@ -242,19 +241,13 @@ public class MovieControllerTestSuite {
     @Test
     public void updateMovieTest() throws Exception {
         //Given
-        Movie movieTest = new Movie(1L, "testMovieTitle",
-                "testMovieDirector", "testMovieRating", LocalDate.now());
-        MovieDto movieDtoTest = new MovieDto(1L, "testMovieTitleDto",
-                "testMovieDirectorDto", "testMovieRatingDto", LocalDate.now());
-        long movieTestID = movieTest.getMovieID();
-
         Movie movieTestUpdate = new Movie(1L, "testMovieTitleUpdate",
                 "testMovieDirectorUpdate", "testMovieRatingUpdate", LocalDate.now());
         MovieDto movieTestUpdateDto = new MovieDto(1L,
                 "testMovieTitleUpdateDto", "testMovieDirectorUpdateDto", "testMovieRatingUpdateDto", LocalDate.now());
 
-        when(movieRepository.findById(movieTestID)).thenReturn(java.util.Optional.of(movieTest));
-        when(movieService.updateMovie(movieTest)).thenReturn(movieTestUpdate);
+        when(movieMapper.mapToMovie(ArgumentMatchers.any(MovieDto.class))).thenReturn(movieTestUpdate);
+        when(movieService.updateMovie(movieTestUpdate)).thenReturn(movieTestUpdate);
         when(movieMapper.mapToMovieDto(movieTestUpdate)).thenReturn(movieTestUpdateDto);
 
         Gson gson = new GsonBuilder()
@@ -262,7 +255,7 @@ public class MovieControllerTestSuite {
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .create();
 
-        String jsonContent = gson.toJson(movieTest);
+        String jsonContent = gson.toJson(movieTestUpdateDto);
 
         System.out.println("wartosc jsonContent" + jsonContent);
 

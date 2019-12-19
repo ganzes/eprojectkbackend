@@ -6,7 +6,6 @@ import com.kodilla.eprojectkbackend.configuration.LocalDateAdapter;
 import com.kodilla.eprojectkbackend.domains.Book;
 import com.kodilla.eprojectkbackend.domains.BookDto;
 import com.kodilla.eprojectkbackend.mappers.BookMapper;
-import com.kodilla.eprojectkbackend.repositories.BookRepository;
 import com.kodilla.eprojectkbackend.services.BookService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,9 +42,6 @@ public class BookControllerTestSuite {
     @MockBean
     private BookMapper bookMapper;
 
-    @MockBean
-    private BookRepository bookRepository;
-
     @Test
     public void getEmptyBooksTest() throws Exception {
         //Given
@@ -81,7 +77,7 @@ public class BookControllerTestSuite {
                 .andExpect(jsonPath("$[0].bookTitle", is("testBookTitleDto")))
                 .andExpect(jsonPath("$[0].bookAuthor", is("testBookAuthorDto")))
                 .andExpect(jsonPath("$[0].bookRating", is("testBookRatingDto")));
-                //.andExpect(jsonPath("$[0].bookCreated", is("2019-12-14"))); for testing purposes, enter current date
+        //.andExpect(jsonPath("$[0].bookCreated", is("2019-12-14"))); for testing purposes, enter current date
     }
 
     @Test
@@ -103,7 +99,7 @@ public class BookControllerTestSuite {
                 .andExpect(jsonPath("$.bookTitle", is("testBookTitleDto")))
                 .andExpect(jsonPath("$.bookAuthor", is("testBookAuthorDto")))
                 .andExpect(jsonPath("$.bookRating", is("testBookRatingDto")));
-                //.andExpect(jsonPath("$.bookCreated", is("2019-12-14"))); for testing purposes, enter current date
+        //.andExpect(jsonPath("$.bookCreated", is("2019-12-14"))); for testing purposes, enter current date
     }
 
     @Test
@@ -131,7 +127,7 @@ public class BookControllerTestSuite {
                 .andExpect(jsonPath("$[0].bookTitle", is("testBookTitleDto")))
                 .andExpect(jsonPath("$[0].bookAuthor", is("testBookAuthorDto")))
                 .andExpect(jsonPath("$[0].bookRating", is("testBookRatingDto")));
-                //.andExpect(jsonPath("$[0].bookCreated", is("2019-12-14"))); for testing purposes, enter current date
+        //.andExpect(jsonPath("$[0].bookCreated", is("2019-12-14"))); for testing purposes, enter current date
     }
 
     @Test
@@ -159,7 +155,7 @@ public class BookControllerTestSuite {
                 .andExpect(jsonPath("$[0].bookTitle", is("testBookTitleDto")))
                 .andExpect(jsonPath("$[0].bookAuthor", is("testBookAuthorDto")))
                 .andExpect(jsonPath("$[0].bookRating", is("testBookRatingDto")));
-                //.andExpect(jsonPath("$[0].bookCreated", is("2019-12-14"))); for testing purposes, enter current date
+        //.andExpect(jsonPath("$[0].bookCreated", is("2019-12-14"))); for testing purposes, enter current date
     }
 
     @Test
@@ -200,12 +196,8 @@ public class BookControllerTestSuite {
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .create();
 
-       // bookService.createBook(bookMapper.mapToBook(bookDto));
-
         when(bookMapper.mapToBook(bookDtoTest)).thenReturn(bookTest);
         when(bookService.createBook(bookTest)).thenReturn(bookTest);
-        //
-        // given(this.bookService.createBook(bookTest)).willReturn(bookTest);
 
         String jsonContent = gson.toJson(bookDtoTest);
 
@@ -235,7 +227,6 @@ public class BookControllerTestSuite {
         when(bookService.createBook(bookTest2)).thenReturn(bookTest2);
         when(bookMapper.mapToBookDto(bookTest)).thenReturn(bookDtoTest);
         when(bookMapper.mapToBookDto(bookTest2)).thenReturn(bookDtoTest2);
-
         when(bookService.countAllBooks()).thenReturn(currentBooksSize);
 
         //When & Then
@@ -244,22 +235,16 @@ public class BookControllerTestSuite {
                 .andExpect(jsonPath("$", is(2)));
     }
 
-/*    @Test
+    @Test
     public void updateBookTest() throws Exception {
         //Given
-        Book bookTest = new Book(1L, "testBookTitle",
-                "testBookAuthor", "testBookRating", LocalDate.now());
-        BookDto bookDtoTest = new BookDto(1L, "testBookTitleDto",
-                "testBookAuthorDto", "testBookRatingDto", LocalDate.now());
-        long bookTestID = bookTest.getBookID();
-
         Book bookTestUpdate = new Book(1L, "testBookTitleUpdate",
                 "testBookAuthorUpdate", "testBookRatingUpdate", LocalDate.now());
         BookDto bookTestUpdateDto = new BookDto(1L,
                 "testBookTitleUpdateDto", "testBookAuthorUpdateDto", "testBookRatingUpdateDto", LocalDate.now());
 
-        when(bookRepository.findById(bookTestID)).thenReturn(java.util.Optional.of(bookTest));
-        when(bookService.updateBook(bookTest)).thenReturn(bookTestUpdate);
+        when(bookMapper.mapToBook(ArgumentMatchers.any(BookDto.class))).thenReturn(bookTestUpdate);
+        when(bookService.updateBook(bookTestUpdate)).thenReturn(bookTestUpdate);
         when(bookMapper.mapToBookDto(bookTestUpdate)).thenReturn(bookTestUpdateDto);
 
         Gson gson = new GsonBuilder()
@@ -267,9 +252,9 @@ public class BookControllerTestSuite {
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .create();
 
-        String jsonContent = gson.toJson(bookTest);
+        String jsonContent = gson.toJson(bookTestUpdateDto);
 
-        System.out.println("wartosc jsonContent" + jsonContent);
+        System.out.println("wartosc jsonContent >> " + jsonContent);
 
         //When & Then
         mockMvc.perform(put("/eprojectk/book/updateBook")
@@ -280,39 +265,5 @@ public class BookControllerTestSuite {
                 .andExpect(jsonPath("$.bookTitle", is("testBookTitleUpdateDto")))
                 .andExpect(jsonPath("$.bookAuthor", is("testBookAuthorUpdateDto")))
                 .andExpect(jsonPath("$.bookRating", is("testBookRatingUpdateDto")));
-    }*/
-@Test
-public void updateBookTest() throws Exception {
-    //Given
-    Book bookTestUpdate = new Book(1L, "testBookTitleUpdate",
-            "testBookAuthorUpdate", "testBookRatingUpdate", LocalDate.now());
-    BookDto bookTestUpdateDto = new BookDto(1L,
-            "testBookTitleUpdateDto", "testBookAuthorUpdateDto", "testBookRatingUpdateDto", LocalDate.now());
-
-    //bookMapper.mapToBookDto(bookService.updateBook(bookMapper.mapToBook(bookDto)));
-
-    when(bookMapper.mapToBook(ArgumentMatchers.any(BookDto.class))).thenReturn(bookTestUpdate);
-    when(bookService.updateBook(bookTestUpdate)).thenReturn(bookTestUpdate);
-    when(bookMapper.mapToBookDto(bookTestUpdate)).thenReturn(bookTestUpdateDto);
-
-    Gson gson = new GsonBuilder()
-            // .setPrettyPrinting()
-            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-            .create();
-
-    String jsonContent = gson.toJson(bookTestUpdateDto);
-
-    System.out.println("wartosc jsonContent >> " + jsonContent);
-
-    //When & Then
-    mockMvc.perform(put("/eprojectk/book/updateBook")
-            .contentType(MediaType.APPLICATION_JSON)
-            .characterEncoding("UTF-8")
-            .content(jsonContent))
-            .andExpect(jsonPath("$.bookID", is(1)))
-            .andExpect(jsonPath("$.bookTitle", is("testBookTitleUpdateDto")))
-            .andExpect(jsonPath("$.bookAuthor", is("testBookAuthorUpdateDto")))
-            .andExpect(jsonPath("$.bookRating", is("testBookRatingUpdateDto")));
-}
-
+    }
 }

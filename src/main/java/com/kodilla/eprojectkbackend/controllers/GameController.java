@@ -27,9 +27,6 @@ public class GameController {
     @Autowired
     private GameMapper gameMapper;
 
-    @Autowired
-    private GameRepository gameRepository;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(GameController.class);
 
     @PostMapping(value = "/createGame", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -57,15 +54,10 @@ public class GameController {
     }
 
     @PutMapping(value = "/updateGame")
-    public GameDto updateGame(@RequestBody GameDto gameDto) throws GameNotFoundException {
+    public GameDto updateGame(@RequestBody GameDto gameDto) {
         LOGGER.info("Started method updateGame in GameController.");
 
-        Optional<Game> book = gameRepository.findById(gameDto.getGameID());
-        if (book.isPresent()){
-            return gameMapper.mapToGameDto(gameService.updateGame(gameMapper.mapToGame(gameDto)));
-        }
-        return gameDto;
-
+        return gameMapper.mapToGameDto(gameService.updateGame(gameMapper.mapToGame(gameDto)));
     }
 
     @DeleteMapping(value = "/deleteGame")

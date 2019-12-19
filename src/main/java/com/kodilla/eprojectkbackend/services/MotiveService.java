@@ -1,5 +1,6 @@
 package com.kodilla.eprojectkbackend.services;
 
+import com.kodilla.eprojectkbackend.domains.Book;
 import com.kodilla.eprojectkbackend.domains.Motive;
 import com.kodilla.eprojectkbackend.exceptions.MotiveNotFoundException;
 import com.kodilla.eprojectkbackend.repositories.MotiveRepository;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MotiveService {
@@ -23,16 +25,19 @@ public class MotiveService {
     }
 
     public Motive createMotive(final Motive motive){
-        return motiveRepository.save(motive);
+        Optional<Motive> motiveOptional = motiveRepository.findById(motive.getMotiveID());
+        if (! motiveOptional.isPresent()){
+            return motiveRepository.save(motive);
+        }
+        return motive;
     }
 
     public Motive updateMotive(Motive motive) throws MotiveNotFoundException{
-        Motive updateMotive = motiveRepository.findById(motive.getMotiveID()).orElseThrow(MotiveNotFoundException::new);
-        updateMotive.setMotiveText(motive.getMotiveText());
-        updateMotive.setMotiveAuthor(motive.getMotiveAuthor());
-        updateMotive.setMotiveRating(motive.getMotiveRating());
-
-        return motiveRepository.save(updateMotive);
+        Optional<Motive> motiveOptional = motiveRepository.findById(motive.getMotiveID());
+        if (motiveOptional.isPresent()){
+            return motiveRepository.save(motive);
+        }
+        return motive;
     }
 
     public void deleteMotiveByID(long motiveID) throws MotiveNotFoundException{

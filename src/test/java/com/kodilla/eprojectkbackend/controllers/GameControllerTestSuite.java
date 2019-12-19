@@ -44,13 +44,9 @@ public class GameControllerTestSuite {
     @MockBean
     private GameMapper gameMapper;
 
-    @MockBean
-    private GameRepository gameRepository;
-
     @Test
     public void getEmptyGamesTest() throws Exception {
         //Given
-        //  List<GameDto> gameListDtoTest = new ArrayList<>();
         List<Game> gameListTest = new ArrayList<>();
 
         when(gameService.getAllGame()).thenReturn(gameListTest);
@@ -133,7 +129,7 @@ public class GameControllerTestSuite {
                 .andExpect(jsonPath("$[0].gameTitle", is("testGameTitleDto")))
                 .andExpect(jsonPath("$[0].gameDeveloper", is("testGameDeveloperDto")))
                 .andExpect(jsonPath("$[0].gameRating", is("testGameRatingDto")));
-        //.andExpect(jsonPath("$.gameCreated", is("2019-12-14"))); for testing purposes, enter current date
+        //.andExpect(jsonPath("$[0].gameCreated", is("2019-12-14"))); for testing purposes, enter current date
     }
 
     @Test
@@ -161,7 +157,7 @@ public class GameControllerTestSuite {
                 .andExpect(jsonPath("$[0].gameTitle", is("testGameTitleDto")))
                 .andExpect(jsonPath("$[0].gameDeveloper", is("testGameDeveloperDto")))
                 .andExpect(jsonPath("$[0].gameRating", is("testGameRatingDto")));
-        //.andExpect(jsonPath("$.gameCreated", is("2019-12-14"))); for testing purposes, enter current date
+        //.andExpect(jsonPath("$[0].gameCreated", is("2019-12-14"))); for testing purposes, enter current date
     }
 
     @Test

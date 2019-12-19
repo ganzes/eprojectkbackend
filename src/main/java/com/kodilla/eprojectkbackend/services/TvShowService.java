@@ -7,39 +7,43 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TvShowService {
     @Autowired
     private TvShowRepository tvShowRepository;
 
-    public List<TvShow> getAllTvShow(){
+    public List<TvShow> getAllTvShow() {
         return tvShowRepository.findAll();
     }
 
-    public TvShow findTvShowByID(long tvShowID) throws TvShowNotFoundException{
+    public TvShow findTvShowByID(long tvShowID) throws TvShowNotFoundException {
         return tvShowRepository.findById(tvShowID).orElseThrow(TvShowNotFoundException::new);
     }
 
-    public TvShow createTvShow(final TvShow tvShow){
-        return tvShowRepository.save(tvShow);
+    public TvShow createTvShow(final TvShow tvShow) {
+        Optional<TvShow> tvShowOptional = tvShowRepository.findById(tvShow.getTvShowID());
+        if (!tvShowOptional.isPresent()) {
+            return tvShowRepository.save(tvShow);
+        }
+        return tvShow;
     }
 
     public TvShow updateTvShow(TvShow tvShow) throws TvShowNotFoundException {
-        TvShow updateTvShow = tvShowRepository.findById(tvShow.getTvShowID()).orElseThrow(TvShowNotFoundException::new);
-        updateTvShow.setTvShowTitle(tvShow.getTvShowTitle());
-        updateTvShow.setTvShowCategory(tvShow.getTvShowCategory());
-        updateTvShow.setTvShowRating(tvShow.getTvShowRating());
-
-        return tvShowRepository.save(updateTvShow);
+        Optional<TvShow> tvShowOptional = tvShowRepository.findById(tvShow.getTvShowID());
+        if (tvShowOptional.isPresent()) {
+            return tvShowRepository.save(tvShow);
+        }
+        return tvShow;
     }
 
-    public void deleteTvShowByID(long tvShowID) throws TvShowNotFoundException{
+    public void deleteTvShowByID(long tvShowID) throws TvShowNotFoundException {
         TvShow deleteTvShow = tvShowRepository.findById(tvShowID).orElseThrow(TvShowNotFoundException::new);
         tvShowRepository.delete(deleteTvShow);
     }
 
-    public void deleteAllTvShows(){
+    public void deleteAllTvShows() {
         tvShowRepository.deleteAll();
     }
 
@@ -51,7 +55,7 @@ public class TvShowService {
         return tvShowRepository.findByTvShowRating(tvShowRating);
     }
 
-    public long countAllTvShows(){
+    public long countAllTvShows() {
         return tvShowRepository.count();
     }
 }

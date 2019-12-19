@@ -15,40 +15,36 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public List<Book> getAllBook(){
+    public List<Book> getAllBook() {
         return bookRepository.findAll();
     }
 
-    public Book findBookByID(long bookID) throws BookNotFoundException{
+    public Book findBookByID(long bookID) throws BookNotFoundException {
         return bookRepository.findById(bookID).orElseThrow(BookNotFoundException::new);
     }
 
-    public Book createBook(final Book book){
-
-        Optional<Book> book1 = bookRepository.findById(book.getBookID());
-        if (! book1.isPresent()){
+    public Book createBook(final Book book) {
+        Optional<Book> bookOptional = bookRepository.findById(book.getBookID());
+        if (!bookOptional.isPresent()) {
             return bookRepository.save(book);
         }
-
         return book;
     }
 
     public Book updateBook(Book book) {
-
-        Optional<Book> book1 = bookRepository.findById(book.getBookID());
-        if (book1.isPresent()){
+        Optional<Book> bookOptional = bookRepository.findById(book.getBookID());
+        if (bookOptional.isPresent()) {
             return bookRepository.save(book);
         }
-
         return book;
     }
 
-    public void deleteBookByID(long bookID) throws BookNotFoundException{
+    public void deleteBookByID(long bookID) throws BookNotFoundException {
         Book deleteBook = bookRepository.findById(bookID).orElseThrow(BookNotFoundException::new);
         bookRepository.delete(deleteBook);
     }
 
-    public void deleteAllBooks(){
+    public void deleteAllBooks() {
         bookRepository.deleteAll();
     }
 
@@ -60,7 +56,7 @@ public class BookService {
         return bookRepository.findByBookRating(bookRating);
     }
 
-    public long countAllBooks(){
+    public long countAllBooks() {
         return bookRepository.count();
     }
 }

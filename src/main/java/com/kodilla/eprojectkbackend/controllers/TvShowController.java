@@ -1,10 +1,8 @@
 package com.kodilla.eprojectkbackend.controllers;
 
-import com.kodilla.eprojectkbackend.domains.TvShow;
 import com.kodilla.eprojectkbackend.domains.TvShowDto;
 import com.kodilla.eprojectkbackend.exceptions.TvShowNotFoundException;
 import com.kodilla.eprojectkbackend.mappers.TvShowMapper;
-import com.kodilla.eprojectkbackend.repositories.TvShowRepository;
 import com.kodilla.eprojectkbackend.services.TvShowService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +22,6 @@ public class TvShowController {
 
     @Autowired
     private TvShowMapper tvShowMapper;
-
-    @Autowired
-    private TvShowRepository tvShowRepository;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TvShowController.class);
 
@@ -57,15 +52,7 @@ public class TvShowController {
     public TvShowDto updateTvShow(@RequestBody TvShowDto tvShowDto) throws TvShowNotFoundException {
         LOGGER.info("Started method updateTvShow in TvShowController.");
 
-        TvShow tvShow = tvShowRepository.findById(tvShowDto.getTvShowID()).orElseThrow(TvShowNotFoundException::new);
-        tvShow.setTvShowTitle(tvShowDto.getTvShowTitle());
-        tvShow.setTvShowCategory(tvShowDto.getTvShowCategory());
-        tvShow.setTvShowRating(tvShowDto.getTvShowRating());
-        TvShow updateTvShow = tvShowService.updateTvShow(tvShow);
-
-        LOGGER.info("Ended method deleteTvShow in TvShowController.");
-
-        return tvShowMapper.mapToTvShowDto(updateTvShow);
+        return tvShowMapper.mapToTvShowDto(tvShowService.updateTvShow(tvShowMapper.mapToTvShow(tvShowDto)));
     }
 
     @DeleteMapping(value = "/deleteTvShow")
