@@ -88,10 +88,10 @@ public class ScheduledInfoTestSuite {
         }
 
         //When
-        doNothing().doThrow(new RuntimeException()).when(scheduledInfo).checkMotiveDBSize();
-        scheduledInfo.checkMotiveDBSize();
+        doNothing().doThrow(new RuntimeException()).when(scheduledInfo).checkLoveCalculatorDBSize();
+        scheduledInfo.checkLoveCalculatorDBSize();
 
         //Then
-        verify(scheduledInfo, times(1)).checkMotiveDBSize();
+        verify(scheduledInfo, times(1)).checkLoveCalculatorDBSize();
     }
 }
