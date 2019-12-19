@@ -1,31 +1,43 @@
 package com.kodilla.eprojectkbackend.scheduleds;
 
 import com.kodilla.eprojectkbackend.clients.LoveCalculatorClient;
+import com.kodilla.eprojectkbackend.domains.LoveCalculator;
+import com.kodilla.eprojectkbackend.domains.Motive;
 import com.kodilla.eprojectkbackend.repositories.LoveCalculatorRepository;
 import com.kodilla.eprojectkbackend.repositories.MotiveRepository;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
+
 import java.time.LocalDate;
 import java.util.Calendar;
 
-@EnableScheduling
-@Component
-public class ScheduledInfo {
+import static org.mockito.Mockito.*;
+
+@RunWith(MockitoJUnitRunner.class)
+public class ScheduledInfoTestSuite {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoveCalculatorClient.class);
 
-    @Autowired
-    private MotiveRepository motiveRepository;
+    @Mock
+    private ScheduledInfo scheduledInfo;
 
-    @Autowired
+    @Mock
     private LoveCalculatorRepository loveCalculatorRepository;
 
-    @Scheduled(fixedRate = 10000)
-    public void checkMotiveDBSize() {
+    @Mock
+    private MotiveRepository motiveRepository;
+
+    @Test
+    public void checkMotiveDBSizeTest() {
+        //Given
+        Motive motiveSaveTest = new Motive(1L, "testMotiveText", "testMotiveAuthor", "9", LocalDate.now());
+
+        Motive savedMotive = motiveRepository.save(motiveSaveTest);
+
         Calendar rightNow = Calendar.getInstance();
         int hour = rightNow.get(Calendar.HOUR_OF_DAY);
         int minutes = rightNow.get(Calendar.MINUTE);
@@ -42,10 +54,22 @@ public class ScheduledInfo {
         } else {
             LOGGER.info("MotivesDB is empty!");
         }
+
+        //When
+        doNothing().doThrow(new RuntimeException()).when(scheduledInfo).checkMotiveDBSize();
+        scheduledInfo.checkMotiveDBSize();
+
+        //Then
+        verify(scheduledInfo, times(1)).checkMotiveDBSize();
     }
 
-    @Scheduled(fixedRate = 5000)
-    public void checkLoveCalculatorDBSize() {
+    @Test
+    public void checkLoveCalculatorDBSizeTest() {
+        //Given
+        LoveCalculator loveCalculatorTest = new LoveCalculator("fnameTest", "snameTest", "percentageTest", "resultTest");
+
+        LoveCalculator savedLoveCalculatorTest = loveCalculatorRepository.save(loveCalculatorTest);
+
         Calendar rightNow = Calendar.getInstance();
         int hour = rightNow.get(Calendar.HOUR_OF_DAY);
         int minutes = rightNow.get(Calendar.MINUTE);
@@ -62,5 +86,12 @@ public class ScheduledInfo {
         } else {
             LOGGER.info("LoveCalculatorDB is empty!");
         }
+
+        //When
+        doNothing().doThrow(new RuntimeException()).when(scheduledInfo).checkMotiveDBSize();
+        scheduledInfo.checkMotiveDBSize();
+
+        //Then
+        verify(scheduledInfo, times(1)).checkMotiveDBSize();
     }
 }
