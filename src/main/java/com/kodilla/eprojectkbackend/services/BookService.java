@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -23,21 +24,23 @@ public class BookService {
     }
 
     public Book createBook(final Book book){
-        return bookRepository.save(book);
+
+        Optional<Book> book1 = bookRepository.findById(book.getBookID());
+        if (! book1.isPresent()){
+            return bookRepository.save(book);
+        }
+
+        return book;
     }
 
-/*    public Book updateBook(Book book) throws BookNotFoundException {
-        Book updateBook = bookRepository.findById(book.getBookID()).orElseThrow(BookNotFoundException::new);
-        updateBook.setBookTitle(book.getBookTitle());
-        updateBook.setBookAuthor(book.getBookAuthor());
-        updateBook.setBookRating(book.getBookRating());
+    public Book updateBook(Book book) {
 
-        return bookRepository.save(updateBook);
-    }*/
+        Optional<Book> book1 = bookRepository.findById(book.getBookID());
+        if (book1.isPresent()){
+            return bookRepository.save(book);
+        }
 
-    public Book updateBook(Book book) throws BookNotFoundException {
-
-        return bookRepository.save(book);
+        return book;
     }
 
     public void deleteBookByID(long bookID) throws BookNotFoundException{

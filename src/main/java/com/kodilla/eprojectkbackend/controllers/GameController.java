@@ -1,5 +1,6 @@
 package com.kodilla.eprojectkbackend.controllers;
 
+import com.kodilla.eprojectkbackend.domains.Book;
 import com.kodilla.eprojectkbackend.domains.Game;
 import com.kodilla.eprojectkbackend.domains.GameDto;
 import com.kodilla.eprojectkbackend.exceptions.GameNotFoundException;
@@ -13,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
@@ -42,6 +44,7 @@ public class GameController {
     @GetMapping(value = "/getGame")
     public GameDto getGame(@RequestParam Long gameID) throws GameNotFoundException {
         LOGGER.info("Started method getGame in GameController.");
+
         return gameMapper.mapToGameDto(gameService.findGameByID(gameID));
     }
 
@@ -57,15 +60,12 @@ public class GameController {
     public GameDto updateGame(@RequestBody GameDto gameDto) throws GameNotFoundException {
         LOGGER.info("Started method updateGame in GameController.");
 
-        Game game = gameRepository.findById(gameDto.getGameID()).orElseThrow(GameNotFoundException::new);
-        game.setGameTitle(gameDto.getGameTitle());
-        game.setGameDeveloper(gameDto.getGameDeveloper());
-        game.setGameRating(gameDto.getGameRating());
-        Game updateGame = gameService.updateGame(game);
+        Optional<Game> book = gameRepository.findById(gameDto.getGameID());
+        if (book.isPresent()){
+            return gameMapper.mapToGameDto(gameService.updateGame(gameMapper.mapToGame(gameDto)));
+        }
+        return gameDto;
 
-        LOGGER.info("Ended method deleteGame in GameController.");
-
-        return gameMapper.mapToGameDto(updateGame);
     }
 
     @DeleteMapping(value = "/deleteGame")

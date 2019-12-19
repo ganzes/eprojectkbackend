@@ -10,6 +10,7 @@ import com.kodilla.eprojectkbackend.repositories.GameRepository;
 import com.kodilla.eprojectkbackend.services.GameService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -201,8 +202,9 @@ public class GameControllerTestSuite {
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .create();
 
-        given(this.gameService.createGame(gameTest)).willReturn(gameTest);
-
+        when(gameMapper.mapToGame(gameDtoTest)).thenReturn(gameTest);
+        when(gameService.createGame(gameTest)).thenReturn(gameTest);
+        
         String jsonContent = gson.toJson(gameDtoTest);
 
         //When & Then
@@ -243,19 +245,13 @@ public class GameControllerTestSuite {
     @Test
     public void updateGameTest() throws Exception {
         //Given
-        Game gameTest = new Game(1L, "testGameTitle",
-                "testGameDeveloper", "testGameRating", LocalDate.now());
-        GameDto gameDtoTest = new GameDto(1L, "testGameTitleDto",
-                "testGameDeveloperDto", "testGameRatingDto", LocalDate.now());
-        long gameTestID = gameTest.getGameID();
-
         Game gameTestUpdate = new Game(1L, "testGameTitleUpdate",
                 "testGameDeveloperUpdate", "testGameRatingUpdate", LocalDate.now());
         GameDto gameTestUpdateDto = new GameDto(1L,
                 "testGameTitleUpdateDto", "testGameDeveloperUpdateDto", "testGameRatingUpdateDto", LocalDate.now());
 
-        when(gameRepository.findById(gameTestID)).thenReturn(java.util.Optional.of(gameTest));
-        when(gameService.updateGame(gameTest)).thenReturn(gameTestUpdate);
+        when(gameMapper.mapToGame(ArgumentMatchers.any(GameDto.class))).thenReturn(gameTestUpdate);
+        when(gameService.updateGame(gameTestUpdate)).thenReturn(gameTestUpdate);
         when(gameMapper.mapToGameDto(gameTestUpdate)).thenReturn(gameTestUpdateDto);
 
         Gson gson = new GsonBuilder()
@@ -263,7 +259,7 @@ public class GameControllerTestSuite {
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .create();
 
-        String jsonContent = gson.toJson(gameTest);
+        String jsonContent = gson.toJson(gameTestUpdateDto);
 
         System.out.println("wartosc jsonContent" + jsonContent);
 

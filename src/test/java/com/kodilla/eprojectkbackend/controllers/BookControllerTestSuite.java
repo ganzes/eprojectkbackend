@@ -292,9 +292,7 @@ public void updateBookTest() throws Exception {
     //bookMapper.mapToBookDto(bookService.updateBook(bookMapper.mapToBook(bookDto)));
 
     when(bookMapper.mapToBook(ArgumentMatchers.any(BookDto.class))).thenReturn(bookTestUpdate);
-
     when(bookService.updateBook(bookTestUpdate)).thenReturn(bookTestUpdate);
-
     when(bookMapper.mapToBookDto(bookTestUpdate)).thenReturn(bookTestUpdateDto);
 
     Gson gson = new GsonBuilder()

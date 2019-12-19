@@ -27,12 +27,7 @@ public class GameService {
     }
 
     public Game updateGame(Game game) throws GameNotFoundException {
-        Game updateGame = gameRepository.findById(game.getGameID()).orElseThrow(GameNotFoundException::new);
-        updateGame.setGameTitle(game.getGameTitle());
-        updateGame.setGameDeveloper(game.getGameDeveloper());
-        updateGame.setGameRating(game.getGameRating());
-
-        return gameRepository.save(updateGame);
+        return gameRepository.save(game);
     }
 
     public void deleteGameByID(long gameID) throws GameNotFoundException{

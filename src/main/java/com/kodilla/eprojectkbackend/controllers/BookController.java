@@ -1,6 +1,5 @@
 package com.kodilla.eprojectkbackend.controllers;
 
-import com.kodilla.eprojectkbackend.domains.Book;
 import com.kodilla.eprojectkbackend.domains.BookDto;
 import com.kodilla.eprojectkbackend.exceptions.BookNotFoundException;
 import com.kodilla.eprojectkbackend.mappers.BookMapper;
@@ -31,7 +30,7 @@ public class BookController {
     private static final Logger LOGGER = LoggerFactory.getLogger(BookController.class);
 
     @PostMapping(value = "/createBook", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createBook(@RequestBody BookDto bookDto) {
+    public void createBook(@RequestBody BookDto bookDto)  {
         LOGGER.info("Started method createBook in BookController.");
 
         bookService.createBook(bookMapper.mapToBook(bookDto));
@@ -68,14 +67,29 @@ public class BookController {
         return bookMapper.mapToBookDto(updateBook);
     }*/
 
-    @PutMapping(value = "/updateBook")
+/*    @PutMapping(value = "/updateBook")
     public BookDto updateBook(@RequestBody BookDto bookDto) throws BookNotFoundException {
         LOGGER.info("Started method updateBook in BookController.");
 
+        Optional<Book> book = bookRepository.findById(bookDto.getBookID());
+        if (book.isPresent()){
+            bookMapper.mapToBookDto(bookService.updateBook(bookMapper.mapToBook(bookDto)));
+        }
+
+        LOGGER.info("Ended method deleteBook in BookController.");
+
+        return bookDto;
+    }*/
+
+    @PutMapping(value = "/updateBook")
+    public BookDto updateBook(@RequestBody BookDto bookDto) throws BookNotFoundException {
+        LOGGER.info("Started method updateBook in BookController.");
         LOGGER.info("Ended method deleteBook in BookController.");
 
         return bookMapper.mapToBookDto(bookService.updateBook(bookMapper.mapToBook(bookDto)));
     }
+
+
 
     @DeleteMapping(value = "/deleteBook")
     public void deleteBook(@RequestParam Long bookID) throws BookNotFoundException {
