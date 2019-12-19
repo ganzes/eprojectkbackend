@@ -24,7 +24,7 @@ public class ScheduledInfo {
     @Autowired
     private LoveCalculatorRepository loveCalculatorRepository;
 
-    //@Scheduled(fixedRate = 5000)
+    //@Scheduled(fixedRate = 10000)
     public void checkMotiveDBSize() {
         Calendar rightNow = Calendar.getInstance();
         int hour = rightNow.get(Calendar.HOUR_OF_DAY);
