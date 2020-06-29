@@ -23,8 +23,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -265,5 +264,9 @@ public class BookControllerTestSuite {
                 .andExpect(jsonPath("$.bookTitle", is("testBookTitleUpdateDto")))
                 .andExpect(jsonPath("$.bookAuthor", is("testBookAuthorUpdateDto")))
                 .andExpect(jsonPath("$.bookRating", is("testBookRatingUpdateDto")));
+
+        verify(bookMapper).mapToBook(ArgumentMatchers.any(BookDto.class));
+        verify(bookService).updateBook(bookTestUpdate);
+        verify(bookMapper).mapToBookDto(bookTestUpdate);
     }
 }
