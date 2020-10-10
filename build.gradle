@@ -2,6 +2,15 @@ plugins {
     id 'org.springframework.boot' version '2.2.1.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
+    id "org.sonarqube" version "3.0"
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "ganzes_eprojectkbackend"
+        property "sonar.organization", "ganzes"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
 }
 
 group = 'com.kodilla'
